@@ -1,0 +1,32 @@
+.descriptionTab {
+    /* padding: 30px; */
+    /* color: black; */
+}
+
+.info {
+    padding: 30px;
+}
+
+.region {
+    font-weight: 500;
+    display: flex;
+    /* margin-top: 20px; */
+    align-items: center;
+    border-top: 3px solid rgb(26, 24, 27);;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+}
+
+.regions {
+    /* color: black; */
+    /* margin-left: 5px; */
+    line-height: 1.5;
+}
+
+.globus {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    margin-left: 20px;
+}

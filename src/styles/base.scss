@@ -1,0 +1,32 @@
+// @import './abstract/placeholders';
+// @import '../styles/abstract/constants';
+// @import './abstract/mixins';
+%font-display {
+  font-family: 'Inter', 'Arial', sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  max-width: 1920px;
+  margin: 0 auto;
+  // padding: 2rem;
+  text-align: center;
+  min-height: 100vh;
+  background-color: black;
+  padding: 0;
+
+  @extend %font-display;
+
+  //   main {
+  //     flex: 1 0 auto;
+  //   }
+
+  //   footer {
+  //     flex: 0 0 auto;
+  //   }
+}
+
+body {
+  background-color: black;
+}

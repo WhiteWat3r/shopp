@@ -1,0 +1,91 @@
+.cardItem {
+    height: 90px;
+    display: flex;
+    margin: 17px auto;
+    color: white;
+    align-items: center;
+    /* justify-content: space-between; */
+    width: 100%;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+  
+  .cardItem:hover {
+      background-color: rgba(158, 156, 156, 1);
+      color: black;
+  }
+  
+  
+  .cardItem:hover .cardDescription,
+  .cardItem:hover .cardHeader,
+  .cardItem:hover .cardPrice {
+    color: black;
+  }
+  
+  .cardItem:hover .cardDiscount {
+      color: white;
+      background-color: black;
+      transition: background-color 0.3s, color 0.3s;
+  
+  }
+    
+  
+  
+  .hoverEffect {
+      transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .cardImage {
+    width: 166px;
+    height: 90px;
+    border-radius: 5px;
+
+  }
+  
+  .cardInfo {
+    height: 70px;
+    max-width: 200px;
+    text-align: left;
+    margin-left: 20px;
+  }
+  
+  .cardHeader {
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+  
+  .cardDescription {
+    font-size: 10px;
+    margin: 0;
+  }
+  
+  .priceBlock {
+    flex: 1 auto;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .cardDiscount {
+    background-color: white;
+    width: 50px;
+    height: 30px;
+    color: black;
+    font-weight: bold;
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+  }
+  
+  .priceBlock {
+      justify-content: flex-end;
+  }
+  .cardPrice {
+      font-weight: 900;
+      font-size: 20px;
+      margin-right: 20px;
+    width: 71px;
+    text-align: end;
+  }

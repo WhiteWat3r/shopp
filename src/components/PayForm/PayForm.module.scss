@@ -1,0 +1,70 @@
+.payForm {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+
+  &__input {
+    border: #000000 2px solid;
+    height: 35px;
+    border-radius: 5px;
+    padding-left: 5px;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: #000000 solid 1px;
+  }
+
+  &__holderName {
+    margin-bottom: 10px;
+  }
+
+  &__number {
+    margin-bottom: 10px;
+  }
+
+  &__expiration {
+    width: 45%;
+  }
+
+  &__cvv {
+    width: 45%;
+  }
+
+  &__result {
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.submitButton {
+  font-weight: 0;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #000000;
+  padding: 10px 30px;
+  border: solid #98a0a8 2px;
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+  border-radius: 50px;
+  transition: 0.3s;
+  transform: translateY(0);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  transition: 0.3s;
+  padding: 10px 50px;
+  transform: translateY(-0px);
+  background-color: #fff;
+  color: #000000;
+  border: solid 2px #000000;
+}

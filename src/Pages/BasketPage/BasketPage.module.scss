@@ -1,0 +1,100 @@
+.section {
+  color: rgb(232, 230, 227);
+  background-color: rgb(24, 26, 27);
+  display: flex;
+  color: white;
+  height: 100%; 
+  align-items: center;
+  flex-direction: column;
+  text-align: left;
+  flex: 1;
+}
+
+.basket {
+  max-width: 1280px;
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  border: 1px solid white;
+  border-radius: 10px;
+  min-height: 810px;
+  background-color: black;
+  // position: relative;
+
+  &__items {
+    width: 65%;
+    padding: 25px 25px 10px;
+  }
+
+
+  &__header {
+    margin: 0;
+    padding-bottom: 20px;
+    border-bottom: 2px solid white;
+  }
+
+
+  &__list {
+    display: flex;
+    justify-content: column;
+    list-style: none;
+    padding: 0;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+    // max-height: 690px;
+    // overflow-y: scroll;
+    padding-right: 10px;
+    margin: 30px 0 0;
+    padding-right: 0;
+    // padding-right: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
+// .promoButton {
+//   font-weight: 700;
+//   display: inline-block;
+//   text-decoration: none;
+//   background-color: #ffffff;
+//   color: #000000;
+//   /* border: 3px solid #000000; */
+//   border-radius: 10px;
+//   font-size: 12px;
+//   /* padding: 11px 57px; */
+//   transition: all 0.8s ease;
+//   width: 50%;
+//   height: 20px;
+//   width: 100px;
+//   margin-left: 10px;
+// }
+
+// .promoSuccess {
+//   font-style: italic;
+//   font-size: 15px;
+//   margin-top: 10px;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

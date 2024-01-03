@@ -1,0 +1,53 @@
+.payBlock {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  // position: relative;
+
+  // min-height: 810px;
+  margin-top: 80px;
+  position: sticky;
+  top: 80px;
+}
+
+.cardDetails {
+  background-color: #ffffff;
+  border-radius: 10px;
+  /* background-color: rgb(24, 26, 27); */
+  background-color: white;
+  margin: 10px;
+  // margin-top: 50px;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  padding: 20px;
+  max-width: 310px;
+}
+
+.cardDetailsHeader {
+  margin: 20px 0 40px;
+}
+
+.paymentMethods {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: space-between;
+  /* width: 200px; */
+  border-bottom: #000000 1px solid;
+  padding-bottom: 20px;
+  margin: 20px 0 0;
+}
+
+.paymentMethodsHeader {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* .methodItem {
+   background-color: rgb(138, 142, 144)
+  } */

@@ -1,0 +1,57 @@
+.section {
+    display: flex;
+    justify-content: center;
+    color: white;
+    height: 80vh;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.login {
+    margin-bottom: 30px;
+}
+
+.headerDiv {
+    width: 600px;
+    text-align: end;
+
+    border-bottom: 3px white solid;
+    margin-bottom: 60px;
+}
+
+.header {
+    margin: 0;
+    padding-bottom: 20px;
+    font-size: 35px;
+}
+
+.input {
+    margin-bottom: 30px;
+}
+
+.submitBlock {
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: 3px white solid;
+    padding-bottom: 30px;
+    align-items: center;
+}
+
+.formButton {
+    height: 45px;
+    border-radius: 10px;
+    border: none;
+    width: 80px;
+    font-size: 18px;
+}
+
+.registration {
+    /* color: rgb(61, 11, 56); */
+    border-bottom: 1px solid;
+}
+
+.forgotPassword {
+    border-bottom: 1px solid;
+}

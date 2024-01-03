@@ -1,0 +1,34 @@
+.block {
+    list-style: 0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+
+.input {
+
+    width: 200px;
+    background-color: white;
+    border-radius: 28px;
+    border: none;
+    padding-left: 15px;
+    height: 30px;
+    padding-right: 40px;
+    /* text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; */
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.searchButton {
+    position: absolute;
+    top: 3px;
+    right: 7px; 
+    background-image: url(../../../img/lupa.svg);
+    width: 25px;
+    height: 25px;
+    border: none;
+    background-color: transparent;
+}

@@ -1,0 +1,68 @@
+.section {
+  display: flex;
+  color: white;
+  height: 80vh;
+  align-items: center;
+  flex-direction: column;
+}
+
+.profile {
+  color: white;
+  width: 80%;
+  margin-top: 70px;
+  display: flex;
+}
+
+.card {
+  max-width: 300px;
+  width: 100%;
+  position: relative;
+}
+.header {
+  background-color: white;
+  width: 100%;
+  height: 100px;
+}
+
+.image {
+  position: absolute;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  top: 50px;
+  left: 150px;
+  transform: translate(-50%, 0%);
+  box-shadow: 0 0 0 5px black;
+  object-fit: cover;
+}
+
+.mail {
+  margin: 70px auto 0;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  width: 840px;
+}
+
+.navBlock {
+    margin-top: 60px;
+}
+
+.linkList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    text-align: start;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}

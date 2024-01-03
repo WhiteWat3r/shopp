@@ -1,0 +1,35 @@
+.gameList {
+  
+    color: white;
+
+    text-align: start;
+
+
+    &__nav {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        justify-content: space-between;
+        list-style: none;
+        gap: 30px;
+    }
+
+    &__table {
+        display: grid;
+        list-style: none;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+    &__item {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        justify-content: space-between;
+    }
+
+    &__name {
+        color: white;
+        text-decoration: none;
+    }
+}
+

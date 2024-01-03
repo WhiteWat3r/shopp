@@ -1,0 +1,56 @@
+.mainHeader {
+    align-self: flex-end;
+    height: 50px;
+    font-weight: 900;
+    margin: 25px 0;
+  }
+  
+  .lastSalesList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* color: black;
+    background-color: white; */
+  
+  }
+  
+  .item {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    border-radius: 20px;
+    /* color: white;
+    background-color: black; */
+    color: black;
+    background-color: white;
+  }
+  
+  .name {
+    max-width: 250px;
+    width: 100%;
+    text-align: start;
+  }
+  
+  .itemImg {
+    width: 280px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px 0 0 10px;
+  }
+  
+  .data {
+    margin-right: 10px;
+  }
+  
+  .cost {
+      max-width: 63px;
+      width: 100%;
+  }
