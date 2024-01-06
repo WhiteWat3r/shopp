@@ -29,10 +29,10 @@ export const gameApi = createApi({
      invalidatesTags: ['gameControl']
     }),
     updateGame: build.mutation({
-      query: (body) =>({
-        url: '/game',
+      query: ({game, id}) =>({
+        url: `/game/${id}`,
         method: "PUT",
-        body
+        body: game
      }),
      invalidatesTags: ['gameControl']
     })

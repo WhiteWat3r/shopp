@@ -6,7 +6,7 @@ import LastSaleItem from '../../components/LastSaleItem/LastSaleItem.jsx';
 
 function HomePage() {
   return (
-    <div>
+    <>
       <div className={style.sliderBlock}>
         <Slider />
         <div className={style.lastSale}>
@@ -22,7 +22,7 @@ function HomePage() {
         <GamePreview />
         <MainCatalog />
       </section>
-    </div>
+    </>
   );
 }
 

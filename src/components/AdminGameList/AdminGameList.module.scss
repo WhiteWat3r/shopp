@@ -1,35 +1,50 @@
-.gameList {
-  
-    color: white;
-
-    text-align: start;
-
-
-    &__nav {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        justify-content: space-between;
-        list-style: none;
-        gap: 30px;
-    }
-
-    &__table {
-        display: grid;
-        list-style: none;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-
-    &__item {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        justify-content: space-between;
-    }
-
-    &__name {
-        color: white;
-        text-decoration: none;
-    }
+.list {
+  display: grid;
+  list-style: none;
+  flex-direction: column;
+  padding: 0;
 }
 
+.pagination {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  justify-content: center;
+    gap: 20px;
+    font-size: 18px;
+
+    align-items: center;
+
+  &__link {
+    color: white; /* цвет текста */
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: none; /* цвет фона */
+    // opacity: 0.2;
+
+    &_active {
+      color: white; 
+      cursor: pointer;
+
+     text-decoration: underline;
+    }
+
+    &_default {
+        cursor: pointer;
+
+    }
+    &_disabled {
+      color: blue;
+      cursor: not-allowed;
+    }
+  }
+  &__link:disabled {
+    color: aqua;
+    cursor: none;
+  }
+  &__button {
+    color: green;
+    
+  } 
+}

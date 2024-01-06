@@ -15,7 +15,7 @@ function GamePreview() {
     <>
     {game && (    <div className={styles.GamePreview}>
       <h1 className={styles.header}>{game.name}</h1>
-      <img src={game.img} alt="" className={styles.poster} />
+      <img src={`http://localhost:5000/${game.img}`} alt="" className={styles.poster} />
       <ul className={styles.categories}>
         <li className={styles.item}>
           <p className={styles.text}>{game.categoriess ? game.categoriess[0]: 'Пусто'}</p>

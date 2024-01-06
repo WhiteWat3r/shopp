@@ -1,0 +1,28 @@
+.item {
+  display: grid;
+  grid-template-columns: 40px repeat(6, 1fr);
+  justify-content: space-between;
+  background-color: #3c373d;
+  height: 60px;
+  align-items: center;
+  opacity: 0.9;
+
+  &__link {
+    text-decoration: underline;
+    color: white;
+  }
+
+  &__id {
+    text-align: center;
+    // align-items: center;
+  }
+}
+
+.item:nth-child(2n) {
+  background-color: black;
+}
+
+.item:hover .item__link {
+  color: orange;
+  opacity: 1;
+}

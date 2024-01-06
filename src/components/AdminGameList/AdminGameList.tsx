@@ -1,40 +1,65 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../services/store';
-import style from './AdminGameList.module.scss';
+import { useEffect, useState } from 'react';
+import style from './AdminGameList.module.scss'
+import ReactPaginate from 'react-paginate'
+import { IGame } from '../../services/gameTypes';
+import { Link } from 'react-router-dom';
+import { iAdminGameList } from './AdminGameListTypes';
+import { AdminGameItem } from '../AdminGameItem/AdminGameItem';
+import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 
-export const AdminGameList = () => {
-  const allGames = useAppSelector((store) => store.games.gamesList);
 
-  const navigate = useNavigate();
-  const createGame = () => {
-    navigate(`/admin/game/${allGames[allGames.length - 1].id + 1}`);
-  };
+const PER_PAGE = 12;
+
+
+export const AdminGameList = ({allGames}: iAdminGameList) => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [data, setData] = useState<IGame[]>([]);
+
+
+
+  useEffect(() => {
+    setData(allGames);
+  }, [allGames]);
+
+
+
+    const offset = currentPage * PER_PAGE;
+    const currentPageData = data
+      ?.slice(offset, offset + PER_PAGE)
+      .map((item) => (
+        <AdminGameItem  item={item} key={item.id}/>
+      ));
+  
+    const pageCount = Math.ceil(data?.length / PER_PAGE);
+  
+    function handlePageClick({ selected: selectedPage }: {selected: number}) {
+      setCurrentPage(selectedPage);
+    }
+
   return (
-    <div className={style.gameList}>
-      <button onClick={createGame}>Сoздать</button>
-      <ul className={style.gameList__nav}>
-        <li>Название</li>
-        <li>Издатель</li>
-        <li>Цена</li>
-        <li>Цена со скидкой</li>
-        <li>Платформа</li>
-        <li>Наличие</li>
+    <>
+      <ul className={style.list}>
+        {currentPageData}
       </ul>
-      <ul className={style.gameList__table}>
-        {allGames &&
-          allGames.map((item) => (
-            <li className={style.gameList__item} key={item.id}>
-              <Link to={`/admin/game/${item.id}`}>
-                <p className={style.gameList__name}>{item.name}</p>
-              </Link>
-              <p>{item.publisher?.name}</p>
-              <p>{item.price}</p>
-              <p>{Math.round(item.price - (item.price * item.discount) / 100)}</p>
-              <p>{item.platform?.name}</p>
-              <p>+</p>
-            </li>
-          ))}
-      </ul>
-    </div>
-  );
-};
+
+      <ReactPaginate
+        previousLabel={<FaLongArrowAltLeft size={25}/>}
+        nextLabel={<FaLongArrowAltRight size={25}/>}
+        pageCount={pageCount}
+        onPageChange={handlePageClick}
+        containerClassName={style.pagination}
+        previousLinkClassName={style.pagination__link}
+        nextLinkClassName={style.pagination__link}
+        disabledClassName={style.pagination__link_disabled}
+        activeClassName={style.pagination__link_active}
+        // breakAriaLabels={{ forward: 'Jump forward', backward: 'Jump backward' }}
+        pageLinkClassName={style.pagination__link_default}
+
+        previousClassName={style.pagination__button}
+        nextClassName={style.pagination__button}
+
+      />
+    </>
+  )
+}
+

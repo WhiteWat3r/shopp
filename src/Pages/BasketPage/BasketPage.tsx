@@ -10,9 +10,9 @@ import { useEffect } from 'react';
 function BasketPage() {
   const { data: basketInfo } = basketApi.useGetBasketInfoQuery('');
 
-  console.log(basketInfo?.basket.basket_games);
+  console.log(basketInfo?.basket?.basket_games);
 
-  const basketGames = basketInfo?.basket.basket_games || [];
+  const basketGames = basketInfo?.basket?.basket_games || [];
   // console.log(basketGames);
 
   const sortedGames = [...basketGames]?.sort((a, b) => b.id - a.id);

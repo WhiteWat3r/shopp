@@ -82,7 +82,7 @@ function GamePage() {
           </div>
 
           <div className={style.content}>
-            <img src={game.img} alt="" className={style.poster} />
+            <img src={`http://localhost:5000/${game.img}`} alt="Постер" className={style.poster} />
             <div className={style.info}>
               <p className={style.inStock}>Есть в наличии</p>
 
@@ -98,11 +98,11 @@ function GamePage() {
               </div>
 
               <div className={style.infoItem}>
-                <p className={style.parameters}>Язык: Русский</p>
+                <p className={style.parameters}>Язык: {game.language}</p>
               </div>
 
               <div className={style.infoItem}>
-                <p className={style.parameters}>Дата выхода: </p> <p>28.03.2001</p>
+                <p className={style.parameters}>Дата выхода: {game.releaseDate}</p>
               </div>
 
               <div className={style.buttons}>
@@ -122,7 +122,7 @@ function GamePage() {
               </li>
               {game.screenshots.map((screen: string, index: number) => (
                 <li className={style.gameScreen} key={index}>
-                  <img className={style.screen} src={screen} alt={game} />
+                  <img className={style.screen} src={screen} alt={'скриншот'} />
                 </li>
               ))}
             </ul>
