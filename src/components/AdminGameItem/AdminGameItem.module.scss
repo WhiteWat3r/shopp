@@ -1,8 +1,12 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+
 .item {
   display: grid;
   grid-template-columns: 40px repeat(6, 1fr);
   justify-content: space-between;
-  background-color: #3c373d;
+  background-color: $section-first;
   height: 60px;
   align-items: center;
   opacity: 0.9;
@@ -19,10 +23,10 @@
 }
 
 .item:nth-child(2n) {
-  background-color: black;
+  background-color: $section-second;
 }
 
 .item:hover .item__link {
-  color: orange;
+  color: $main-orange;
   opacity: 1;
 }

@@ -8,7 +8,7 @@ export interface IGame {
   categories: ICategorAndGenreType[];
   platformId: number;
   info: string;
-  screenshots?: string;
+  screenshots: string[];
   regions: string[];
   publisher: { name: string };
   platform: { name: string };

@@ -1,6 +1,6 @@
 // @import './abstract/placeholders';
-// @import '../styles/abstract/constants';
-// @import './abstract/mixins';
+@import './colors';
+@import './mixins';
 %font-display {
   font-family: 'Inter', 'Arial', sans-serif;
 }
@@ -8,7 +8,7 @@
 #root {
   display: flex;
   flex-direction: column;
-  max-width: 1920px;
+  // max-width: 1920px;
   margin: 0 auto;
   // padding: 2rem;
   text-align: center;
@@ -28,5 +28,5 @@
 }
 
 body {
-  background-color: black;
+  background-color: $section-second;
 }

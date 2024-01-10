@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, ScrollRestoration, useLocation } from 'react-router-dom';
 import './App.css';
 import { Header } from './components/Header/Header';
 import HomePage from './Pages/HomePage/HomePage';
@@ -44,7 +44,7 @@ function App() {
       {isUserOnAdminPage ? <AdminHeader /> : <Header />}
       <MainContent>
       <Routes>
-       
+
         <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
@@ -64,6 +64,7 @@ function App() {
             </AdminWrapper>
           }
         />
+        
       </Routes>
             </MainContent>
 

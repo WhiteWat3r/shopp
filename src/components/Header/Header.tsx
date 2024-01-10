@@ -9,6 +9,7 @@ export const Header = () => {
 
   return (
     <header className={styles.header}>
+      <div className={styles.header__container}>
       <nav className={styles.header__nav}>
         <Link to="/">
           <img src={logoImage} alt="Логотип" className={styles.header__logo} />
@@ -49,6 +50,7 @@ export const Header = () => {
           {isAuthenticated ? 'Профиль' : 'Войти'}
           {/* <img src={profileImg} alt="Профиль" /> */}
         </NavLink>
+      </div>
       </div>
     </header>
   );

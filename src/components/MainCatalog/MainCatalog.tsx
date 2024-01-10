@@ -34,7 +34,9 @@ const onClick = () => {
         </li>
       </ul>
       <ul className={styles.catalog__list}>
-        {cards.slice(0, 9).map((card: IGame) => (
+        {cards
+        // .slice(0, 9)
+        .map((card: IGame) => (
             <CatalogItem key={card.id} card={card}/>
         ))}
       </ul>

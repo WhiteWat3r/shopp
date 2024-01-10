@@ -5,7 +5,7 @@ import { getCookie } from './cookie';
 export const basketApi = createApi({
   reducerPath: 'basketApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: config.baseUrl,
+    baseUrl: `${config.baseUrl}/api`,
     prepareHeaders: (headers) => {
       const token = getCookie('accessToken');
       if (token) {

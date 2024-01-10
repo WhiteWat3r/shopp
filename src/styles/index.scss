@@ -2,9 +2,9 @@
 @import '../vendor/fonts/fonts.css';
 
 /* abstracts */
-/* @import './abstract/constants';
-@import './abstract/placeholders';
-@import './abstract/mixins'; */
+@import './colors';
+// @import './abstract/placeholders';
+@import './mixins'; 
 
 /* base */
 @import './base.scss';

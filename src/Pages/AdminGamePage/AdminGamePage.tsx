@@ -40,6 +40,7 @@ type GameFormInput = {
   posterFile: any;
   genres: ICategorAndGenreType[];
   isFree: boolean;
+  screenshots: string[];
 };
 
 export const AdminGamePage = () => {
@@ -47,8 +48,30 @@ export const AdminGamePage = () => {
   const [createGame] = useAddGameMutation();
   const [updateGame] = useUpdateGameMutation();
 
-  // const [steamApi, setSteamApi] = useState('');
+  const [screenLink, setScreenLink] = useState('');
 
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
+
+  const handleCategoryToggle = (categoryId: number) => {
+    setSelectedCategories((prevSelectedCategories) => {
+      if (prevSelectedCategories.includes(categoryId)) {
+        return prevSelectedCategories.filter((id) => id !== categoryId);
+      } else {
+        return [...prevSelectedCategories, categoryId];
+      }
+    });
+  };
+
+  const handleGenreToggle = (genreId: number) => {
+    setSelectedGenres((prevSelectedGenres) => {
+      if (prevSelectedGenres.includes(genreId)) {
+        return prevSelectedGenres.filter((id) => id !== genreId);
+      } else {
+        return [...prevSelectedGenres, genreId];
+      }
+    });
+  };
   const games = useAppSelector((store) => store.games.gamesList) || [];
 
   const { gameId } = useParams();
@@ -78,7 +101,7 @@ export const AdminGamePage = () => {
       setValue('publisher', game.publisher.name);
       setValue('platform', game.platform.name);
       setValue('language', game.language);
-      setValue('releaseDate',  game.releaseDate);
+      setValue('releaseDate', game.releaseDate);
       setValue('info', game.info);
       setValue('availability', true);
       setValue('price', game.price);
@@ -86,12 +109,13 @@ export const AdminGamePage = () => {
       setValue('finishPrice', finishPrice(game.price, game.discount));
       setValue('img', `http://localhost:5000/${game.img}`);
       setValue('imgUrl', game.imgUrl);
-      setValue('categories', game.categories);
+      setValue('screenshots', game?.screenshots);
+      setSelectedCategories(game.categories.map((category) => category.id));
       setValue('preOrderStatus', game.preOrderStatus);
       setValue('dlcStatus', game.dlcStatus);
       setValue('soonStatus', game.soonStatus);
       setValue('steamApi', game.steamApi);
-      setValue('genres', game.genres || undefined);
+      setSelectedGenres(game.genres.map((genre) => genre.id));
       setValue('isFree', game.isFree);
     }
   }, [game, setValue]);
@@ -99,59 +123,31 @@ export const AdminGamePage = () => {
   const onSubmit = async () => {
     const gameData = getValues();
 
-    console.log('gameData.releaseDate', gameData.releaseDate);
-    console.log('gameData.releaseDate', typeof gameData.releaseDate);
-
-    const formatDate = formatAndCheckDate(gameData.releaseDate)
-    console.log('formatDate', formatDate);
-    gameData.releaseDate = formatDate
-    console.log(gameData);
-
+    const formatDate = formatAndCheckDate(gameData.releaseDate);
+    gameData.releaseDate = formatDate;
+    gameData.categories = categories.filter((category) => selectedCategories.includes(category.id));
+    gameData.genres = genres.filter((genre) => selectedGenres.includes(genre.id));
     try {
       if (game) {
-        const response = await updateGame({game: gameData, id: gameId});
+        const response = await updateGame({ game: gameData, id: gameId });
         console.log('response', response);
         toast.success('Карточка успешно обновлена');
-
       } else {
         await createGame(gameData);
         toast.success('Карточка успешно создана');
       }
       await gamesInfo.refetch();
-
-
-
     } catch (error) {
       console.error('Error updating/creating game', error);
       toast.error(`Ошибка, ${error}`);
-
-    }
-  };
-
-  const handleCheckboxChange = (type: keyof GameFormInput, id: number) => {
-    const currentValues = getValues()[type];
-    const isChecked = currentValues.some((item: ICategorAndGenreType) => item.id === id);
-  
-    let updatedValues;
-  
-    if (isChecked) {
-      updatedValues = currentValues.filter((item: ICategorAndGenreType) => item.id !== id);
-    } else {
-      const selectedItem = type === 'categories' ? categories.find((item) => item.id === id) : genres.find((item) => item.id === id);
-      updatedValues = [...currentValues, selectedItem];
-    }
-  
-    if (updatedValues) {
-      setValue(type, updatedValues);
     }
   };
 
   const handleLoadFromSteam = async () => {
     try {
       const response = await fetch(
-        `${config.baseUrl}/proxy/steamApi/appdetails?appids=${steamApi}`,
+        `${config.baseUrl}/api/proxy/steamApi/appdetails?appids=${steamApi}`,
       );
-
       const data = await response.json();
       console.log(data);
 
@@ -163,34 +159,36 @@ export const AdminGamePage = () => {
         ? 'Русский'
         : 'Английский';
       setValue('language', language);
-      console.log(typeof data[steamApi].data.release_date.date);
-      console.log( data[steamApi].data.release_date.date);
       setValue('releaseDate', data[steamApi].data.release_date.date);
       setValue('info', data[steamApi].data.short_description);
       setValue('availability', true);
       setValue('preOrderStatus', data[steamApi].data.release_date.coming_soon);
-
+      setValue(
+        'screenshots',
+        data[steamApi].data.screenshots
+          .slice(0, 6)
+          .map((screen: { path_full: string }) => screen.path_full),
+      );
       setValue('imgUrl', data[steamApi].data.header_image);
       setValue('img', data[steamApi].data.header_image);
       setValue('isFree', data[steamApi].data.is_free ? true : false);
-
       if (!data[steamApi].data.is_free) {
         setValue('price', Math.floor(data[steamApi].data.price_overview?.initial / 100));
       } else {
         setValue('price', 0);
       }
-
       setValue('discount', 0);
       setValue('finishPrice', 0);
-
-      setValue('categories', data[steamApi].data.categories);
+      setSelectedCategories(
+        data[steamApi].data.categories.map((category: ICategorAndGenreType) => category.id),
+      );
       setValue('dlcStatus', data[steamApi].data.type === 'dlc' ? true : false);
+
       const transformedGenres = data[steamApi].data.genres.map((genre: ICategorAndGenreType) => ({
         id: Number(genre.id),
         description: genre.description,
       }));
-
-      setValue('genres', transformedGenres);
+      setSelectedGenres(transformedGenres.map((genre: ICategorAndGenreType) => genre.id));
     } catch (error) {
       console.log(error);
     }
@@ -201,17 +199,24 @@ export const AdminGamePage = () => {
     setValue('steamApi', value);
   };
 
-  const defaultCategories = getValues('categories');
-  const defaultGenres = getValues('genres');
-
   const steamApiValue = watch('steamApi');
   const isFree = watch('isFree');
+  const screenshots = watch('screenshots');
+
+  const handleSetScreenshot = () => {
+    if (screenshots) {
+      setValue('screenshots', [...screenshots, screenLink]);
+      console.log('здарова');
+    } else {
+      setValue('screenshots', [screenLink]);
+      console.log('здарова2');
+    }
+    console.log('screenshots', screenshots);
+  };
 
   return (
     <div className={style.game}>
       <form onSubmit={handleSubmit(onSubmit)} className={style.game__adminform}>
-        {/* <h1 className={style.game__name}>Название товара</h1> */}
-
         <div className={style.game__header}>
           <div className={style.game__parameter}>
             <label htmlFor="name">Название товара</label>
@@ -222,7 +227,7 @@ export const AdminGamePage = () => {
             <select {...register('platform')} id="platform" className={style.game__select}>
               <option value="EA App">EA App</option>
               <option value="Steam">Steam</option>
-              <option value="EpicGames">Epic Games</option>
+              <option value="Epic Games">Epic Games</option>
               <option value="GOG">GOG</option>
             </select>
           </div>
@@ -344,8 +349,6 @@ export const AdminGamePage = () => {
             {...register('info')}
             name="info"
             id="info"
-            cols={30}
-            rows={10}
           />
         </div>
 
@@ -358,19 +361,10 @@ export const AdminGamePage = () => {
                     // className={style.game__checkbox}
                     type="checkbox"
                     // {...register(`categories.${category.id}`)}
-                    defaultChecked={
-                      defaultCategories &&
-                      defaultCategories.some((defaultCategory) => {
-                        if (defaultCategory?.id) {
-                          // console.log(defaultCategory.id, category.id);
-
-                          return defaultCategory.id === category.id;
-                        }
-                      })
-                    }
-                    onChange={() => handleCheckboxChange('categories', category.id)}
+                    checked={selectedCategories.includes(category.id)}
+                    onChange={() => handleCategoryToggle(category.id)}
                   />
-                  {category.description}
+                  {category.translation}
                 </label>
               </li>
             ))}
@@ -381,22 +375,11 @@ export const AdminGamePage = () => {
               <li key={genre.id}>
                 <label>
                   <input
-                    // className={style.game__checkbox}
                     type="checkbox"
-                    // {...register(`categories.${category.id}`)}
-                    defaultChecked={
-                      defaultGenres &&
-                      defaultGenres.some((defaultGenre) => {
-                        if (defaultGenre?.id) {
-                          // console.log(defaultGenre.id, genre.id);
-
-                          return defaultGenre.id === genre.id;
-                        }
-                      })
-                    }
-                    onChange={() => handleCheckboxChange('genres', genre.id)}
+                    checked={selectedGenres.includes(genre.id)}
+                    onChange={() => handleGenreToggle(genre.id)}
                   />
-                  {genre.description}
+                  {genre.translation}
                 </label>
               </li>
             ))}
@@ -414,7 +397,11 @@ export const AdminGamePage = () => {
         </div>
 
         <div className={style.game__posterblock}>
-          {img ? <img className={style.game__poster} src={img} alt="" /> : <img className={style.game__poster} src={imgUrl} alt="" />}
+          {img ? (
+            <img className={style.game__poster} src={img} alt="" />
+          ) : (
+            <img className={style.game__poster} src={imgUrl} alt="" />
+          )}
           <div>
             <label htmlFor="imgUrl">Постер (ссылка)</label>
             <input {...register('imgUrl')} id="imgUrl" type="text" className={style.game__input} />
@@ -426,6 +413,24 @@ export const AdminGamePage = () => {
           <label htmlFor="posterFile">Постер из файла</label>
           <input {...register('posterFile')} type="file" id="posterFile" onChange={selectFile} />
         </div> */}
+
+        {screenshots?.map((screen, index) => (
+          <img src={screen} alt="Скриншот" key={index} />
+        ))}
+
+        <div className={style.game__setScreenshots}>
+          <label htmlFor={'screen'}>Сссылка на скрин</label>
+          <input
+            id={'screen'}
+            type={'text'}
+            className={style.game__smallInput}
+            value={screenLink}
+            onChange={(e) => setScreenLink(e.target.value)}
+          />
+          <button onClick={handleSetScreenshot} type={'button'}>
+            Выбрать скрин
+          </button>
+        </div>
 
         <button type="submit" className={style.addDesired}>
           Сохранить изменения

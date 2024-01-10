@@ -5,14 +5,13 @@ import { getCookie } from './cookie';
 export const steamApi = createApi({
   reducerPath: 'steamApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: config.baseUrl
+    baseUrl: `${config.baseUrl}/api`,
   }),
   tagTypes: ['steamControl'],
 
   endpoints: (build) => ({
     fetchGameInfo: build.query({
-        query: (appids) => `/proxy/steamApi/appdetails?appids=${appids}`,
+      query: (appids) => `/proxy/steamApi/appdetails?appids=${appids}`,
     }),
   }),
 });
-

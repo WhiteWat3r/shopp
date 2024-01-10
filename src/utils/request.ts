@@ -1,7 +1,7 @@
 import { getCookie } from './cookie';
 
 export const config = {
-  baseUrl: 'http://localhost:5000/api',
+  baseUrl: 'http://localhost:5000',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -18,7 +18,7 @@ export async function checkResponse(res: any) {
 }
 
 export function request(url: string, options?: RequestInit | undefined) {
-  return fetch(config.baseUrl + url, options).then(checkResponse);
+  return fetch(config.baseUrl + '/api'+ url, options).then(checkResponse);
 }
 
 export const authRequest = async (url: string, method = 'GET', data = {}) => {

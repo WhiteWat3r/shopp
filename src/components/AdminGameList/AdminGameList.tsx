@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import style from './AdminGameList.module.scss'
 import ReactPaginate from 'react-paginate'
 import { IGame } from '../../services/gameTypes';
-import { Link } from 'react-router-dom';
 import { iAdminGameList } from './AdminGameListTypes';
 import { AdminGameItem } from '../AdminGameItem/AdminGameItem';
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
@@ -52,9 +51,7 @@ export const AdminGameList = ({allGames}: iAdminGameList) => {
         nextLinkClassName={style.pagination__link}
         disabledClassName={style.pagination__link_disabled}
         activeClassName={style.pagination__link_active}
-        // breakAriaLabels={{ forward: 'Jump forward', backward: 'Jump backward' }}
         pageLinkClassName={style.pagination__link_default}
-
         previousClassName={style.pagination__button}
         nextClassName={style.pagination__button}
 

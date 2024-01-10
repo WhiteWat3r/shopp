@@ -1,0 +1,157 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.popularItem {
+  text-decoration: none;
+  max-width: 460px;
+  width: 100%;
+ position: relative;
+
+  &__img {
+    transition: opacity 0.5s, color 0.5s;
+    width: 100%;
+  }
+  &__info {
+    padding: 10px;
+    text-align: start;
+    // height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    border-radius: 0 0 10px 10px;
+    transition: background-color 0.5s, color 0.5s;
+  }
+  &__name {
+    @include font-h3-bold;
+    margin: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 170px;
+    }
+
+  &__percent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    // background-color: $main-orange;
+    width: 0;
+    height: 0;
+
+    border-top: 65px solid rgb(255, 165, 0);
+    border-right: 65px solid transparent;
+  }
+  &__discount {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    @include font-table-bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 170px;
+  }
+
+  &__block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+  }
+
+  &__prices {
+    @include font-body-regular;
+    display: flex;
+    gap: 20px;
+  }
+  &__price {
+    // @include font-body-regular;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 170px;
+  }
+
+  &__oldPrice {
+    opacity: 0.7;
+    text-decoration: line-through;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 170px;
+  }
+
+  &__buttonContainer {
+    height: 40px;
+    width: 150px;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $white-default;
+  }
+
+  &__link:hover &__info {
+    background-color: $section-second;
+  }
+  &__link:hover &__img {
+    opacity: 0.7;
+  }
+
+  &__genres {
+    margin: 0;
+    text-align: center;
+    @include font-body-filters;
+  }
+}
+
+
+@media screen and (max-width: 1440px){
+  .popularItem {
+    // max-width: calc((100vw - 460px*2 - 90px));
+    width: calc((100vw - 30px*2 - 60px)/3);
+    &__percent {
+      border-top: 55px solid rgb(255, 165, 0);
+      border-right: 55px solid transparent;
+    }
+    &__discount {
+      font-size: 14px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 1030px){
+  .popularItem {
+    // max-width: calc((100vw - 460px*2 - 90px));
+    // width: calc((100vw - 30px*2 - 60px)/3);
+    &__name {
+      font-size: 14px;
+      margin: 0;
+    }
+    &__price {
+      font-size: 14px;
+    }
+    &__oldPrice {
+      font-size: 14px;
+    }
+    &__genres {
+
+      display: none;
+    }
+    &__buttonContainer{
+      width: 100%;
+    }
+    &__percent {
+      border-top: 40px solid rgb(255, 165, 0);
+      border-right: 40px solid transparent;
+    }
+    &__discount {
+      font-size: 10px;
+    }
+    &__info {
+      gap: 10px;
+
+    }
+  }
+}

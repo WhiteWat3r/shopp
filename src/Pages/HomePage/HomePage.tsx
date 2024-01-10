@@ -3,11 +3,12 @@ import {Slider} from '../../components/Slider/Slider.jsx';
 import GamePreview from '../../components/GamePreview/GamePreview.jsx';
 import MainCatalog from '../../components/MainCatalog/MainCatalog.jsx';
 import LastSaleItem from '../../components/LastSaleItem/LastSaleItem.jsx';
+import { Popular } from '../../components/Popular/Popular.js';
 
 function HomePage() {
   return (
     <>
-      <div className={style.sliderBlock}>
+      <section className={style.sliderBlock}>
         <Slider />
         <div className={style.lastSale}>
           <div className={style.lastSaleHeader}>
@@ -17,11 +18,14 @@ function HomePage() {
             <LastSaleItem />
           </ul>
         </div>
-      </div>
+      </section>
+
+<Popular />
       <section className={style.pageContent}>
         <GamePreview />
         <MainCatalog />
       </section>
+      
     </>
   );
 }

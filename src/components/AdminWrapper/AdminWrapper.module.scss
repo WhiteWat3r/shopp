@@ -1,5 +1,9 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+
 .admWrapper {
-    background-color: #3c373d;
+    background-color: $section-first;
     flex: 1;
     display: flex;
     flex-direction: column;

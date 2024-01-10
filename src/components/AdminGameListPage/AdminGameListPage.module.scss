@@ -1,9 +1,11 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
 .gameList {
   
     color: white;
 
     text-align: start;
-    // background-color: #3c373d;
     max-width: 1280px;
     width: 100%;
     margin: 0 auto;

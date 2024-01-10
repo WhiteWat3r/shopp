@@ -1,3 +1,6 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
 .descriptionTab {
     /* padding: 30px; */
     /* color: black; */
@@ -12,7 +15,7 @@
     display: flex;
     /* margin-top: 20px; */
     align-items: center;
-    border-top: 3px solid rgb(26, 24, 27);;
+    border-top: 3px solid  $section-first;
     padding-top: 20px;
     padding-bottom: 20px;
 

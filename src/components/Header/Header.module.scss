@@ -1,17 +1,25 @@
-.header {
-    display: flex;
-    flex-direction: row;
-    max-width: 1280px;
-    width: 100%;
-    margin: 0 auto;
-    color: white;
-    /* position: fixed; */
-    /* left: 50%; */
-    /* transform: translate(-50%); */
-    height: 70px;
-    align-items: center;
-    justify-content: space-between;
+@import '../../styles/colors.scss';
 
+.header {
+
+   background-color: $section-second;
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        max-width: 1280px;
+        width: 100%;
+        margin: 0 auto;
+        color: white;
+        /* position: fixed; */
+        /* left: 50%; */
+        /* transform: translate(-50%); */
+        height: 70px;
+        align-items: center;
+        justify-content: space-between;
+        // background-color: #181818;
+    
+    }
     &__logo {
         height: 50px;
         border-radius: 10px;

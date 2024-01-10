@@ -1,0 +1,130 @@
+@import './colors';
+
+ %font-display {
+    font-family: 'Inter', 'Arial', sans-serif;
+  }
+
+@mixin font-h1-bold {
+    @extend %font-display;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+}
+
+@mixin font-h2-semibold {
+    @extend %font-display;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 35px;
+}
+
+@mixin font-h3-bold {
+    @extend %font-display;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px;
+}
+
+// @mixin font-h3-bold-1030 {
+//     @extend %font-display;
+//     font-size: 14px;
+//     font-style: normal;
+//     font-weight: 700;
+//     line-height: 14px;
+// }
+
+@mixin font-body-regular {
+    @extend %font-display;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+}
+
+// @mixin font-body-regular-1030 {
+//     @extend %font-display;
+//     font-size: 14px;
+//     font-style: normal;
+//     font-weight: 400;
+//     line-height: 14px;
+// }
+
+@mixin font-input-field {
+    @extend %font-display;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+@mixin font-body-card {
+    @extend %font-display;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+}
+@mixin font-CTAbody-regular {
+    @extend %font-display;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+@mixin font-preview-bold{
+    @extend %font-display;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+}
+@mixin font-table-bold{
+    @extend %font-display;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 25px;
+}
+@mixin font-body-filters {
+    @extend %font-display;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+@mixin font-body-signature {
+    @extend %font-display;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 10px;
+}
+@mixin font-body-link {
+    @extend %font-display;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+@mixin font-h3-regular {
+    @extend %font-display;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+}
+@mixin font-body-bold {
+    @extend %font-display;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 26px;
+}
+
+
+
