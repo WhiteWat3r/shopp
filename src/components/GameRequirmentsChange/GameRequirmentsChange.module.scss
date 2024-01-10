@@ -1,0 +1,26 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.requirements {
+  margin-top: 20px;
+
+  &__header {
+    @include font-h3-bold;
+  }
+
+  &__containter {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    margin-top: 10px;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    max-width: 350px;
+    width: 100%;
+    justify-content: space-between;
+  }
+}

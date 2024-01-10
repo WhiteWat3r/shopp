@@ -1,0 +1,103 @@
+.input {
+  appearance: none;
+  border: none;
+  outline: none;
+  border: 0.2em solid #ffffff;
+  background: rgba(#000000, 0.2);
+  border-radius: 0.2em 0.2em 0 0;
+  padding: 0.4em;
+  color: #ffffff;
+  border-radius: 10px;
+}
+
+.secondary {
+  background-color: #000000;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid #ffffff;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+  &::before {
+    content: '';
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #ffffff;
+    background-color: CanvasText;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform-origin: left top;
+  }
+  &:checked::before {
+    transform: scale(1);
+  }
+}
+
+.tertiary {
+  max-width: 150px;
+  text-align: center;
+}
+
+.listItem {
+  background-color: #000000;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid #ffffff;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+  &::before {
+    content: '';
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em #ffffff;
+    background-color: CanvasText;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform-origin: left top;
+  }
+  &:checked::before {
+    transform: scale(1);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  &_primary {
+    gap: 5px;
+    margin-bottom: 20px;
+  }
+  &_secondary,
+  &_tertiary {
+    align-items: center;
+    gap: 10px;
+    width: 180px;
+    max-height: 80px;
+  }
+  &_listItem {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 22px 5px 10px;
+  }
+}
+
+// &__select {
+//   border: 0.2em solid #ffffff;
+//   background: rgba(#000000, 0.2);
+//   border-radius: 0.2em 0.2em 0 0;
+//   padding: 0.4em;
+//   color: #ffffff;
+//   border-radius: 10px;
+// }

@@ -9,7 +9,7 @@ export interface IGame {
   platformId: number;
   info: string;
   screenshots: string[];
-  regions: string[];
+  regions: string;
   publisher: { name: string };
   platform: { name: string };
   supported_languages: string;
@@ -25,6 +25,7 @@ export interface IGame {
   isFree: boolean;
   imgUrl: string;
   availability: boolean;
+  pcRequirements: {[key: string]: string};
 }
 
 export interface ICategorAndGenreType {

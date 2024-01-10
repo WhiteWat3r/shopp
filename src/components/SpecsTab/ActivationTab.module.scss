@@ -1,0 +1,11 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.activation {
+    padding: 30px;
+    background-color: $section-second;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

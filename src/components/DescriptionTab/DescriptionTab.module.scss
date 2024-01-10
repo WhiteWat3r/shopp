@@ -1,35 +1,54 @@
 @import '../../styles/colors.scss';
 @import '../../styles/mixins.scss';
 
-.descriptionTab {
-    /* padding: 30px; */
-    /* color: black; */
+.description{
+
+    background-color: $section-first;
+
+
+    &__dlc {
+        display: block;
+        color: $warning-color;
+        // width: 100%;
+        padding: 10px 30px;
+        background-color: $section-second;
+        margin: 0px 0 4px;
+    }
+
+    &__info {
+        padding: 30px;
+        border-bottom: 4px solid $section-first;
+        background-color: $section-second;
+        border-top-right-radius: 5px;
+    
+    }
+    
+    &__region {
+        font-weight: 500;
+        display: flex;
+        /* margin-top: 20px; */
+        align-items: center;
+        // border-top: 3px solid  $section-first;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-right: 20px;
+        background-color: $section-second;
+        border-radius: 0 0 5px 5px;
+    }
+    
+    &__regions {
+        /* color: black; */
+        /* margin-left: 5px; */
+        line-height: 1.5;
+    }
+    
+    &__globus {
+        width: 50px;
+        height: 50px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
 }
 
-.info {
-    padding: 30px;
-}
 
-.region {
-    font-weight: 500;
-    display: flex;
-    /* margin-top: 20px; */
-    align-items: center;
-    border-top: 3px solid  $section-first;
-    padding-top: 20px;
-    padding-bottom: 20px;
 
-}
-
-.regions {
-    /* color: black; */
-    /* margin-left: 5px; */
-    line-height: 1.5;
-}
-
-.globus {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    margin-left: 20px;
-}

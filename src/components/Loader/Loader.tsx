@@ -2,8 +2,8 @@ import './Loader.css';
 
 function Loader() {
   return (
-    <div>
-      <div className="spinner"></div>
+    <div className='container'>
+      <span className="loader"></span>
     </div>
   );
 }

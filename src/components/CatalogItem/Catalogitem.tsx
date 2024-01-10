@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ICatalogItem } from './CatalogItemTypes';
 import { setCurrentGame } from '../../services/slices/game';
 import { config } from '../../utils/request';
+import { formatRussianGenres } from '../../utils/fornatGenres';
 
 
 
@@ -24,8 +25,7 @@ function CatalogItem({ card } : ICatalogItem) {
         <div className={styles.cardInfo}>
           <h2 className={styles.cardHeader}>{card.name}</h2>
           <p className={styles.cardDescription}>
-            {' '}
-            {card.categoriess ? card.categoriess.join(', ') : 'пусто'}
+          {formatRussianGenres(card?.genres)}
           </p>
         </div>
         <div className={styles.priceBlock}>

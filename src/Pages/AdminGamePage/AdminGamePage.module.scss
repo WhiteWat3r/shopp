@@ -1,13 +1,9 @@
 .game {
   color: white;
-  // font-size: 400px;
-  // max-width: 1280px;
-  // width: 100%;
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
   margin-top: 70px;
-  // background-color: rgb(24, 26, 27);
 
   &__name {
     margin: 0;
@@ -36,33 +32,6 @@
     justify-content: space-between;
   }
 
-  &__input {
-    max-width: 280px;
-
-    appearance: none;
-    border: none;
-    outline: none;
-    border: 0.2em solid #ffffff;
-    background: rgba(#000000, 0.2);
-    border-radius: 0.2em 0.2em 0 0;
-    padding: 0.4em;
-    color: #ffffff;
-    border-radius: 10px;
-  }
-
-  &__smallInput {
-    max-width: 150px;
-    text-align: center;
-    appearance: none;
-    border: none;
-    outline: none;
-    border: 0.2em solid #ffffff;
-    background: rgba(#000000, 0.2);
-    border-radius: 0.2em 0.2em 0 0;
-    padding: 0.4em;
-    color: #ffffff;
-    border-radius: 10px;
-  }
 
   &__block {
     display: flex;
@@ -70,50 +39,12 @@
     align-items: center;
   }
 
-  &__checboxBlock {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 10px;
-    width: 180px;
-    max-height: 80px;
-  }
 
-  &__checkbox {
-    appearance: none;
-    background-color: #000000;
-    margin: 0;
-    font: inherit;
-    color: currentColor;
-    width: 1.15em;
-    height: 1.15em;
-    border: 0.15em solid #ffffff;
-    border-radius: 0.15em;
-    transform: translateY(-0.075em);
-    display: grid;
-    place-content: center;
-    &::before {
-      content: '';
-      width: 0.65em;
-      height: 0.65em;
-      transform: scale(0);
-      transition: 120ms transform ease-in-out;
-      box-shadow: inset 1em 1em #ffffff;
-      background-color: CanvasText;
-      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-      transform-origin: left top;
-    }
-    &:checked::before {
-      transform: scale(1);
-    }
-  }
-
-  &__parameter {
+  &__selectContainer {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    margin-bottom: 20px;
-  }
+}
+
 
   &__select {
     border: 0.2em solid #ffffff;
@@ -122,7 +53,7 @@
     padding: 0.4em;
     color: #ffffff;
     border-radius: 10px;
-  }
+      }
 
   &__header {
     display: flex;
@@ -149,10 +80,6 @@
     padding-bottom: 20px;
     border-bottom: 2px solid white;
   }
-  // &__info {
-  //     border-bottom: 2px solid white;
-  //     padding-bottom: 20px;
-  // }
 
   &__categories {
     list-style: none;
@@ -171,6 +98,12 @@
     display: flex;
     justify-content: space-between;
   }
+  &__screen {
+    width: 400px;
+    height: 200px;
+  }
+
+
 }
 
 .addDesired {

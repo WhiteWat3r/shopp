@@ -2,9 +2,9 @@ import style from './PopularItem.module.scss';
 import { config } from '../../utils/request';
 import { iPopularItem } from './PopularItemTypes';
 import { Button } from '../../UI/Button/Button';
-import { categories, genres } from '../../utils/constants';
 import { Link } from 'react-router-dom';
 import { MouseEvent } from 'react';
+import { formatRussianGenres } from '../../utils/fornatGenres';
 
 export const PopularItem = ({ game }: iPopularItem) => {
   const handleAddToCart = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
@@ -12,17 +12,6 @@ export const PopularItem = ({ game }: iPopularItem) => {
     console.log('ку');
   };
 
-  console.log(game.categories);
-
-  const russianGenres = genres
-    .filter((genre) =>
-      game?.genres?.some((gameGenre) => genre.description === gameGenre.description),
-    )
-    .map((genre) => genre.translation)
-    .slice(0, 3)
-    .join(', ');
-
-//   console.log('russianCategories', russianCategories);
 
   return (
     <li className={style.popularItem} key={game.id}>
@@ -41,7 +30,7 @@ export const PopularItem = ({ game }: iPopularItem) => {
             </div>
           </div>
           <div className={style.popularItem__block}>
-            <p className={style.popularItem__genres}>{russianGenres}</p>
+            <p className={style.popularItem__genres}>{formatRussianGenres(game?.genres)}</p>
             <div className={style.popularItem__buttonContainer}>
               <Button mode={'primary'} isDisabled={false} onClick={handleAddToCart}>
                 В корзину

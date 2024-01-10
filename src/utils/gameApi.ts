@@ -20,6 +20,11 @@ export const gameApi = createApi({
     fetchAllCards: build.query({
       query: () => '/game',
     }),
+    fetchOneCard: build.query({
+      query: (id) => `/game/${id}`,
+    }),
+
+
     addGame: build.mutation({
       query: (body) =>({
         url: '/game/',
@@ -41,6 +46,7 @@ export const gameApi = createApi({
 
 export const {
   useFetchAllCardsQuery,
+  useFetchOneCardQuery,
   useAddGameMutation,
   useUpdateGameMutation
 } = gameApi;

@@ -1,9 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import steam from '../../assets/steam.png';
-import DescriptionTab from '../../components/DescriptionTab/DescriptionTab';
-import SpecsTab from '../../components/SpecsTab/SpecsTab';
-import RequirementsTab from '../../components/RequirementsTab/RequirementsTab';
 
 import { FaRegCheckCircle } from 'react-icons/fa';
 import { RxCross2 } from 'react-icons/rx';
@@ -13,7 +9,7 @@ import Loader from '../../components/Loader/Loader.tsx';
 import LastSaleItem from '../../components/LastSaleItem/LastSaleItem';
 import { addGameToCart } from '../../utils/api';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { IGame } from '../../services/gameTypes';
+import { ICategorAndGenreType, IGame } from '../../services/gameTypes';
 import { FaPenAlt } from 'react-icons/fa';
 import { cards } from '../../data.ts';
 import { config } from '../../utils/request.ts';
@@ -22,78 +18,62 @@ import { ScreenCarousel } from '../../components/ScreenCarousel/ScreenCarousel.t
 import { checkPlatform } from '../../utils/checkPlatform.ts';
 import { Button } from '../../UI/Button/Button.tsx';
 
-
 import { IoPeopleOutline, IoPersonOutline, IoGameControllerOutline } from 'react-icons/io5';
 import { FaPeopleGroup } from 'react-icons/fa6';
 import { GiAchievement } from 'react-icons/gi';
 import { PiVirtualRealityLight } from 'react-icons/pi';
 import classNames from 'classnames';
 import { genres } from '../../utils/constants.ts';
+import { GameTab } from '../../components/GameTab/GameTab.tsx';
+import { useFetchOneCardQuery } from '../../utils/gameApi.ts';
 
 function GamePage() {
-  const [activeTab, setActiveTab] = useState('description');
-  const [currentImg, setCurrentImg] = useState('');
-
   const userRole = useAppSelector((store) => store.user?.user?.role);
-
-  const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
-  };
 
   const dispatch = useAppDispatch();
 
   const { gameId } = useParams();
 
-  const games = useAppSelector((store) => store.games.gamesList) || [];
+  const {
+    data: game,
+    isLoading: isLoadingGame,
+    isError: isErrorOneCard,
+  } = useFetchOneCardQuery(gameId);
+  console.log(game);
 
-  const game =
-    games.find((item: IGame) => {
-      if (gameId !== undefined) {
-        return item.id === parseInt(gameId);
-      }
-    }) || cards[0];
+  // console.log(loadGame(gameId));
 
-  useEffect(() => {
-    setCurrentImg(config.baseUrl + '/' + game.img);
-  }, [game]);
+  // const games = useAppSelector((store) => store.games.gamesList) || [];
+
+  // const game = games.find((item: IGame) => {
+  //     if (gameId !== undefined) {
+  //       return item.id === parseInt(gameId);
+  //     }
+  //   }) || cards[0];
+
+  // console.log(game, 'game');
 
   // console.log(game.screenshots);
-  console.log(game, 'game');
 
   // const finishPrice = game.price - (game.price * game.discount) / 100;
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'description':
-        return <DescriptionTab game={game} />;
-      case 'specs':
-        return <SpecsTab game={game} />;
-      case 'requirements':
-        return <RequirementsTab game={game} />;
-      default:
-        return null;
-    }
-  };
 
   const handleAddToCart = () => {
     dispatch(addGameToCart(game.id));
   };
 
-  const formatGameCategories = game?.categories?.map((category) => category.description);
+  const formatGameCategories = game?.categories?.map((category: ICategorAndGenreType) => category.description);
 
   const russianGenres = genres
     .filter((genre) =>
-      game?.genres?.some((gameGenre) => genre.description === gameGenre.description),
+      game?.genres?.some((gameGenre: ICategorAndGenreType) => genre.description === gameGenre.description),
     )
     .map((genre) => genre.translation)
     .slice(0, 3)
     .join(', ');
 
-
-
   return (
     <section className={style.section}>
-      {!game ? (
+      {isLoadingGame ? (
         <Loader />
       ) : (
         <div className={style.card}>
@@ -109,9 +89,9 @@ function GamePage() {
 
           <div className={style.card__content}>
             <div className={style.card__imageContainer}>
-              <img src={currentImg} alt={'Постер'} className={style.poster} />
+              <img src={config.baseUrl + '/' + game.img} alt={'Постер'} className={style.poster} />
               {game.screenshots ? (
-                <ScreenCarousel screenshots={game.screenshots} setCurrentImg={setCurrentImg} />
+                <ScreenCarousel screenshots={game.screenshots} />
               ) : (
                 <span className={style.card__absence}>Скриншотов пока нет</span>
               )}
@@ -241,35 +221,12 @@ function GamePage() {
             </div>
           </div>
 
-          <ul className={style.navTab}>
-            <li>
-              <button
-                className={activeTab === 'description' ? style.activeButton : style.inactiveButton}
-                onClick={() => handleTabClick('description')}>
-                Описание
-              </button>
-            </li>
-            <li>
-              <button
-                className={activeTab === 'specs' ? style.activeButton : style.inactiveButton}
-                onClick={() => handleTabClick('specs')}>
-                Категории
-              </button>
-            </li>
-            <li>
-              <button
-                className={activeTab === 'requirements' ? style.activeButton : style.inactiveButton}
-                onClick={() => handleTabClick('requirements')}>
-                Системки
-              </button>
-            </li>
-          </ul>
-          <div className={style.container}>{renderContent()}</div>
+          <GameTab game={game} />
         </div>
       )}
       <div className={style.similar}>
-        <p className={style.similarHeader}>Похожие игры</p>
-        <ul className={style.similarList}>
+        <h3 className={style.similar__header}>Похожие игры</h3>
+        <ul className={style.similar__list}>
           <LastSaleItem />
         </ul>
       </div>

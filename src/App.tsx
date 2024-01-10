@@ -28,11 +28,11 @@ function App() {
 
   const dispatch = useAppDispatch();
 
-  const { data: cardsData, error } = gameApi.useFetchAllCardsQuery('');
+  const cardsData = gameApi.useFetchAllCardsQuery('');
   console.log(cardsData);
 
   useEffect(() => {
-    dispatch(setGames(cardsData));
+    dispatch(setGames(cardsData.data));
   }, [cardsData]);
 
   useEffect(() => {
@@ -43,30 +43,28 @@ function App() {
     <>
       {isUserOnAdminPage ? <AdminHeader /> : <Header />}
       <MainContent>
-      <Routes>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/login"
+            element={<ProtectedRouteElement anonymous element={<LoginPage />} />}
+          />
+          <Route path="/profile/*" element={<ProtectedRouteElement element={<ProfilePage />} />} />
+          <Route path="/game/:gameId" element={<GamePage />} />
+          <Route path="/basket" element={<BasketPage />} />
+          <Route path="*" element={<NotFoundPage />} />
 
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/login"
-          element={<ProtectedRouteElement anonymous element={<LoginPage />} />}
-        />
-        <Route path="/profile/*" element={<ProtectedRouteElement element={<ProfilePage />} />} />
-        <Route path="/game/:gameId" element={<GamePage />} />
-        <Route path="/basket" element={<BasketPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      
-        {/* Административные страницы */}
-        <Route
-          path="/admin/*"
-          element={
-            <AdminWrapper>
-              <AdminPage />
-            </AdminWrapper>
-          }
-        />
-        
-      </Routes>
-            </MainContent>
+          {/* Административные страницы */}
+          <Route
+            path="/admin/*"
+            element={
+              <AdminWrapper>
+                <AdminPage />
+              </AdminWrapper>
+            }
+          />
+        </Routes>
+      </MainContent>
 
       <Toaster />
     </>

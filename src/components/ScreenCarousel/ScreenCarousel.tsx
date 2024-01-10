@@ -1,5 +1,4 @@
 import { config } from '../../utils/request';
-import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules';
 
@@ -7,10 +6,9 @@ import './ScreenCarousel.scss';
 import 'swiper/scss';
 import 'swiper/scss/pagination';
 
-export const ScreenCarousel = ({ screenshots, setCurrentImg }) => {
+export const ScreenCarousel = ({ screenshots }) => {
   const swiper = useSwiper();
 
-  console.log(swiper);
 
   return (
       <div className={'carousel'}>
@@ -26,15 +24,11 @@ export const ScreenCarousel = ({ screenshots, setCurrentImg }) => {
           pagination={{ clickable: true }}
           navigation={true}
           className={'carousel__screenshots'}
-          onSwiper={(swiper) => console.log(swiper)}
+          // onSwiper={(swiper) => console.log(swiper)}
         //   onSlideChange={() => console.log('slide change')}
         >
 
-{/* <button
-          className={`${style.carousel__button} ${style.carousel__button_left}`}
-          onClick={() => swiper.slidePrev()}>
-          <IoMdArrowDropleft size={35} />
-        </button> */}
+
 
 
 

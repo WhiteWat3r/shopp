@@ -86,4 +86,4 @@ export const genres = [
   { id: 85, description: "360 Video", translation: "360 Видео" }
 ];
 
-  
+ export const russianRequirements = ['ОС', 'Процессор', 'Оперативная память', 'Видеокарта', 'DirectX', 'Жесткий диск', 'Поддержка VR']

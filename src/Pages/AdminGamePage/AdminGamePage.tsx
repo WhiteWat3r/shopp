@@ -16,6 +16,9 @@ import {
 } from '../../utils/gameApi';
 import { toast } from 'react-hot-toast';
 import { formatAndCheckDate } from '../../utils/formatAndCheckDate';
+import { Input } from '../../UI/Input/Input';
+import { GameRequirements } from '../../components/GameRequirmentsChange/GameRequirmentsChange';
+import { MinimumRequirements } from '../../components/GameRequirmentsChange/GameRequirementsTypes';
 
 type GameFormInput = {
   name: string;
@@ -41,6 +44,8 @@ type GameFormInput = {
   genres: ICategorAndGenreType[];
   isFree: boolean;
   screenshots: string[];
+  regions: string;
+  pcRequirements: {[key: string]: string};
 };
 
 export const AdminGamePage = () => {
@@ -53,6 +58,9 @@ export const AdminGamePage = () => {
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
 
+  const [minimumRequirements, setMinimumRequirements] = useState<MinimumRequirements>({});
+  console.log(minimumRequirements);
+  
   const handleCategoryToggle = (categoryId: number) => {
     setSelectedCategories((prevSelectedCategories) => {
       if (prevSelectedCategories.includes(categoryId)) {
@@ -117,16 +125,18 @@ export const AdminGamePage = () => {
       setValue('steamApi', game.steamApi);
       setSelectedGenres(game.genres.map((genre) => genre.id));
       setValue('isFree', game.isFree);
+      setValue('regions', game.regions);
+      setValue('pcRequirements', game.pcRequirements);
     }
   }, [game, setValue]);
 
   const onSubmit = async () => {
     const gameData = getValues();
 
-    const formatDate = formatAndCheckDate(gameData.releaseDate);
-    gameData.releaseDate = formatDate;
+    gameData.releaseDate = formatAndCheckDate(gameData.releaseDate);
     gameData.categories = categories.filter((category) => selectedCategories.includes(category.id));
     gameData.genres = genres.filter((genre) => selectedGenres.includes(genre.id));
+    gameData.pcRequirements = minimumRequirements;
     try {
       if (game) {
         const response = await updateGame({ game: gameData, id: gameId });
@@ -154,6 +164,8 @@ export const AdminGamePage = () => {
       setValue('name', data[steamApi].data.name);
       setValue('publisher', data[steamApi].data.publishers[0]);
       setValue('platform', 'Steam');
+      setValue('regions', 'CIS');
+      setValue('pcRequirements', data[steamApi].data.pc_requirements.minimum);
 
       const language = data[steamApi].data.supported_languages.includes('Russian')
         ? 'Русский'
@@ -202,6 +214,9 @@ export const AdminGamePage = () => {
   const steamApiValue = watch('steamApi');
   const isFree = watch('isFree');
   const screenshots = watch('screenshots');
+  const pcRequirements = watch('pcRequirements');
+
+  console.log(pcRequirements);
 
   const handleSetScreenshot = () => {
     if (screenshots) {
@@ -218,11 +233,15 @@ export const AdminGamePage = () => {
     <div className={style.game}>
       <form onSubmit={handleSubmit(onSubmit)} className={style.game__adminform}>
         <div className={style.game__header}>
-          <div className={style.game__parameter}>
-            <label htmlFor="name">Название товара</label>
-            <input {...register('name')} id="name" className={style.game__input} />
-          </div>
-          <div className={style.game__checboxBlock}>
+          <Input
+            type={'text'}
+            mode={'primary'}
+            validation={{ ...register('name') }}
+            labelText={'Название товара'}
+            id={'name'}
+          />
+
+          <div className={style.game__selectContainer}>
             <label htmlFor="platform">Платформа</label>
             <select {...register('platform')} id="platform" className={style.game__select}>
               <option value="EA App">EA App</option>
@@ -231,17 +250,33 @@ export const AdminGamePage = () => {
               <option value="GOG">GOG</option>
             </select>
           </div>
-          <div className={style.game__checboxBlock}>
-            <label htmlFor="checkbox">Бесплатная</label>
-            <input {...register('isFree')} type="checkbox" className={style.game__checkbox} />
+
+          <div className={style.game__selectContainer}>
+            <label htmlFor="platform">Регионы</label>
+            <select {...register('regions')} id="regions" className={style.game__select}>
+              <option value="CIS">CIS</option>
+              <option value="Region free">Region free</option>
+              <option value="CIS(-Aze)">CIS(-Aze)</option>
+              <option value="CIS(-Aze, -Geo)">CIS(-Aze, -Geo)</option>
+              <option value="CIS(-Rus, -Bel)">CIS(-Rus, -Bel)</option>
+            </select>
           </div>
+
+          <Input
+            type={'checkbox'}
+            mode={'secondary'}
+            validation={{ ...register('isFree') }}
+            labelText={'Бесплатная'}
+            id={'free'}
+          />
+
           <div className={style.game__steamApi}>
-            <label htmlFor="steamApi">Steam API</label>
-            <input
-              {...register('steamApi')}
-              type="number"
-              id="steamApi"
-              className={style.game__input}
+            <Input
+              type={'number'}
+              mode={'primary'}
+              validation={{ ...register('steamApi') }}
+              labelText={'Steam Appid'}
+              id={'steamApi'}
               onChange={setSteamAPI}
             />
             <button
@@ -256,116 +291,123 @@ export const AdminGamePage = () => {
 
         <div className={style.game__block}>
           <div>
-            <div className={style.game__parameter}>
-              <label htmlFor="publisher">Издатель</label>
-              <input
-                {...register('publisher')}
-                type="text"
-                id="publisher"
-                className={style.game__input}
-              />
-            </div>
+            <Input
+              type={'text'}
+              mode={'primary'}
+              validation={{ ...register('publisher') }}
+              labelText={'Издатель'}
+              id={'publisher'}
+            />
 
-            <div className={style.game__parameter}>
-              <label htmlFor="language">Язык</label>
-              <input
-                {...register('language')}
-                type="text"
-                id="language"
-                className={style.game__input}
-              />
-            </div>
-            <div className={style.game__parameter}>
-              <label htmlFor="releaseDate">Дата релиза</label>
-              <input
-                {...register('releaseDate')}
-                type="text"
-                id="releaseDate"
-                className={style.game__input}
-              />
-            </div>
+            <Input
+              type={'text'}
+              mode={'primary'}
+              validation={{ ...register('language') }}
+              labelText={'Язык'}
+              id={'language'}
+            />
+
+            <Input
+              type={'text'}
+              mode={'primary'}
+              validation={{ ...register('releaseDate') }}
+              labelText={'Дата релиза'}
+              id={'releaseDate'}
+            />
           </div>
 
-          <ul className={style.game__section}>
-            <li className={style.game__checboxBlock}>
-              <label htmlFor="">Скоро</label>
-              <input {...register('soonStatus')} type="checkbox" className={style.game__checkbox} />
-            </li>
-            <li className={style.game__checboxBlock}>
-              <label htmlFor="checkbox">Наличие</label>
-              <input
-                {...register('availability')}
-                type="checkbox"
-                className={style.game__checkbox}
-              />
-            </li>
-            <li className={style.game__checboxBlock}>
-              <label htmlFor="">Предзаказ</label>
-              <input
-                {...register('preOrderStatus')}
-                type="checkbox"
-                className={style.game__checkbox}
-              />
-            </li>
+          <Input
+            type={'checkbox'}
+            mode={'secondary'}
+            validation={{ ...register('dlcStatus') }}
+            labelText={'Это DLC'}
+            id={'dlcStatus'}
+          />
+
+          <div className={style.game__section}>
+            <Input
+              type={'checkbox'}
+              mode={'secondary'}
+              validation={{ ...register('soonStatus') }}
+              labelText={'Скоро'}
+              id={'soon'}
+            />
+
+            <Input
+              type={'checkbox'}
+              mode={'secondary'}
+              validation={{ ...register('availability') }}
+              labelText={'Наличие'}
+              id={'availability'}
+            />
+
+            <Input
+              type={'checkbox'}
+              mode={'secondary'}
+              validation={{ ...register('preOrderStatus') }}
+              labelText={'Предзаказ'}
+              id={'preOrder'}
+            />
 
             {!isFree && (
               <>
-                <li className={style.game__checboxBlock}>
-                  <label htmlFor="">Начальная цена</label>
-                  <input
-                    {...register('price')}
-                    id={'price'}
-                    type="number"
-                    className={style.game__smallInput}
-                  />
-                </li>
-                <li className={style.game__checboxBlock}>
-                  <label htmlFor="">Скидка %</label>
-                  <input
-                    {...register('discount')}
-                    id={'discount'}
-                    type="number"
-                    className={style.game__smallInput}
-                  />
-                </li>
-                <li className={style.game__checboxBlock}>
-                  <label htmlFor="">Итог</label>
-                  <input
-                    {...register('finishPrice')}
-                    id={'finishPrice'}
-                    type="number"
-                    className={style.game__smallInput}
-                  />
-                </li>
+                <Input
+                  type={'number'}
+                  mode={'tertiary'}
+                  validation={{ ...register('price') }}
+                  labelText={'Начальная цена'}
+                  id={'price'}
+                />
+
+                <Input
+                  type={'number'}
+                  mode={'tertiary'}
+                  validation={{ ...register('discount') }}
+                  labelText={'Скидка %'}
+                  id={'discount'}
+                />
+
+                <Input
+                  type={'number'}
+                  mode={'tertiary'}
+                  validation={{ ...register('finishPrice') }}
+                  labelText={'Итог'}
+                  id={'finishPrice'}
+                />
               </>
             )}
-          </ul>
+          </div>
         </div>
 
         <div className={style.game__textBlock}>
           <label htmlFor="info">Описание</label>
-          <textarea
-            className={style.game__text}
-            {...register('info')}
-            name="info"
-            id="info"
-          />
+          <textarea className={style.game__text} {...register('info')} name="info" id="info" />
         </div>
+
+        <GameRequirements
+          pcRequirements={pcRequirements}
+          minimumRequirements={minimumRequirements}
+          setMinimumRequirements={setMinimumRequirements}
+        />
+
+        {/* <div className={style.game__textBlock}>
+          <p>Системки</p>
+          <div dangerouslySetInnerHTML={{__html: pcRequirements}}></div>
+        </div> */}
 
         <div className={style.game__categoriesBlock}>
           <ul className={style.game__categories}>
             {categories.map((category) => (
               <li key={category.id}>
-                <label>
-                  <input
-                    // className={style.game__checkbox}
-                    type="checkbox"
-                    // {...register(`categories.${category.id}`)}
-                    checked={selectedCategories.includes(category.id)}
-                    onChange={() => handleCategoryToggle(category.id)}
-                  />
-                  {category.translation}
-                </label>
+                <Input
+                  type={'checkbox'}
+                  mode={'listItem'}
+                  // validation={{ ...register('finishPrice') }}
+                  labelText={category.translation}
+                  id={'category'}
+                  checked={selectedCategories.includes(category.id)}
+                  onChange={() => handleCategoryToggle(category.id)}
+                />
               </li>
             ))}
           </ul>
@@ -373,27 +415,18 @@ export const AdminGamePage = () => {
           <ul className={style.game__categories}>
             {genres.map((genre) => (
               <li key={genre.id}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={selectedGenres.includes(genre.id)}
-                    onChange={() => handleGenreToggle(genre.id)}
-                  />
-                  {genre.translation}
-                </label>
+                <Input
+                  type={'checkbox'}
+                  mode={'listItem'}
+                  // validation={{ ...register('finishPrice') }}
+                  labelText={genre.translation}
+                  id={'genre'}
+                  checked={selectedGenres.includes(genre.id)}
+                  onChange={() => handleGenreToggle(genre.id)}
+                />
               </li>
             ))}
           </ul>
-
-          <div className={style.game__checboxBlock}>
-            <label htmlFor="dlcStatus">Это DLC</label>
-            <input
-              {...register('dlcStatus')}
-              id="dlcStatus"
-              type="checkbox"
-              className={style.game__checkbox}
-            />
-          </div>
         </div>
 
         <div className={style.game__posterblock}>
@@ -408,14 +441,9 @@ export const AdminGamePage = () => {
             {/* <button className={style.addDesired} type='button'>Загрузить постер</button> */}
           </div>
         </div>
-        {/* 
-        <div className={style.game__checboxBlock}>
-          <label htmlFor="posterFile">Постер из файла</label>
-          <input {...register('posterFile')} type="file" id="posterFile" onChange={selectFile} />
-        </div> */}
 
         {screenshots?.map((screen, index) => (
-          <img src={screen} alt="Скриншот" key={index} />
+          <img src={screen} alt="Скриншот" key={index} className={style.game__screen} />
         ))}
 
         <div className={style.game__setScreenshots}>
