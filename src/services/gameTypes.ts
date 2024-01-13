@@ -32,3 +32,9 @@ export interface ICategorAndGenreType {
   id: number;
   description: string;
 }
+
+
+export interface IPublisher{
+  id: number;
+  name: string;
+}

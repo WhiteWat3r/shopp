@@ -1,17 +1,20 @@
-import style from './PopularItem.module.scss';
+import style from './GameCard.module.scss';
 import { config } from '../../utils/request';
-import { iPopularItem } from './PopularItemTypes';
+import { IGameCard } from './GameCardTypes';
 import { Button } from '../../UI/Button/Button';
 import { Link } from 'react-router-dom';
 import { MouseEvent } from 'react';
 import { formatRussianGenres } from '../../utils/fornatGenres';
+import { platformIcons } from '../FilterParameters/FilterParameters';
 
-export const PopularItem = ({ game }: iPopularItem) => {
-  const handleAddToCart = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+export const GameCard = ({ game }: IGameCard) => {
+  const handleAddToCart = (e: MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
-    console.log('ку');
+    // console.log('ку');
   };
+  const platform = platformIcons.find(platform => platform.platform === game?.platform?.name)
 
+  
 
   return (
     <li className={style.popularItem} key={game.id}>

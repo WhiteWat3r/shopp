@@ -1,8 +1,8 @@
 @import '../../styles/colors.scss';
 @import '../../styles/mixins.scss';
 
-.popular {
-  background-color: $section-second;
+.novelty {
+  background-color: $section-first;
   padding: 0 40px;
   color: $white-default;
  
@@ -14,7 +14,9 @@
     padding: 0;
     max-width: 1440px;
     margin: 0 auto;
-    padding-bottom: 20px
+    padding-bottom: 20px;
+    flex-wrap: wrap;
+    row-gap: 20px;
   }
 
   &__header {

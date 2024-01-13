@@ -29,21 +29,21 @@ export const GameTab = ({ game }: ITab) => {
   return (
     <>
       <ul className={style.navTab}>
-        <li>
+        <li className={style.navTab__item}>
           <button
             className={classNames(style.navTab__button, activeTab === 'description' && style.navTab__button_active)}
             onClick={() => handleTabClick('description')}>
             Описание
           </button>
         </li>
-        <li>
+        <li className={style.navTab__item}>
           <button
             className={classNames(style.navTab__button, activeTab === 'activation' && style.navTab__button_active)}
             onClick={() => handleTabClick('activation')}>
             Категории
           </button>
         </li>
-        <li>
+        <li className={style.navTab__item}>
           <button
             className={classNames(style.navTab__button, activeTab === 'requirements' && style.navTab__button_active)}
             onClick={() => handleTabClick('requirements')}>

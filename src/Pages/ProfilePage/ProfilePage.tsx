@@ -60,6 +60,9 @@ dispatch(logout())
               <li>
                 <NavLink to="/profile" className={style.link} onClick={handleLogout}>Выход</NavLink>
               </li>
+              <li>
+                <NavLink to="/basket" className={style.link} >Корзина</NavLink>
+              </li>
             </ul>
           </nav>
         </div>

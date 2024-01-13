@@ -1,5 +1,5 @@
 import { IGame } from "../../services/gameTypes";
 
-export interface iPopularItem {
-    game: IGame;
+export interface ISlideInfo {
+    slideInfo: IGame
 }

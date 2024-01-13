@@ -3,25 +3,35 @@
 
 .popularItem {
   text-decoration: none;
-  max-width: 460px;
+  max-width: calc(25% - 10px);
   width: 100%;
- position: relative;
+  position: relative;
 
   &__img {
     transition: opacity 0.5s, color 0.5s;
     width: 100%;
   }
   &__info {
+    position: relative;
     padding: 10px;
     text-align: start;
     // height: 100%;
     display: flex;
     flex-direction: column;
+
     justify-content: space-between;
+
+
+
     gap: 20px;
-    border-radius: 0 0 10px 10px;
-    transition: background-color 0.5s, color 0.5s;
+    border-radius: 0 0 15px 15px;
+    transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+    border-bottom: 2px solid transparent;
+
+        box-sizing: border-box;
+
   }
+  
   &__name {
     @include font-h3-bold;
     margin: 0;
@@ -29,7 +39,7 @@
     white-space: nowrap;
     overflow: hidden;
     max-width: 170px;
-    }
+  }
 
   &__percent {
     position: absolute;
@@ -56,7 +66,7 @@
   &__block {
     display: flex;
     justify-content: space-between;
-    align-items: center
+    align-items: center;
   }
 
   &__prices {
@@ -92,7 +102,14 @@
   }
 
   &__link:hover &__info {
-    background-color: $section-second;
+    background-color: $section-first;
+    // border: 1px solid white;
+
+
+    // background-color: rgb(240, 255, 255, 0.1);
+    border-bottom: 2px solid white
+
+    
   }
   &__link:hover &__img {
     opacity: 0.7;
@@ -100,16 +117,31 @@
 
   &__genres {
     margin: 0;
-    text-align: center;
+    // text-align: center;
     @include font-body-filters;
   }
+
+
+  // &__corner {
+  //   width: 90%;
+  //   height: 90%;
+  //   // background-color: red;
+  //   position: absolute;
+  //   bottom: 0;
+  //   left: 0;
+
+  //   // border-radius: 30px;
+
+  //   border: 1px solid red;
+  //   z-index: 3;
+  // }
+
 }
 
-
-@media screen and (max-width: 1440px){
+@media screen and (max-width: 1440px) {
   .popularItem {
     // max-width: calc((100vw - 460px*2 - 90px));
-    width: calc((100vw - 30px*2 - 60px)/3);
+    width: calc((100vw - 30px * 2 - 60px) / 3);
     &__percent {
       border-top: 55px solid rgb(255, 165, 0);
       border-right: 55px solid transparent;
@@ -120,8 +152,7 @@
   }
 }
 
-
-@media screen and (max-width: 1030px){
+@media screen and (max-width: 1030px) {
   .popularItem {
     // max-width: calc((100vw - 460px*2 - 90px));
     // width: calc((100vw - 30px*2 - 60px)/3);
@@ -136,10 +167,9 @@
       font-size: 14px;
     }
     &__genres {
-
       display: none;
     }
-    &__buttonContainer{
+    &__buttonContainer {
       width: 100%;
     }
     &__percent {
@@ -151,7 +181,6 @@
     }
     &__info {
       gap: 10px;
-
     }
   }
 }

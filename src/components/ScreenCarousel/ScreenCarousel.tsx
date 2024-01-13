@@ -7,8 +7,6 @@ import 'swiper/scss';
 import 'swiper/scss/pagination';
 
 export const ScreenCarousel = ({ screenshots }) => {
-  const swiper = useSwiper();
-
 
   return (
       <div className={'carousel'}>

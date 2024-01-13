@@ -1,5 +1,5 @@
 import { Route, Routes, ScrollRestoration, useLocation } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import { Header } from './components/Header/Header';
 import HomePage from './Pages/HomePage/HomePage';
 import ProtectedRouteElement from './components/ProtectedRouteElement/ProtectedRouteElement';
@@ -18,6 +18,8 @@ import { refreshToken } from './utils/api';
 import { Toaster } from 'react-hot-toast';
 import { AdminWrapper } from './components/AdminWrapper/AdminWrapper';
 import { MainContent } from './components/MainContent/MainContent';
+import { CatalogPage } from './Pages/CatalogPage/CatalogPage';
+import Loader from './components/Loader/Loader';
 
 function App() {
   const location = useLocation();
@@ -29,7 +31,6 @@ function App() {
   const dispatch = useAppDispatch();
 
   const cardsData = gameApi.useFetchAllCardsQuery('');
-  console.log(cardsData);
 
   useEffect(() => {
     dispatch(setGames(cardsData.data));
@@ -39,34 +40,47 @@ function App() {
     dispatch(refreshToken());
   }, []);
 
+  console.log(cardsData.data);
+
   return (
     <>
-      {isUserOnAdminPage ? <AdminHeader /> : <Header />}
-      <MainContent>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route
-            path="/login"
-            element={<ProtectedRouteElement anonymous element={<LoginPage />} />}
-          />
-          <Route path="/profile/*" element={<ProtectedRouteElement element={<ProfilePage />} />} />
-          <Route path="/game/:gameId" element={<GamePage />} />
-          <Route path="/basket" element={<BasketPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+      {cardsData?.data ? (
+        <>
+          {isUserOnAdminPage ? <AdminHeader /> : <Header />}
+          <MainContent>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route
+                path="/login"
+                element={<ProtectedRouteElement anonymous element={<LoginPage />} />}
+              />
+              <Route
+                path="/profile/*"
+                element={<ProtectedRouteElement element={<ProfilePage />} />}
+              />
+              <Route path="/game/:gameId" element={<GamePage />} />
+              <Route path="/basket" element={<BasketPage />} />
+              <Route path="/catalog" element={<CatalogPage />} />
 
-          {/* Административные страницы */}
-          <Route
-            path="/admin/*"
-            element={
-              <AdminWrapper>
-                <AdminPage />
-              </AdminWrapper>
-            }
-          />
-        </Routes>
-      </MainContent>
+              <Route path="*" element={<NotFoundPage />} />
 
-      <Toaster />
+              {/* Административные страницы */}
+              <Route
+                path="/admin/*"
+                element={
+                  <AdminWrapper>
+                    <AdminPage />
+                  </AdminWrapper>
+                }
+              />
+            </Routes>
+          </MainContent>
+
+          <Toaster />
+        </>
+      ) : (
+        <Loader />
+      )}
     </>
   );
 }

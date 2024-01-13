@@ -2,56 +2,113 @@ import styles from './Header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../services/store';
 import logoImage from '../../assets/logo.png';
-import { SearchInput } from '../SearchInput/SearchInput';
+import { CiShoppingCart } from 'react-icons/ci';
+import { IoPersonOutline } from 'react-icons/io5';
+import { IoMdMenu } from 'react-icons/io';
+import { MdOutlineContactSupport } from 'react-icons/md';
+import { FaQuestion } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import { VerticalMenu } from '../VerticalMenu/VerticalMenu';
+import { SlMagnifier } from 'react-icons/sl';
 
 export const Header = () => {
+  // console.log(window.innerWidth);
+  const isUserOnCatalog = location.pathname.startsWith('/catalog');
+
+  const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+
   const isAuthenticated = useAppSelector((store) => store.user.isAuthenticated);
+
+  const handleResize = () => {
+    setCurrentWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const handleChangeVisible = () => {
+    setIsMenuVisible(!isMenuVisible);
+  };
+
+  const closeMenu = () => {
+    setIsMenuVisible(false);
+  };
 
   return (
     <header className={styles.header}>
       <div className={styles.header__container}>
-      <nav className={styles.header__nav}>
-        <Link to="/">
-          <img src={logoImage} alt="Логотип" className={styles.header__logo} />
-        </Link>
-        <ul className={styles.header__menu}>
-          <li className={styles.header__item}>
-            <NavLink to="/" className={styles.header__navLink}>
-              Каталог
-            </NavLink>
-          </li>
-          <li className={styles.header__item}>
-            <NavLink to="/" className={styles.header__navLink}>
-              О нас
-            </NavLink>
-          </li>
-          <li className={styles.header__item}>
-            <NavLink to="/" className={styles.header__navLink}>
-              Поддержка
-            </NavLink>
-          </li>
-          <li className={styles.header__item}>
-            <NavLink to="/basket" className={styles.header__navLink}>
-              Корзина
-              {/* <img src={basketImg} alt="Корзина" /> */}
-              {/* {basket.length > 0 && (
-            <div className={styles.count}>
-              <p>{basket.length}</p>
-            </div>
-          )} */}
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
+        {currentWidth > 960 ? (
+          <>
+            <nav className={styles.header__nav}>
+              <Link to="/">
+                <img src={'logoImage'} alt="Логотип" className={styles.header__logo} />
+              </Link>
+              <ul className={styles.header__menu}>
+                <li className={styles.header__item}>
+                  <NavLink to="/catalog" className={styles.header__navLink}>
+                    <IoMdMenu size={20} />
+                    Каталог
+                  </NavLink>
+                </li>
+                <li className={styles.header__item}>
+                  <NavLink to="/" className={styles.header__navLink}>
+                    О нас
+                  </NavLink>
+                </li>
+                <li className={styles.header__item}>
+                  <NavLink to="/" className={styles.header__navLink}>
+                    <MdOutlineContactSupport size={20} />
+                    Поддержка
+                  </NavLink>
+                </li>
+              </ul>
+            </nav>
 
-      <div className={styles.rightBar}>
-        <SearchInput placeholder={'Искать товары'} />
-        <NavLink to="/profile" className={styles.header__navLink}>
-          {isAuthenticated ? 'Профиль' : 'Войти'}
-          {/* <img src={profileImg} alt="Профиль" /> */}
-        </NavLink>
+            {isUserOnCatalog ? (
+              // <SlMagnifier className={styles.header__magnifier} size={15} />
+              ''
+            ) : (
+              <input className={styles.header__search} placeholder={'Поиск игры'} />
+            )}
+
+            <ul className={styles.rightBar}>
+              {isAuthenticated && (
+                <li className={styles.header__item}>
+                  <NavLink to="/basket" className={styles.header__navLink}>
+                    Корзина
+                    <CiShoppingCart size={20} />
+                  </NavLink>
+                </li>
+              )}
+              <li>
+                <NavLink to="/profile" className={styles.header__navLink}>
+                  {isAuthenticated ? 'Профиль' : 'Войти'}
+                  <IoPersonOutline size={15} />
+                </NavLink>
+              </li>
+            </ul>
+          </>
+        ) : (
+          <>
+            <button className={styles.header__menuButton} onClick={handleChangeVisible}>
+              <IoMdMenu size={30} />
+            </button>
+            <Link to="/">
+              <img src={'logoImage'} alt="Логотип" className={styles.header__logo} />
+            </Link>
+            <NavLink to="/profile" className={styles.header__navLink}>
+              <IoPersonOutline size={30} />
+            </NavLink>
+          </>
+        )}
       </div>
-      </div>
+      {isMenuVisible && currentWidth < 960 && <VerticalMenu closeMenu={closeMenu} />}
     </header>
   );
 };

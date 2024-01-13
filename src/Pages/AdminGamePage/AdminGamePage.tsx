@@ -59,7 +59,7 @@ export const AdminGamePage = () => {
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
 
   const [minimumRequirements, setMinimumRequirements] = useState<MinimumRequirements>({});
-  console.log(minimumRequirements);
+  // console.log(minimumRequirements);
   
   const handleCategoryToggle = (categoryId: number) => {
     setSelectedCategories((prevSelectedCategories) => {
@@ -89,6 +89,8 @@ export const AdminGamePage = () => {
       return item.id === parseInt(gameId);
     }
   });
+//peredelat'
+
 
   const {
     register,
@@ -137,21 +139,38 @@ export const AdminGamePage = () => {
     gameData.categories = categories.filter((category) => selectedCategories.includes(category.id));
     gameData.genres = genres.filter((genre) => selectedGenres.includes(genre.id));
     gameData.pcRequirements = minimumRequirements;
-    try {
+
+ try {
+    let response;
+
+    if (game) {
+      response = await updateGame({ game: gameData, id: gameId });
+    } else {
+      response = await createGame(gameData);
+    }
+
+    console.log(response);
+    
+    // Проверяем, успешен ли запрос
+    if (response.data.success) {
       if (game) {
-        const response = await updateGame({ game: gameData, id: gameId });
-        console.log('response', response);
         toast.success('Карточка успешно обновлена');
       } else {
-        await createGame(gameData);
         toast.success('Карточка успешно создана');
       }
-      await gamesInfo.refetch();
-    } catch (error) {
-      console.error('Error updating/creating game', error);
-      toast.error(`Ошибка, ${error}`);
+
+      // Перезагрузить данные после успешного запроса
+    } else {
+      // Если ответ не "success", считаем это ошибкой
+      throw new Error(`Ошибка: ${response.data.message}`);
     }
-  };
+    await gamesInfo.refetch();
+
+  } catch (error) {
+    console.error('Error updating/creating game', error);
+    toast.error(`Ошибка: ${error.message}`);
+  }
+};
 
   const handleLoadFromSteam = async () => {
     try {
@@ -216,17 +235,17 @@ export const AdminGamePage = () => {
   const screenshots = watch('screenshots');
   const pcRequirements = watch('pcRequirements');
 
-  console.log(pcRequirements);
+  // console.log(pcRequirements);
 
   const handleSetScreenshot = () => {
     if (screenshots) {
       setValue('screenshots', [...screenshots, screenLink]);
-      console.log('здарова');
+      // console.log('здарова');
     } else {
       setValue('screenshots', [screenLink]);
-      console.log('здарова2');
+      // console.log('здарова2');
     }
-    console.log('screenshots', screenshots);
+    // console.log('screenshots', screenshots);
   };
 
   return (

@@ -1,0 +1,17 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+
+.page {
+    display: flex;
+    padding: 0 40px;
+    max-width: 1440px;
+    width: 100%;
+    margin: 20px auto 0;
+}
+
+.controlBlock {
+    border: 1px solid $section-second;
+    padding: 20px;
+    border-radius: 20px;
+}

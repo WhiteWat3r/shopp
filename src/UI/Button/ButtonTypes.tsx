@@ -5,5 +5,5 @@ export interface iButton {
     type?: 'button' | 'submit';
     children: React.ReactNode | string;
     isDisabled: boolean;
-    mode: 'primary' | 'secondary';
+    mode: 'primary' | 'secondary' | 'like';
 }

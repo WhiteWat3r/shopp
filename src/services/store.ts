@@ -6,6 +6,7 @@ import { gameApi } from '../utils/gameApi';
 import { gamesSlice } from './slices/game';
 import { basketApi } from '../utils/basketApi';
 import { steamApi } from '../utils/steamAPI';
+import { publishersApi } from '../utils/publisersApi';
 
 
 export const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ export const rootReducer = combineReducers({
   [gameApi.reducerPath] : gameApi.reducer,
   [basketApi.reducerPath] : basketApi.reducer,
   [steamApi.reducerPath]: steamApi.reducer,
+  [publishersApi.reducerPath]: publishersApi.reducer,
   games: gamesSlice.reducer
 });
 
@@ -22,7 +24,8 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
     gameApi.middleware,
     basketApi.middleware,
-    steamApi.middleware
+    steamApi.middleware,
+    publishersApi.middleware
   )
 });
 

@@ -1,0 +1,113 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.controls {
+  position: sticky;
+  top: 30px;
+
+  
+  display: flex;
+  flex-direction: column;
+  color: $white-default;
+  gap: 15px;
+
+
+
+
+  // min-height: 775px;
+  max-height: calc(100vh - 50px - 70px); 
+
+
+  border-radius: 20px;
+  border: 2px solid $section-second;
+  padding: 20px;
+
+box-sizing: border-box;
+
+  &__subtitle {
+    @include font-input-field;
+    text-align: start;
+  }
+
+  &__input {
+    max-width: 80px;
+    border-radius: 8px;
+    border: none;
+    height: 25px;
+    padding-left: 10px;
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 1px solid $section-second;
+    padding-top: 15px;
+    
+  }
+
+  &__cost {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__platform {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+  }
+  &__platformIcon {
+    width: 35px;
+    height: 40px;
+    opacity: 0.7;
+    padding: 0 5px;
+    // box-sizing: border-box;
+
+
+    &_active {
+        opacity: 1;
+        // border: 1px solid white;
+
+    }
+  }
+  &__publishers {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    text-align: start;
+    margin: 0;
+    padding: 0;
+    @include font-CTAbody-regular;
+    gap: 15px;
+
+    max-height: 300px;
+    overflow-y: scroll;
+    padding-right: 5px;
+  }
+  &__publisher {
+    display: flex;
+    justify-content: space-between;
+    // border-bottom: 1px solid white;
+  }
+  &__publisherName {
+    max-width: 200px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__publisherSearch {
+    width: 150px;
+    background-color: white;
+    border-radius: 15px;
+    border: none;
+    padding-left: 15px;
+    height: 25px;
+    padding-right: 40px;
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 10px;
+  }
+}

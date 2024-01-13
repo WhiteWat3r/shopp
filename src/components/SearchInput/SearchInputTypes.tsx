@@ -1,3 +1,4 @@
 export interface ISearchInput {
-    placeholder: string
+    placeholder: string;
+    validation?: any
 }

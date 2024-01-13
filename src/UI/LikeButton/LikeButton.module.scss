@@ -1,0 +1,14 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+
+
+.likeBtn {
+    background-color: transparent;
+    border: none;
+    color: $white-default;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+

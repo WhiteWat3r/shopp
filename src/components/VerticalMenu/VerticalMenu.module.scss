@@ -1,0 +1,11 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.verticalMenu {
+    list-style: none;
+
+    &__link {
+        text-decoration: none;
+        color: $white-default;
+    }
+}

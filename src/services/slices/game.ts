@@ -7,12 +7,14 @@ interface IGameState {
     gamesList: IGame[];
     currentGame: null | IGame;
     addGameLoading: boolean;
+    searchedGames: IGame[];
   };
 
 const initialState: IGameState = {
-    gamesList: cards,
+    gamesList: [],
     currentGame: null,
     addGameLoading: false,
+    searchedGames: []
   };
 
 
@@ -25,8 +27,11 @@ export const gamesSlice = createSlice({
         },
         setGames: (state, action: PayloadAction<IGame[]>) => {
             state.gamesList = action.payload;
+        },
+        setSearchedGames: (state, action: PayloadAction<IGame[]>) => {
+            state.searchedGames = action.payload;
         }
     }
 })
 
-export const {setGames, setCurrentGame} = gamesSlice.actions
+export const {setGames, setCurrentGame, setSearchedGames} = gamesSlice.actions

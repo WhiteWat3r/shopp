@@ -13,7 +13,7 @@ function CatalogItem({ card } : ICatalogItem) {
   const onMouseEnter = () => {
     dispatch(setCurrentGame(card));
   };
-  console.log(card);
+  // console.log(card);
   
   return (
     <li>

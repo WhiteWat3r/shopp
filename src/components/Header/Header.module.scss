@@ -1,24 +1,24 @@
 @import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
 
 .header {
 
    background-color: $section-second;
+//    background-color: $section-first;
+
+   padding: 0 40px;
+    @include font-body-card;
 
     &__container {
         display: flex;
         flex-direction: row;
-        max-width: 1280px;
+        max-width: 1400px;
         width: 100%;
         margin: 0 auto;
         color: white;
-        /* position: fixed; */
-        /* left: 50%; */
-        /* transform: translate(-50%); */
         height: 70px;
         align-items: center;
         justify-content: space-between;
-        // background-color: #181818;
-    
     }
     &__logo {
         height: 50px;
@@ -32,26 +32,66 @@
         width: 100%;
         /* row-gap: 30px; */
         gap: 30px;
-        margin-left: 40px;
+        margin-right: 30px;
         justify-content: flex-start;
         list-style: none;
     }
 
     // &__item {
-    //     color: white;
+    //     display: flex;
+    //     align-items: center;
     // }
 
 
     &__navLink {
-        font-size: 14px;
-        line-height: 22px;
+
         text-decoration: none;
         color: white;
         position: relative;
+        // border-bottom: 2px solid red;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap
     }
     &__nav {
         display: flex;
     }
+
+    &__search {
+        margin-left: auto;
+        margin-right: 30px;
+        border-radius: 15px;
+        max-width: 350px;
+        width: 100%;
+        @include font-body-card;
+        border: none;
+        padding: 0 20px;
+        color: $black-default;
+        min-width: 180px;
+  }
+
+  &__search::placeholder {
+
+
+    color: $section-second;
+}
+
+&__menuButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: $white-default;
+    padding: 0;
+    height: 30px;
+    width: 30px;
+}
+
+// &__magnifier {
+//     margin-left: auto;
+//     margin-right: 20px;
+//     cursor: pointer;
+// }
 }
     
 
@@ -64,14 +104,15 @@
     align-items: center;
     margin: 0;
     gap: 30px;
-    margin-right: 40px;
+    // margin-right: 40px;
     padding: 0;
+    list-style: none;
 }
 
 
-.navLink:last-child {
-    width: 62px;
-}
+// .navLink:last-child {
+//     width: 62px;
+// }
 
 .count {
     position: absolute;

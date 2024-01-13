@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import style from './Button.module.scss';
 
 export const Button = ({ onClick, type = 'button', children, mode, isDisabled }: iButton) => {
+  
   return (
     <button
       onClick={onClick}

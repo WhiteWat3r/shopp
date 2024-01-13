@@ -1,119 +1,76 @@
-import React, { cloneElement, useEffect, useRef } from 'react';
+import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import './Slider.scss';
+import 'swiper/scss';
+import 'swiper/scss/pagination';
+import { useAppSelector } from '../../services/store';
+import { config } from '../../utils/request';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { sliderInfo } from '../../data';
+import { IGame } from '../../services/gameTypes';
+import { SlideInfo } from '../SlideInfo/SlideInfo';
 
-import styles from './Slider.module.css';
+export const Slider = ({}) => {
+  const slides = useAppSelector((store) => store.games?.gamesList?.slice(-8));
 
-const POSTER_WIDTH = 700;
-const TRANSITION_DURATION = 300;
-const AUTO_SLIDE_INTERVAL = 7000;
+  const [currentSlide, setCurrentSlide] = useState<IGame>({} as IGame);
 
-export const Slider = () => {
-  const [posters, setPosters] = useState([...sliderInfo]);
-  const [offset, setOffset] = useState(-POSTER_WIDTH);
-  const [transitionDuration, setTransitionDuration] = useState(TRANSITION_DURATION);
-  const [currentSlide, setCurrentSlide] = useState(1);
+  // const handleAddToCart = (e: MouseEvent<HTMLInputElement, MouseEvent>) => {
+  //   e.preventDefault();
+  // };
 
-  const [isArrowDisabled, setIsArrowDisabled] = useState(false);
 
-  useEffect(() => {
-    setPosters([...sliderInfo, ...sliderInfo, ...sliderInfo]);
-  }, []);
 
-  useEffect(() => {
-    if (offset === 0) {
-      setTransitionDuration(0);
-      setCurrentSlide(posters.length / 3);
-      setOffset(-(POSTER_WIDTH * currentSlide));
-      return;
-    }
 
-    if (offset === -(POSTER_WIDTH * (posters.length - 1))) {
-      setTransitionDuration(0);
-      setCurrentSlide(1);
-      setOffset(-POSTER_WIDTH);
-      return;
-    }
-  }, [offset, posters]);
-
-  useEffect(() => {
-    if (transitionDuration === 0) {
-      setTimeout(() => {
-        setTransitionDuration(TRANSITION_DURATION);
-      }, 0);
-    }
-  }, [transitionDuration]);
-
-  const handleLeftClick = () => {
-    if (!isArrowDisabled) {
-      setOffset((currentOffset) => {
-        const newOffset = currentOffset + POSTER_WIDTH;
-        return newOffset;
-      });
-      setIsArrowDisabled(true);
-
-      // Разблокировать стрелку через 2 секунды
-      setTimeout(() => {
-        setIsArrowDisabled(false);
-      }, 2000);
+  const handleSlideChange = (swiper: any) => {
+    if (slides) {
+      setCurrentSlide(slides[swiper.realIndex]);
     }
   };
 
-  const handleRightClick = () => {
-    if (!isArrowDisabled) {
-      setOffset((currentOffset) => {
-        const newOffset = currentOffset - POSTER_WIDTH;
-        return newOffset;
-      });
-      setIsArrowDisabled(true);
 
-      // Разблокировать стрелку через 2 секунды
-      setTimeout(() => {
-        setIsArrowDisabled(false);
-      }, 2000);
-    }
-  };
-
-  useEffect(() => {
-    const autoSlideInterval = setInterval(() => {
-      handleRightClick();
-    }, AUTO_SLIDE_INTERVAL);
-
-    return () => {
-      clearInterval(autoSlideInterval);
-    };
-  }, []);
 
   return (
-    <section className={styles.slider}>
-      <div className={styles.window}>
-        <div
-          className={styles.allImageContainer}
-          style={{
-            transitionDuration: `${transitionDuration}ms`,
-            transform: `translateX(${offset}px)`,
-          }}>
-          {posters.map((poster, posterIndex) => (
-            <a href="#" className={styles.link} key={posterIndex}>
-              <img className={styles.image} src={poster.image} alt="" />
-            </a>
-          ))}
-        </div>
-      </div>
+    <section className="section">
+      {slides && (
+        <>
+          <div className={'slider'}>
+            <Swiper
+              spaceBetween={40}
+              slidesPerView={1}
+              slidesPerGroup={1}
+              // centeredSlides={true}
+              modules={[Pagination, Navigation, Autoplay, A11y]}
+              autoplay={{ delay: 4000, disableOnInteraction: false }}
+              loop={true}
+              // grabCursor={true}
+              pagination={{ clickable: true }}
+              navigation={true}
+              className={'slider__container'}
+              onSlideChange={handleSlideChange}>
+              {slides?.map((slide, index) => (
+                <SwiperSlide
+                  key={index}
+                  className={'slider__slide'}
+                  //  onMouseEnter={() => handleMouseEnter(slide)}
+                >
+                  <Link to={`/game/${slide.id}`}>
+                    <img className={'slider__img'} src={config.baseUrl + '/' + slide.img} />
+                    {/* <div className='asd'> */}
+                    <div className={'slider__nameBlock'}>
+                      <span className={'slider__platform'}>{slide.platform.name}</span>
+                      <span>{slide.name}</span>
+                    </div>
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
 
-      <button
-        className={`${styles.arrow} ${styles.leftArrow}`}
-        onClick={handleLeftClick}
-        disabled={isArrowDisabled}>
-        &#10094;
-      </button>
-      <button
-        className={`${styles.arrow} ${styles.rightArrow}`}
-        onClick={handleRightClick}
-        disabled={isArrowDisabled}>
-        &#10095;
-      </button>
+          <SlideInfo slideInfo={currentSlide} />
+        </>
+      )}
     </section>
   );
-}
-
+};
