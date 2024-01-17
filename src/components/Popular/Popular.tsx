@@ -6,7 +6,7 @@ export const Popular = () => {
   const allGames = useAppSelector((store) => store.games.gamesList);
 
   const popularGames = allGames?.slice(0, 4);
-  console.log(popularGames);
+  // console.log(popularGames);
 
 
   return (

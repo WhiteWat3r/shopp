@@ -2,15 +2,25 @@ import { FilterParameters } from '../../components/FilterParameters/FilterParame
 import GamePreview from '../../components/GamePreview/GamePreview';
 import MainCatalog from '../../components/MainCatalog/MainCatalog';
 import { SearchInput } from '../../components/SearchInput/SearchInput';
+import { Sort } from '../../components/Sort/Sort';
 import style from './CatalogPage.module.scss';
 
 export const CatalogPage = () => {
   return (
     <div className={style.page}>
-      <GamePreview />
-      <MainCatalog />
+      <h1 className={style.page__header}>Каталог</h1>
+      <div className={style.page__container}>
+        <GamePreview />
 
-      <FilterParameters />
+        <div className={style.page__sort}>
+
+          <Sort />
+
+          <MainCatalog />
+        </div>
+
+        <FilterParameters />
+      </div>
     </div>
   );
 };

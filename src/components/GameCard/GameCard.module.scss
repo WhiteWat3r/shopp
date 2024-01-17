@@ -21,17 +21,14 @@
 
     justify-content: space-between;
 
-
-
     gap: 20px;
     border-radius: 0 0 15px 15px;
     transition: background-color 0.5s, color 0.5s, border-color 0.5s;
     border-bottom: 2px solid transparent;
 
-        box-sizing: border-box;
-
+    box-sizing: border-box;
   }
-  
+
   &__name {
     @include font-h3-bold;
     margin: 0;
@@ -72,7 +69,7 @@
   &__prices {
     @include font-body-regular;
     display: flex;
-    gap: 20px;
+    gap: 10px;
   }
   &__price {
     // @include font-body-regular;
@@ -93,7 +90,8 @@
 
   &__buttonContainer {
     height: 40px;
-    width: 150px;
+    max-width: 60px;
+    width: 100%;
   }
 
   &__link {
@@ -105,11 +103,8 @@
     background-color: $section-first;
     // border: 1px solid white;
 
-
     // background-color: rgb(240, 255, 255, 0.1);
-    border-bottom: 2px solid white
-
-    
+    border-bottom: 2px solid white;
   }
   &__link:hover &__img {
     opacity: 0.7;
@@ -119,8 +114,8 @@
     margin: 0;
     // text-align: center;
     @include font-body-filters;
+    max-width: 180px;
   }
-
 
   // &__corner {
   //   width: 90%;
@@ -135,13 +130,17 @@
   //   border: 1px solid red;
   //   z-index: 3;
   // }
-
 }
 
 @media screen and (max-width: 1440px) {
   .popularItem {
     // max-width: calc((100vw - 460px*2 - 90px));
-    width: calc((100vw - 30px * 2 - 60px) / 3);
+
+
+
+    max-width: calc((100vw - 30px * 2 - 60px) / 4);
+
+
     &__percent {
       border-top: 55px solid rgb(255, 165, 0);
       border-right: 55px solid transparent;
@@ -156,6 +155,9 @@
   .popularItem {
     // max-width: calc((100vw - 460px*2 - 90px));
     // width: calc((100vw - 30px*2 - 60px)/3);
+
+    max-width: calc((100vw - 30px * 2 - 60px) /3);
+
     &__name {
       font-size: 14px;
       margin: 0;
@@ -166,9 +168,9 @@
     &__oldPrice {
       font-size: 14px;
     }
-    &__genres {
-      display: none;
-    }
+    // &__genres {
+    //   display: none;
+    // }
     &__buttonContainer {
       width: 100%;
     }
@@ -182,5 +184,30 @@
     &__info {
       gap: 10px;
     }
+    // &__block {
+    //   justify-content: center;
+    // }
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  .popularItem {
+    // max-width: calc((100vw - 460px*2 - 90px));
+    // width: calc((100vw - 30px*2 - 60px)/3);
+
+    max-width: calc((100vw - 30px * 2 - 60px) /2);
+
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  .popularItem {
+    // max-width: calc((100vw - 460px*2 - 90px));
+    // width: calc((100vw - 30px*2 - 60px)/3);
+
+    max-width: calc(100vw - 15px * 2);
+    // width: 100%;
   }
 }

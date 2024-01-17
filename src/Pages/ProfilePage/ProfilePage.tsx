@@ -3,6 +3,9 @@ import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import ProfileOrdersPage from '../ProfileOrdersPage/ProfileOrdersPage';
 import { logout } from '../../utils/api';
 import { useAppDispatch, useAppSelector } from '../../services/store';
+import { useAuthLogoutMutation } from '../../utils/authApi';
+import { deleteCookie } from '../../utils/cookie';
+import { clearUser } from '../../services/slices/user';
 
 function ProfilePage() {
 
@@ -10,6 +13,8 @@ const navigate = useNavigate()
 
 const dispatch = useAppDispatch()
   const isAuthenticated = useAppSelector((store)=> store.user.isAuthenticated)
+
+  const [logout] = useAuthLogoutMutation()
 
   const user = useAppSelector((store)=> store.user.user)
 
@@ -22,8 +27,17 @@ const dispatch = useAppDispatch()
   }
 
 
-  const handleLogout = () => {
-dispatch(logout())
+  const handleLogout = async () => {
+    try {
+      await logout('')
+      deleteCookie('accessToken');
+      dispatch(clearUser())
+    } catch (err) {
+      console.log(err);
+        }
+
+        console.log('Страница профиля');
+
 
   }
   return (
@@ -36,7 +50,7 @@ dispatch(logout())
             alt=""
             className={style.image}
           />
-          <h2 className={style.mail}>Джейсон Стетхем</h2>
+          <h2 className={style.mail}>{user?.email}</h2>
           <nav className={style.navBlock}>
             <ul className={style.linkList}>
               {role === 'ADMIN' &&               <li>

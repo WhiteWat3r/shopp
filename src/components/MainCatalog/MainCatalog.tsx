@@ -1,8 +1,7 @@
 import style from './MainCatalog.module.scss';
-import CatalogItem from '../CatalogItem/CatalogItem';
+import {CatalogItem} from '../CatalogItem/CatalogItem';
 import { useAppSelector } from '../../services/store';
 import { IGame } from '../../services/gameTypes';
-import { Link } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 
 function MainCatalog() {
@@ -17,6 +16,9 @@ function MainCatalog() {
 
   return (
     <div className={style.catalog}>
+
+
+
       {games ? (
         <>
           {games.length !== 0 ? (
@@ -30,9 +32,6 @@ function MainCatalog() {
           ) : (
             <p className={style.catalog__notFound}>Ничего не нашли (</p>
           )}
-          {/* <Link className={styles.catalog__link} to={'/'}>
-            Полный список
-          </Link> */}
         </>
       ) : (
         <Loader />

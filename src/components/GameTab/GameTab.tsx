@@ -40,7 +40,7 @@ export const GameTab = ({ game }: ITab) => {
           <button
             className={classNames(style.navTab__button, activeTab === 'activation' && style.navTab__button_active)}
             onClick={() => handleTabClick('activation')}>
-            Категории
+            Активация
           </button>
         </li>
         <li className={style.navTab__item}>

@@ -17,7 +17,7 @@
   text-align: start;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  // justify-content: space-between;
 
   gap: 20px;
 
@@ -39,6 +39,7 @@
   &__genres {
     // margin-bottom: auto;
     @include font-body-filters;
+    margin-top: auto;
   }
   &__buttonContainer {
     width: 180px;

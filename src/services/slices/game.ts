@@ -8,13 +8,15 @@ interface IGameState {
     currentGame: null | IGame;
     addGameLoading: boolean;
     searchedGames: IGame[];
+    sortOption: string;
   };
 
 const initialState: IGameState = {
     gamesList: [],
     currentGame: null,
     addGameLoading: false,
-    searchedGames: []
+    searchedGames: [],
+    sortOption: ''
   };
 
 
@@ -30,8 +32,11 @@ export const gamesSlice = createSlice({
         },
         setSearchedGames: (state, action: PayloadAction<IGame[]>) => {
             state.searchedGames = action.payload;
+        },
+        setSortSettings: (state, action: PayloadAction<string>) => {
+            state.sortOption = action.payload;
         }
     }
 })
 
-export const {setGames, setCurrentGame, setSearchedGames} = gamesSlice.actions
+export const {setGames, setCurrentGame, setSearchedGames, setSortSettings} = gamesSlice.actions

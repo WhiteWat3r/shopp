@@ -1,10 +1,14 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
 .game {
-  color: white;
+  color: $white-default;
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
   margin-top: 70px;
-
+  display: flex;
+  flex-direction: column;
   &__name {
     margin: 0;
     text-align: left;
@@ -32,19 +36,22 @@
     justify-content: space-between;
   }
 
-
   &__block {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-
   &__selectContainer {
     display: flex;
     flex-direction: column;
-}
-
+  }
+  &__link {
+    color: $white-default;
+    text-align: start;
+    align-self: flex-start;
+    margin-bottom: 30PX;
+  }
 
   &__select {
     border: 0.2em solid #ffffff;
@@ -53,7 +60,7 @@
     padding: 0.4em;
     color: #ffffff;
     border-radius: 10px;
-      }
+  }
 
   &__header {
     display: flex;
@@ -102,8 +109,6 @@
     width: 400px;
     height: 200px;
   }
-
-
 }
 
 .addDesired {
@@ -127,8 +132,8 @@
 }
 
 .addDesired:disabled {
-    cursor: none;
-    pointer-events: none;
-    background-color: #000000;
-    color: white;
+  cursor: none;
+  pointer-events: none;
+  background-color: #000000;
+  color: white;
 }

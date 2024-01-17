@@ -46,6 +46,8 @@ export const FilterParameters = () => {
   const dispatch = useAppDispatch();
   const allGames = useAppSelector((store) => store.games.gamesList);
 
+  const sortOption = useAppSelector((store) => store.games.sortOption);
+
   const [publisherName, setPublisherName] = useState('');
   const [allPublishers, setAllPublishers] = useState<IPublisher[]>([]);
 
@@ -73,12 +75,29 @@ export const FilterParameters = () => {
 
   const values = watch();
 
+
+
+
+
+
+
   useEffect(() => {
+    
     if (allGames) {
-      const result = filterAndSortArray(allGames, values);
+      const result = filterAndSortArray(allGames, values, sortOption);
       dispatch(setSearchedGames(result));
+      console.log('сработал');
+      
     }
-  }, [values]);
+  }, [values, sortOption]);
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     if (publishersQuery) {

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import style from './AdminGamePage.module.scss';
 import { ICategorAndGenreType, IGame } from '../../services/gameTypes';
 import { useAppSelector } from '../../services/store';
@@ -151,7 +151,6 @@ export const AdminGamePage = () => {
 
     console.log(response);
     
-    // Проверяем, успешен ли запрос
     if (response.data.success) {
       if (game) {
         toast.success('Карточка успешно обновлена');
@@ -159,9 +158,7 @@ export const AdminGamePage = () => {
         toast.success('Карточка успешно создана');
       }
 
-      // Перезагрузить данные после успешного запроса
     } else {
-      // Если ответ не "success", считаем это ошибкой
       throw new Error(`Ошибка: ${response.data.message}`);
     }
     await gamesInfo.refetch();
@@ -250,6 +247,7 @@ export const AdminGamePage = () => {
 
   return (
     <div className={style.game}>
+      <Link className={style.game__link} to={`/game/${gameId}`}>На страницу товара в магазине</Link>
       <form onSubmit={handleSubmit(onSubmit)} className={style.game__adminform}>
         <div className={style.game__header}>
           <Input

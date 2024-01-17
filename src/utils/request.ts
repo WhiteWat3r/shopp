@@ -24,7 +24,7 @@ export function request(url: string, options?: RequestInit | undefined) {
 export const authRequest = async (url: string, method = 'GET', data = {}) => {
   try {
     const accessToken = getCookie('accessToken');
-    // console.log(accessToken);
+    console.log(accessToken);
     const options: RequestInit = {
       method,
       headers: {

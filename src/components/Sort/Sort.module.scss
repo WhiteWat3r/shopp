@@ -1,0 +1,32 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.sort {
+    display: flex;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    justify-content: space-between;
+    color: $white-default;
+    // border-bottom: 1px solid white;
+
+    &__button {
+        background-color: $section-first;
+        border: none;
+        color: $white-default;
+
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 10px;
+
+        max-width: 200px;
+        width: 100%;
+
+        &_active {
+            background-color: $section-second;
+
+        }
+    }
+
+    
+}

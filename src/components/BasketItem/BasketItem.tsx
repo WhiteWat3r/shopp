@@ -3,17 +3,24 @@ import style from './BasketItem.module.scss';
 import { IBasketItem } from './BasketItemTypes';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { basketApi } from '../../utils/basketApi';
+import {
+  basketApi,
+  useAddItemMutation,
+  useDeleteItemMutation,
+  useDeletePositionMutation,
+} from '../../utils/basketApi';
+import { formatRegionString } from '../../utils/regions';
+import { formatRussianGenres } from '../../utils/fornatGenres';
+import { config } from '../../utils/request';
 
 export const BasketItem = ({ basketGame }: IBasketItem) => {
-  const [addItem] = basketApi.useAddItemMutation();
-  const [deleteItem] = basketApi.useDeleteItemMutation();
-  const [deletePosition] = basketApi.useDeletePositionMutation()
+  const [addItem] = useAddItemMutation();
+  const [deleteItem] = useDeleteItemMutation();
+  const [deletePosition] = useDeletePositionMutation();
   // console.log(basketGame);
 
-
   const game = basketGame.game;
-  const gameId = game.id;
+  const gameId = game?.id;
 
   // console.log(basketItem);
 
@@ -25,56 +32,71 @@ export const BasketItem = ({ basketGame }: IBasketItem) => {
     await deleteItem({ gameId, quantity: 1 });
   };
 
-  const handleDeletePosition = async() => {
-    await deletePosition({gameId})
-  }
+  const handleDeletePosition = async () => {
+    await deletePosition({ gameId });
+  };
 
-  
-  const startPrice = 0
+  const startPrice = 0;
 
+  const priceWithoutDiscount = basketGame?.quantity * basketGame?.game?.price;
 
-  const priceWithoutDiscount = basketGame.quantity * basketGame.game.price
-
-  const finishPrice = Math.round(priceWithoutDiscount - (priceWithoutDiscount* basketGame.game.discount/100)) 
+  const finishPrice = Math.round(
+    priceWithoutDiscount - (priceWithoutDiscount * basketGame.game?.discount) / 100,
+  );
 
   // console.log(finishPrice);
-  
+  console.log(game);
 
   return (
     <li className={style.game}>
-      <div className={style.game__imageContainer}>
-        <img className={style.game__image} src={game.img} alt="Постер игры" />
-        <Link to="/activation/steam">
-          <img
-            className={style.game__activation}
-            src="https://geekville.ru/wp-content/uploads/2018/10/steam_logo_art_2000.0.jpg"
-            alt="Платформа активации"
-          />
-        </Link>
-      </div>
-      <div className={style.game__info}>
-        <h3 className={style.game__name}>{game.name}</h3>
-        <span className={style.game__categories}>{game.categoriess?.slice(0, 2).join(', ')}</span>
-        <span className={style.game__regions}>Регионы активации: {game.regions?.join(', ')}</span>
-      </div>
+      {game && (
+        <>
+          {/* <Link to={`/game/${game.id}`} className={style.game__link}> */}
+          <Link to={`/game/${game.id}`} className={style.game__imageContainer}>
+            <img
+              className={style.game__image}
+              src={`${config.baseUrl}/${game.img}`}
+              alt="Постер игры"
+            />
+            {/* <Link to="/activation/steam">
+      <img
+        className={style.game__activation}
+        src="https://geekville.ru/wp-content/uploads/2018/10/steam_logo_art_2000.0.jpg"
+        alt="Платформа активации"
+      />
+    </Link> */}
+          </Link>
+          <div className={style.game__info}>
+            <h3 className={style.game__name}>{game.name}</h3>
+            {/* <span className={style.game__categories}>{formatRussianGenres(game?.genres)}</span> */}
+            {/* <span className={style.game__language}>{game?.language}</span> */}
+            <span className={style.game__platform}>PC, {game.platform.name}</span>
 
-      <div className={style.game__quantity}>
-        <button className={style.game__quantityBtn} onClick={handleDeleteFromCart}>
-          <FaArrowLeft />
-        </button>
+            <span className={style.game__regions}>
+              {/* Регионы активации: {formatRegionString(game?.regions)} */}
+              Имеются региональные ограничения!
+            </span>
+          </div>
 
-        <p className={style.count}>{basketGame.quantity}</p>
+          <div className={style.game__quantity}>
+            <button className={style.game__quantityBtn} onClick={handleDeleteFromCart}>
+              <FaArrowLeft />
+            </button>
 
-        <button className={style.game__quantityBtn} onClick={handleAddToCart}>
-          <FaArrowRight />
-        </button>
-      </div>
-      <p className={style.game__startPrice}>{priceWithoutDiscount} ₽</p>
+            <p className={style.count}>{basketGame.quantity}</p>
 
-      <p className={style.game__price}>{finishPrice} ₽</p>
-      <button className={style.game__deleteBtn} onClick={handleDeletePosition}>
-        <AiFillDelete size={20} />
-      </button>
+            <button className={style.game__quantityBtn} onClick={handleAddToCart}>
+              <FaArrowRight />
+            </button>
+          </div>
+          <p className={style.game__startPrice}>{priceWithoutDiscount} ₽</p>
+
+          <p className={style.game__price}>{finishPrice} ₽</p>
+          <button className={style.game__deleteBtn} onClick={handleDeletePosition}>
+            <AiFillDelete size={20} />
+          </button>
+        </>
+      )}
     </li>
   );
 };

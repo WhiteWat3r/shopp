@@ -28,7 +28,7 @@ export const Novelty = () => {
     // .sort((a, b) => b.getTime() - a.getTime());
 
     
-  console.log(noveltyGames);
+  // console.log(noveltyGames);
 
   return (
     <section className={style.novelty}>

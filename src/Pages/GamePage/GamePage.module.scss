@@ -78,15 +78,7 @@
     // min-height: 500px;
   }
 
-  &__buttonContainer {
-    width: 180px;
-    height: 45px;
-  }
 
-  &__likeButtonContainer {
-    width: 50px;
-    height: 45px;
-  }
 
   &__tags {
     list-style: none;
@@ -181,14 +173,47 @@
     display: flex;
     gap: 10px;
   }
+  &__platform {
+    width: 20px;
+  }
 
+
+
+
+
+
+
+  &__buttonContainer {
+    width: 180px;
+    height: 45px;
+  }
+
+  &__likeButtonContainer {
+    width: 50px;
+    height: 45px;
+  }
   &__buttons {
     display: flex;
     justify-content: space-between;
     align-items: end;
   }
-  &__platform {
-    width: 20px;
+
+
+  &__doubleButton {
+    display: grid;
+    grid-template-columns: 55px 1fr 55px;
+    justify-content: center;
+    height: 100%;
+    border: 3px solid $blue-default;
+    border-radius: 20px;
+    box-sizing: border-box;
+    background-color:  $blue-default;
+  }
+
+  &__count {
+    justify-content: center;
+    display: flex;
+    align-items: center;
   }
 }
 
@@ -280,9 +305,6 @@
 }
 
 @media screen and (max-width: 800px) {
-  .section{
-    padding: 0 15px;
-  }
   .card {
     margin-top: 30px;
     &__poster {
@@ -291,7 +313,11 @@
     }
   }
 }
-
+@media screen and (max-width: 600px) {
+  .section{
+    padding: 0 15px;
+  }
+}
 
 
 @media screen and (max-width: 460px) {

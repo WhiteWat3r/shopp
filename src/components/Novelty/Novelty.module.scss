@@ -5,7 +5,6 @@
   background-color: $section-first;
   padding: 0 40px;
   color: $white-default;
- 
 
   &__container {
     display: flex;
@@ -21,8 +20,29 @@
 
   &__header {
     @include font-h2-semibold;
-    text-align: start; 
+    text-align: start;
     max-width: 1440px;
     margin: 20px auto 15px;
-   }
+  }
+}
+
+// @media screen and (max-width: 800px) {
+//   .novelty {
+//     padding: 0 15px;
+//   }
+// }
+
+@media screen and (max-width: 600px) {
+  .novelty {
+    // max-width: calc((100vw - 460px*2 - 90px));
+    // width: calc((100vw - 30px*2 - 60px)/3);
+    padding: 0 15px;
+
+    &__container {
+      justify-content: center;
+    }
+    &__header {
+      text-align: center;
+    }
+  }
 }

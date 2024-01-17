@@ -2,7 +2,7 @@ import styles from './Header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../services/store';
 import logoImage from '../../assets/logo.png';
-import { CiShoppingCart } from 'react-icons/ci';
+import { CiHeart, CiShoppingCart } from 'react-icons/ci';
 import { IoPersonOutline } from 'react-icons/io5';
 import { IoMdMenu } from 'react-icons/io';
 import { MdOutlineContactSupport } from 'react-icons/md';
@@ -58,33 +58,47 @@ export const Header = () => {
                 </li>
                 <li className={styles.header__item}>
                   <NavLink to="/" className={styles.header__navLink}>
-                    О нас
+                    О нас(-)
                   </NavLink>
                 </li>
                 <li className={styles.header__item}>
                   <NavLink to="/" className={styles.header__navLink}>
                     <MdOutlineContactSupport size={20} />
-                    Поддержка
+                    Поддержка(-)
                   </NavLink>
                 </li>
               </ul>
             </nav>
 
-            {isUserOnCatalog ? (
+            {/* {isUserOnCatalog ? (
               // <SlMagnifier className={styles.header__magnifier} size={15} />
               ''
             ) : (
               <input className={styles.header__search} placeholder={'Поиск игры'} />
-            )}
+            )} */}
 
             <ul className={styles.rightBar}>
+            <li className={styles.header__item}>
+                    <NavLink to="/catalog" className={styles.header__navLink}>
+                      Поиск(?)
+                      <SlMagnifier className={styles.header__magnifier} size={15} />
+                    </NavLink>
+                  </li>
               {isAuthenticated && (
-                <li className={styles.header__item}>
-                  <NavLink to="/basket" className={styles.header__navLink}>
-                    Корзина
-                    <CiShoppingCart size={20} />
-                  </NavLink>
-                </li>
+                <>
+                  <li className={styles.header__item}>
+                    <NavLink to="/basket" className={styles.header__navLink}>
+                      Корзина
+                      <CiShoppingCart size={20} />
+                    </NavLink>
+                  </li>
+                  <li className={styles.header__item}>
+                    <NavLink to="/favorite" className={styles.header__navLink}>
+                      Избранное
+                      <CiHeart size={20} />
+                    </NavLink>
+                  </li>
+                </>
               )}
               <li>
                 <NavLink to="/profile" className={styles.header__navLink}>

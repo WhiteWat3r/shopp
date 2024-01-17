@@ -1,4 +1,3 @@
-
 export const categories = [
   { id: 1, description: 'Multi-player', translation: 'Для нескольких игроков' },
   { id: 2, description: 'Single-player', translation: 'Для одного игрока' },
@@ -129,6 +128,9 @@ export const verticalMenuList = [
   { id: 5, text: 'Корзина', link: '/basket' },
 ];
 
-
-
-
+export const sortOptions = [
+  { id: 1, text: 'Новое', name: 'novelty' },
+  { id: 2, text: 'Цена', name: 'price' },
+  { id: 3, text: 'Популярное(-)', name: 'popular' },
+  { id: 4, text: 'В наличии', name: 'inStock' },
+];

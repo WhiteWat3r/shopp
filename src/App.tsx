@@ -1,4 +1,4 @@
-import { Route, Routes, ScrollRestoration, useLocation } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import './App.scss';
 import { Header } from './components/Header/Header';
 import HomePage from './Pages/HomePage/HomePage';
@@ -10,37 +10,118 @@ import BasketPage from './Pages/BasketPage/BasketPage';
 import NotFoundPage from './Pages/NotFoundPage/NotFoundPage';
 import { AdminPage } from './Pages/AdminGameListPage/AdminPage';
 import { AdminHeader } from './components/AdminHeader/AdminHeader';
-import { useAppDispatch } from './services/store';
+import { useAppDispatch, useAppSelector } from './services/store';
 import { gameApi } from './utils/gameApi';
 import { useEffect } from 'react';
 import { setGames } from './services/slices/game';
-import { refreshToken } from './utils/api';
 import { Toaster } from 'react-hot-toast';
-import { AdminWrapper } from './components/AdminWrapper/AdminWrapper';
 import { MainContent } from './components/MainContent/MainContent';
 import { CatalogPage } from './Pages/CatalogPage/CatalogPage';
 import Loader from './components/Loader/Loader';
+import { useAuthCheckQuery } from './utils/authApi';
+import { deleteCookie, getCookie, setCookie } from './utils/cookie';
+import { clearUser, setBasket, setUser } from './services/slices/user';
+import { AdminGameListPage } from './components/AdminGameListPage/AdminGameListPage';
+import { AdminGamePage } from './Pages/AdminGamePage/AdminGamePage';
+import { ProtectedAdminRouteElement } from './components/ProtectedAdminRouteElement/ProtectedAdminRouteElement';
+import { useGetBasketInfoQuery } from './utils/basketApi';
 
 function App() {
+  const dispatch = useAppDispatch();
+
+
+  const isAuthenticated = useAppSelector(store => store.user?.isAuthenticated)
+
+  const  basketInfo  = useGetBasketInfoQuery('', {skip: !isAuthenticated});
+
+  // basketInfo.basket - сохарянем в user/basket
+  console.log('basketInfo в app', basketInfo);
+  
+  const userEmail = useAppSelector(store => store.user?.user?.email)
+
+
+
+  useEffect(() => {
+
+
+
+    if (basketInfo?.data) {
+      dispatch(setBasket(basketInfo?.data?.basket))
+    }
+
+  }, [basketInfo])
+
+
+
+
+
+
+
+
+
   const location = useLocation();
   const isUserOnAdminPage = location.pathname.startsWith('/admin');
 
-  // console.log(location.pathname);
-  // console.log(isUserOnAdminPage);
-
-  const dispatch = useAppDispatch();
 
   const cardsData = gameApi.useFetchAllCardsQuery('');
+
+  const token = getCookie('accessToken');
+  // console.log('ТОКЕН', token);
+
+  const userData = useAuthCheckQuery('', 
+  // { skip: !token }
+  );
+
+  console.log('userData', userData);
 
   useEffect(() => {
     dispatch(setGames(cardsData.data));
   }, [cardsData]);
 
-  useEffect(() => {
-    dispatch(refreshToken());
-  }, []);
 
-  console.log(cardsData.data);
+
+
+
+  useEffect(() => {
+    if (userEmail) {
+      basketInfo.refetch()
+      cardsData.refetch()
+
+    }
+
+
+}, [userEmail])
+
+
+
+
+
+  useEffect(() => {
+    const updateUserAndToken = () => {
+      if (userData.isSuccess) {
+        // console.log('ЕСТЬ ЮЗЕР ДАТА, УДАЛЯЕТСЯ СТАРЫЙ ТОКЕН');
+        // console.log(getCookie('accessToken'));
+
+        deleteCookie('accessToken');
+
+        if (userData.data && userData.data.user && userData.data.token) {
+
+          dispatch(setUser(userData.data.user));
+          // console.log('ЕСТЬ ЮЗЕР ДАТА, ДОБАВЛЯЕТСЯ НОВЫЙ ТОКЕН');
+          setCookie('accessToken', userData.data.token, { path: '/' });
+          // console.log(getCookie('accessToken'));
+        }
+      }
+    };
+    // console.log(document.cookie);
+
+    // deleteCookie('accessToken');
+    // console.log(document.cookie);
+
+    updateUserAndToken();
+  }, [userData]);
+
+  // console.log(cardsData.data);
 
   return (
     <>
@@ -65,14 +146,11 @@ function App() {
               <Route path="*" element={<NotFoundPage />} />
 
               {/* Административные страницы */}
-              <Route
-                path="/admin/*"
-                element={
-                  <AdminWrapper>
-                    <AdminPage />
-                  </AdminWrapper>
-                }
-              />
+              <Route path="/admin/*" element={<ProtectedAdminRouteElement element={<Outlet />} />}>
+                <Route index element={<AdminPage />} />
+                <Route path="games" element={<AdminGameListPage />} />
+                <Route path="game/:gameId" element={<AdminGamePage />} />
+              </Route>
             </Routes>
           </MainContent>
 

@@ -2,8 +2,8 @@
 @import '../../styles/mixins.scss';
 
 .catalog{
-  max-width: 700px;
-  width: 100%;
+  // max-width: 950px;
+  // width: 100%;
 
   &__link {
     display: block;
@@ -18,8 +18,9 @@
 
   &__list {
     padding: 0;
-    margin: 0 30px;
+    // margin: 0 30px;
     list-style: none;
+    // width: 100%;
   }
 
   &__notFound {

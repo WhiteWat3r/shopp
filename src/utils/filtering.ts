@@ -1,5 +1,7 @@
 import { FilterForm } from '../components/FilterParameters/FilterParameters';
 import { IGame } from '../services/gameTypes';
+import { finishPrice } from './finishPrice';
+import { formatAndCheckDate } from './formatAndCheckDate';
 
 // const paramsFilter = (array: string[], startArray: IGame[], type: string) => {
 //     let res:IGame[] = []
@@ -18,8 +20,12 @@ const paramsFilter = (array: string[], startArray: IGame[], type: string) => {
   return array.map((platform) => startArray.filter((game) => game[type].name === platform)).flat();
 };
 
-export const filterAndSortArray = (games: IGame[], filterParams: FilterForm) => {
-//   console.log('filterParams', filterParams);
+export const filterAndSortArray = (
+  games: IGame[],
+  filterParams: FilterForm,
+  sortOption: string,
+) => {
+  //   console.log('filterParams', filterParams);
   // console.log('games', games);
 
   let res = [...games];
@@ -51,5 +57,23 @@ export const filterAndSortArray = (games: IGame[], filterParams: FilterForm) => 
 
   // console.log(res);
 
-  return res;
+  if (sortOption) {
+    switch (sortOption) {
+      case 'novelty':
+        return res.sort((a, b) => {
+          const dateA = a.releaseDate ? new Date(formatAndCheckDate(a.releaseDate)).getTime() : 0;
+          const dateB = b.releaseDate ? new Date(formatAndCheckDate(b.releaseDate)).getTime() : 0;
+
+          return dateB - dateA;
+        });
+      case 'price':
+        return res.sort(
+          (a, b) => finishPrice(b.price, b.discount) - finishPrice(a.price, a.discount),
+        );
+      case 'popular':
+        return res;
+      default:
+        return res;
+    }
+  } else return res;
 };

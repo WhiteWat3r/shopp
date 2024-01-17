@@ -5,6 +5,6 @@ export const formatRussianGenres = (gameGenres: ICategorAndGenreType[]) => {
   return genres
     .filter((genre) => gameGenres?.some((gameGenre) => genre.description === gameGenre.description))
     .map((genre) => genre.translation)
-    .slice(0, 3)
+    .slice(0, 2)
     .join(', ');
 };

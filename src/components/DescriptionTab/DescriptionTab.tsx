@@ -18,7 +18,7 @@ export const DescriptionTab = ({ game }: ITab) => {
 
       <div className={style.description__region}>
         <img className={style.description__globus} src={globus} alt="Регионы активации" />
-        <p className={style.description__regions}>Региона активации: {formatRegionString(game?.regions)}</p>
+        <p className={style.description__regions}>Регионы активации: {formatRegionString(game?.regions)}</p>
       </div>
     </div>
   );

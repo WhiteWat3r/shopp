@@ -29,13 +29,27 @@ import { GameTab } from '../../components/GameTab/GameTab.tsx';
 import { useFetchOneCardQuery } from '../../utils/gameApi.ts';
 import { LikeButton } from '../../UI/LikeButton/LikeButton.tsx';
 import { platformIcons } from '../../components/FilterParameters/FilterParameters.tsx';
+import { useAddItemMutation, useDeleteItemMutation } from '../../utils/basketApi.ts';
 
 function GamePage() {
+  const [addItem] = useAddItemMutation();
+  const [deleteItem] = useDeleteItemMutation();
+
   const userRole = useAppSelector((store) => store.user?.user?.role);
 
   const dispatch = useAppDispatch();
 
   const { gameId } = useParams();
+
+  const countInBasket = useAppSelector((store) => {
+    const basketItem = store.user?.user?.basket?.basket_games.find((basketItem) => {
+      return basketItem.gameId?.toString() === gameId;
+    });
+
+    return basketItem ? basketItem.quantity : 0;
+  });
+
+  console.log(countInBasket);
 
   const {
     data: game,
@@ -44,10 +58,15 @@ function GamePage() {
   } = useFetchOneCardQuery(gameId);
   // console.log(game);
 
-  const handleAddToCart = () => {
-    
+  const handleAddToCart = async () => {
+    await addItem({ gameId, quantity: 1 });
   };
 
+
+  const handleRemoveFromCart = async () => {
+    await deleteItem({ gameId, quantity: 1 });
+  };
+  
   const formatGameCategories = game?.categories?.map(
     (category: ICategorAndGenreType) => category.description,
   );
@@ -62,8 +81,7 @@ function GamePage() {
     .slice(0, 3)
     .join(', ');
 
-
-    const platform = platformIcons.find(platform => platform.platform === game?.platform?.name)
+  const platform = platformIcons.find((platform) => platform.platform === game?.platform?.name);
 
   return (
     <section className={style.section}>
@@ -115,7 +133,7 @@ function GamePage() {
 
                 <div className={style.card__infoItem}>
                   <p className={style.card__parameter}>Активация: </p>
-   
+
                   <span className={style.card__platform}>{platform?.icon} </span>
                 </div>
 
@@ -203,10 +221,8 @@ function GamePage() {
                   <li
                     className={classNames(
                       style.card__tag,
-                      formatGameCategories.includes('In-App Purchases') &&
-                        style.card__tag_active,
+                      formatGameCategories.includes('In-App Purchases') && style.card__tag_active,
                     )}>
-
                     <FaCartArrowDown className={style.card__tagImage} />
                     <span className={style.card__tagText}>Покупки</span>
                   </li>
@@ -225,13 +241,32 @@ function GamePage() {
                 </div>
 
                 <div className={style.card__buttonContainer}>
-                  <Button
-                    onClick={handleAddToCart}
-                    type={'button'}
-                    mode={'primary'}
-                    isDisabled={false}>
-                    Купить
-                  </Button>
+                  {countInBasket > 0 ? (
+                    <div className={style.card__doubleButton}>
+                      <Button
+                      onClick={handleRemoveFromCart}
+                      type={'button'}
+                      mode={'primary'}
+                      isDisabled={false}>
+                      -
+                    </Button>
+                    <span className={style.card__count}>{countInBasket}</span>
+                    <Button
+                      onClick={handleAddToCart}
+                      type={'button'}
+                      mode={'primary'}
+                      isDisabled={countInBasket === 3}>
+                      +
+                    </Button></div>
+                  ) : (
+                    <Button
+                      onClick={handleAddToCart}
+                      type={'button'}
+                      mode={'primary'}
+                      isDisabled={false}>
+                      Купить
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

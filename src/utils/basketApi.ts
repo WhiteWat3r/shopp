@@ -54,3 +54,4 @@ export const basketApi = createApi({
   }),
 });
 
+export const {useAddItemMutation, useDeleteItemMutation, useDeletePositionMutation, useGetBasketInfoQuery} = basketApi
