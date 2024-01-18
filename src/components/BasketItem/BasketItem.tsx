@@ -36,7 +36,7 @@ export const BasketItem = ({ basketGame }: IBasketItem) => {
     await deletePosition({ gameId });
   };
 
-  const startPrice = 0;
+  // const startPrice = 0;
 
   const priceWithoutDiscount = basketGame?.quantity * basketGame?.game?.price;
 
@@ -45,7 +45,7 @@ export const BasketItem = ({ basketGame }: IBasketItem) => {
   );
 
   // console.log(finishPrice);
-  console.log(game);
+  // console.log(game);
 
   return (
     <li className={style.game}>

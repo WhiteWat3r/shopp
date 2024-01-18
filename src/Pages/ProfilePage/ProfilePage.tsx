@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../services/store';
 import { useAuthLogoutMutation } from '../../utils/authApi';
 import { deleteCookie } from '../../utils/cookie';
 import { clearUser } from '../../services/slices/user';
+import { FavoritesPage } from '../FavoritesPage/FavoritesPage';
 
 function ProfilePage() {
 
@@ -43,50 +44,56 @@ const dispatch = useAppDispatch()
   return (
     <section className={style.section}>
       <div className={style.profile}>
-        <div className={style.card}>
           <div className={style.header}></div>
           <img
-            src="https://uhd.name/uploads/posts/2022-08/1661178261_25-uhd-name-p-dzheison-stetkhem-v-kepke-oboi-37.jpg"
+            src="http://i1.wp.com/media.gq-magazine.co.uk/photos/5d13a3982881ccd08d0a9199/master/pass/The-Mechanic-GQ-13Feb17_rex_b.jpg"
             alt=""
             className={style.image}
           />
           <h2 className={style.mail}>{user?.email}</h2>
           <nav className={style.navBlock}>
             <ul className={style.linkList}>
-              {role === 'ADMIN' &&               <li>
-                <NavLink to="/admin" className={style.link}>Админка</NavLink>
-              </li>}
+            <li>
+                <NavLink to="/profile" className={style.link}>Инфо</NavLink>
+              </li>
               <li>
-                <NavLink to="/profile" className={style.link}>История заказов</NavLink>
+                <NavLink to="/profile/orders" className={style.link}>История заказов</NavLink>
               </li>
               <li>
                 <NavLink to="/profile" className={style.link}>Партнерская программа</NavLink>
               </li>
-              <li>
-                <NavLink to="/profile" className={style.link}>Желаемое</NavLink>
-              </li>
-              <li>
-                <NavLink to="/profile" className={style.link}>Настройки</NavLink>
-              </li>
+
               <li>
                 <NavLink to="/profile" className={style.link}>Обратная связь</NavLink>
               </li>
+
               <li>
-                <NavLink to="/profile" className={style.link} onClick={handleLogout}>Выход</NavLink>
+                <NavLink to="/profile/favorites" className={style.link} >Избранное</NavLink>
               </li>
               <li>
                 <NavLink to="/basket" className={style.link} >Корзина</NavLink>
               </li>
+              <li>
+                <NavLink to="/profile" className={style.link} onClick={handleLogout}>Выход</NavLink>
+              </li>
+              {role === 'ADMIN' &&               <li>
+                <NavLink to="/admin" className={style.link}>Админка</NavLink>
+              </li>}
             </ul>
           </nav>
         </div>
-        <div className={style.mainContent}>
+
+        <>
           <Routes>
-            <Route path="/" element={<ProfileOrdersPage />} />
+          {/* <Route path="/" element={<ProfileInfoPage />} /> */}
+
+            <Route path="/orders" element={<ProfileOrdersPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
+
             {/* <Route path="/settings" element={<ProfileOrdersPage />} /> */}
           </Routes>
-        </div>
-      </div>
+        </>
+  
     </section>
   );
 }

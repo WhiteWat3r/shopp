@@ -19,7 +19,7 @@ export const platformIcons = [
   },
   {
     id: 2,
-    platform: 'Ea Play',
+    platform: 'EA App',
     icon: <SiOrigin size={'100%'} />,
   },
   {
@@ -74,6 +74,11 @@ export const FilterParameters = () => {
   };
 
   const values = watch();
+
+
+//при каждом изменении values изменять и стор
+
+console.log(values);
 
 
 

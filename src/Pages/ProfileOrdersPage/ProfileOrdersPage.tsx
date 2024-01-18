@@ -3,8 +3,7 @@ import style from './ProfileOrdersPage.module.scss'
 function ProfileOrdersPage() {
   return (
  
-      <>
-      <h1 className={style.mainHeader}>История заказов</h1>
+   
           <div>
             <ul className={style.lastSalesList}>
               <li>
@@ -33,7 +32,6 @@ function ProfileOrdersPage() {
               </li>
             </ul>
           </div>
-          </>
   )
 }
 

@@ -1,23 +1,32 @@
 .section {
   display: flex;
   color: white;
-  height: 80vh;
-  align-items: center;
-  flex-direction: column;
+  // min-height:calc( 100vh - 70px);
+  padding: 0 40px;
+  max-width: 1520px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 30px auto;
+  // justify-content: space-between;
+  gap: 30px;
 }
 
 .profile {
   color: white;
-  width: 80%;
-  margin-top: 70px;
+  // width: 80%;
+  // margin-top: 70px;
   display: flex;
-}
-
-.card {
+  flex-direction: column;
   max-width: 300px;
   width: 100%;
   position: relative;
 }
+
+// .card {
+//   max-width: 300px;
+//   width: 100%;
+//   position: relative;
+// }
 .header {
   background-color: white;
   width: 100%;

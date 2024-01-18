@@ -8,28 +8,31 @@ import { steamApi } from '../utils/steamAPI';
 import { publishersApi } from '../utils/publisersApi';
 import { authApi } from '../utils/authApi';
 import { userSlice } from './slices/user';
-
+import { favoriteApi } from '../utils/favoriteApi';
 
 export const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [gameApi.reducerPath]: gameApi.reducer,
-  [basketApi.reducerPath] : basketApi.reducer,
+  [basketApi.reducerPath]: basketApi.reducer,
   [steamApi.reducerPath]: steamApi.reducer,
   [publishersApi.reducerPath]: publishersApi.reducer,
-  user:  userSlice.reducer,
-  games: gamesSlice.reducer
-});
+  [favoriteApi.reducerPath]: favoriteApi.reducer,
 
+  user: userSlice.reducer,
+  games: gamesSlice.reducer,
+});
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
-    gameApi.middleware,
-    basketApi.middleware,
-    steamApi.middleware,
-    publishersApi.middleware,
-    authApi.middleware,
-  )
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(
+      gameApi.middleware,
+      basketApi.middleware,
+      steamApi.middleware,
+      publishersApi.middleware,
+      authApi.middleware,
+      favoriteApi.middleware,
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

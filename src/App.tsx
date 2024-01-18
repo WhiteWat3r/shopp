@@ -20,11 +20,12 @@ import { CatalogPage } from './Pages/CatalogPage/CatalogPage';
 import Loader from './components/Loader/Loader';
 import { useAuthCheckQuery } from './utils/authApi';
 import { deleteCookie, getCookie, setCookie } from './utils/cookie';
-import { clearUser, setBasket, setUser } from './services/slices/user';
+import { clearUser, setBasket, setFavorites, setUser } from './services/slices/user';
 import { AdminGameListPage } from './components/AdminGameListPage/AdminGameListPage';
 import { AdminGamePage } from './Pages/AdminGamePage/AdminGamePage';
 import { ProtectedAdminRouteElement } from './components/ProtectedAdminRouteElement/ProtectedAdminRouteElement';
 import { useGetBasketInfoQuery } from './utils/basketApi';
+import { useGetFavoriteInfoQuery } from './utils/favoriteApi';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,10 +33,41 @@ function App() {
 
   const isAuthenticated = useAppSelector(store => store.user?.isAuthenticated)
 
+
+
+
+
+ 
+const favoritesInfo = useGetFavoriteInfoQuery('', {skip: !isAuthenticated});
+
+console.log(favoritesInfo.data);
+
+
+useEffect(() => {
+
+
+
+  if (favoritesInfo?.data) {
+    dispatch(setFavorites(favoritesInfo?.data?.favorites))
+  }
+
+}, [favoritesInfo])
+
+
+
+
+
+
+
+
+
+
+  
+
   const  basketInfo  = useGetBasketInfoQuery('', {skip: !isAuthenticated});
 
   // basketInfo.basket - сохарянем в user/basket
-  console.log('basketInfo в app', basketInfo);
+  // console.log('basketInfo в app', basketInfo);
   
   const userEmail = useAppSelector(store => store.user?.user?.email)
 
@@ -59,6 +91,12 @@ function App() {
 
 
 
+
+
+
+
+
+
   const location = useLocation();
   const isUserOnAdminPage = location.pathname.startsWith('/admin');
 
@@ -72,7 +110,7 @@ function App() {
   // { skip: !token }
   );
 
-  console.log('userData', userData);
+  // console.log('userData', userData);
 
   useEffect(() => {
     dispatch(setGames(cardsData.data));
@@ -86,9 +124,8 @@ function App() {
     if (userEmail) {
       basketInfo.refetch()
       cardsData.refetch()
-
+      favoritesInfo.refetch()
     }
-
 
 }, [userEmail])
 

@@ -12,7 +12,7 @@ import { IGame } from '../../services/gameTypes';
 import { SlideInfo } from '../SlideInfo/SlideInfo';
 
 export const Slider = ({}) => {
-  const slides = useAppSelector((store) => store.games?.gamesList?.slice(-8));
+  const slides = useAppSelector((store) => store.games?.gamesList?.filter(slide => slide.availability))?.slice(-8);
 
   const [currentSlide, setCurrentSlide] = useState<IGame>({} as IGame);
 

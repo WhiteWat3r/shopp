@@ -4,9 +4,29 @@ import style from './SlideInfo.module.scss';
 import { Button } from '../../UI/Button/Button';
 import { formatRussianGenres } from '../../utils/fornatGenres';
 import { ISlideInfo } from './SlideInfoTypes';
+import { useAppSelector } from '../../services/store';
+import { useAddItemMutation } from '../../utils/basketApi';
+import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../utils/favoriteApi';
+import { FaHeart } from 'react-icons/fa';
+import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
 
 export const SlideInfo = ({ slideInfo }: ISlideInfo) => {
-  const handleAddToCart = () => {};
+
+  const [addItem] = useAddItemMutation();
+  const [addToFavorite] = useAddFavoriteMutation();
+  const [removeFromFavorite] = useDeleteFavoriteMutation();
+
+  const handleAddToCart = async () => {
+    await addItem({ gameId: slideInfo.id, quantity: 1 });
+  };
+
+
+  const isFavorite = useAppSelector((store) =>
+    store.user?.favorites?.games?.find((favorite) => favorite.id === slideInfo.id),
+  );
+  const toggleLike = async () => {
+    isFavorite ? await removeFromFavorite({ gameId:slideInfo.id  }) : await addToFavorite({ gameId: slideInfo.id});
+  };
 
   return (
     <div className={style.info}>
@@ -18,16 +38,20 @@ export const SlideInfo = ({ slideInfo }: ISlideInfo) => {
 
       <div className={style.info__buttons}>
         <div className={style.info__likeButtonContainer}>
-          <LikeButton onClick={handleAddToCart} type={'button'} active={false} isDisabled={false}>
-          <CiHeart size={'100%'} />
-          </LikeButton>
+        <LikeButton
+                    onClick={toggleLike}
+                    type={'button'}
+                    active={isFavorite}
+                    isDisabled={false}>
+                    {isFavorite ? <IoMdHeart  size={`100%`} /> : <IoIosHeartEmpty  size={`100%`} />}
+                  </LikeButton>
         </div>
-
+{/* 
         <div className={style.info__buttonContainer}>
           <Button onClick={handleAddToCart} type={'button'} mode={'primary'} isDisabled={false}>
             Купить
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

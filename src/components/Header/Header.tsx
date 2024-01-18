@@ -93,7 +93,7 @@ export const Header = () => {
                     </NavLink>
                   </li>
                   <li className={styles.header__item}>
-                    <NavLink to="/favorite" className={styles.header__navLink}>
+                    <NavLink to="/profile/favorites" className={styles.header__navLink}>
                       Избранное
                       <CiHeart size={20} />
                     </NavLink>

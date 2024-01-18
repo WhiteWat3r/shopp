@@ -25,7 +25,10 @@
     transition: background-color 0.3s, color 0.3s;
     &_inactive {
       opacity: 0.2;
-  }
+      cursor: default;
+      pointer-events: none;
+      background-color: rgb(96, 86, 86, 0.5);
+    }
   }
   
   .primary:hover {
@@ -43,6 +46,12 @@
   border-radius: 20px;
   transition: background-color 0.3s, color 0.3s;
   // padding: 0;
+  &_inactive {
+    opacity: 0.2;
+    cursor: default;
+    pointer-events: none;
+
+}
 }
 
 .secondary:hover {

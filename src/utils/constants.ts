@@ -131,6 +131,7 @@ export const verticalMenuList = [
 export const sortOptions = [
   { id: 1, text: 'Новое', name: 'novelty' },
   { id: 2, text: 'Цена', name: 'price' },
-  { id: 3, text: 'Популярное(-)', name: 'popular' },
-  { id: 4, text: 'В наличии', name: 'inStock' },
+  { id: 3, text: 'Скидка', name: 'discount' },
+  { id: 4, text: 'Популярное(-)', name: 'popular' },
+  { id: 5, text: 'В наличии', name: 'inStock' },
 ];

@@ -5,7 +5,7 @@ import { getCookie } from './cookie';
 export const basketApi = createApi({
   reducerPath: 'basketApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${config.baseUrl}/api`,
+    baseUrl: `${config.baseUrl}/api/cart`,
     prepareHeaders: (headers) => {
       const token = getCookie('accessToken');
       if (token) {
@@ -18,40 +18,42 @@ export const basketApi = createApi({
 
   endpoints: (build) => ({
     getBasketInfo: build.query({
-      query: () => '/cart/get-cart',
-      providesTags: ['basketControl']
+      query: () => '/get-cart',
+      providesTags: ['basketControl'],
     }),
-    
 
     addItem: build.mutation({
-        query: (body) =>({
-           url: '/cart/add-to-cart',
-           method: "POST",
-           body
-        }),
-        invalidatesTags: ['basketControl']
+      query: (body) => ({
+        url: '/add-to-cart',
+        method: 'POST',
+        body,
       }),
+      invalidatesTags: ['basketControl'],
+    }),
 
-      deleteItem: build.mutation({
-        query: (body) =>({
-           url: '/cart/remove-from-cart',
-           method: "DELETE",
-           body
-        }),
-        invalidatesTags: ['basketControl']
+    deleteItem: build.mutation({
+      query: (body) => ({
+        url: '/remove-from-cart',
+        method: 'DELETE',
+        body,
       }),
+      invalidatesTags: ['basketControl'],
+    }),
 
-
-      deletePosition: build.mutation({
-        query: (body) =>({
-           url: '/cart/remove-all-copies',
-           method: "DELETE",
-           body
-        }),
-        invalidatesTags: ['basketControl']
+    deletePosition: build.mutation({
+      query: (body) => ({
+        url: '/cart/remove-all-copies',
+        method: 'DELETE',
+        body,
       }),
-
+      invalidatesTags: ['basketControl'],
+    }),
   }),
 });
 
-export const {useAddItemMutation, useDeleteItemMutation, useDeletePositionMutation, useGetBasketInfoQuery} = basketApi
+export const {
+  useAddItemMutation,
+  useDeleteItemMutation,
+  useDeletePositionMutation,
+  useGetBasketInfoQuery,
+} = basketApi;

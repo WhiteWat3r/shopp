@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { FaCartArrowDown, FaRegCheckCircle } from 'react-icons/fa';
+import { FaCartArrowDown, FaHeart, FaRegCheckCircle, FaRegHeart } from 'react-icons/fa';
 import { RxCross2 } from 'react-icons/rx';
 
 import style from './GamePage.module.scss';
 import Loader from '../../components/Loader/Loader.tsx';
 import LastSaleItem from '../../components/LastSaleItem/LastSaleItem';
-import { addGameToCart } from '../../utils/api';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { ICategorAndGenreType, IGame } from '../../services/gameTypes';
 import { FaPenAlt } from 'react-icons/fa';
 import { config } from '../../utils/request.ts';
 import { finishPrice } from '../../utils/finishPrice.ts';
 import { ScreenCarousel } from '../../components/ScreenCarousel/ScreenCarousel.tsx';
-import { checkPlatform } from '../../utils/checkPlatform.ts';
 import { Button } from '../../UI/Button/Button.tsx';
 
 import { IoPeopleOutline, IoPersonOutline, IoGameControllerOutline } from 'react-icons/io5';
@@ -30,14 +28,20 @@ import { useFetchOneCardQuery } from '../../utils/gameApi.ts';
 import { LikeButton } from '../../UI/LikeButton/LikeButton.tsx';
 import { platformIcons } from '../../components/FilterParameters/FilterParameters.tsx';
 import { useAddItemMutation, useDeleteItemMutation } from '../../utils/basketApi.ts';
+import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../utils/favoriteApi.ts';
+import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
 
 function GamePage() {
   const [addItem] = useAddItemMutation();
   const [deleteItem] = useDeleteItemMutation();
 
-  const userRole = useAppSelector((store) => store.user?.user?.role);
+  const [addToFavorite] = useAddFavoriteMutation();
+  const [removeFromFavorite] = useDeleteFavoriteMutation();
 
-  const dispatch = useAppDispatch();
+  // const navigate = useNavigate()
+  // const dispatch = useAppDispatch()
+
+  const userRole = useAppSelector((store) => store.user?.user?.role);
 
   const { gameId } = useParams();
 
@@ -62,11 +66,10 @@ function GamePage() {
     await addItem({ gameId, quantity: 1 });
   };
 
-
   const handleRemoveFromCart = async () => {
     await deleteItem({ gameId, quantity: 1 });
   };
-  
+
   const formatGameCategories = game?.categories?.map(
     (category: ICategorAndGenreType) => category.description,
   );
@@ -82,6 +85,20 @@ function GamePage() {
     .join(', ');
 
   const platform = platformIcons.find((platform) => platform.platform === game?.platform?.name);
+
+  const linkToLoad = () => {
+    window.location.href = `https://store.steampowered.com/app/${game.steamApi}`;
+  };
+
+  const isFavorite = useAppSelector((store) =>
+    store.user?.favorites?.games?.find((favorite) => favorite.id.toString() === gameId),
+  );
+
+  console.log(isFavorite);
+
+  const toggleLike = async () => {
+    isFavorite ? await removeFromFavorite({ gameId }) : await addToFavorite({ gameId });
+  };
 
   return (
     <section className={style.section}>
@@ -116,25 +133,35 @@ function GamePage() {
             <div className={style.card__info}>
               <div className={style.card__infoContainer}>
                 {game.availability ? (
-                  <p className={style.card__inStock}>
+                  <p className={classNames(style.card__inStock, style.card__inStock_inStock)}>
                     Есть в наличии <FaRegCheckCircle />
                   </p>
                 ) : (
-                  <p className={style.card__inStock}>
+                  <p className={classNames(style.card__inStock, style.card__inStock_outOfStock)}>
                     Нет в наличии <RxCross2 />
                   </p>
                 )}
 
                 <div className={style.card__priceBlock}>
-                  <h3 className={style.card__cost}>{finishPrice(game.price, game.discount)} ₽</h3>
-                  <p className={style.card__discount}>-{game.discount}%</p>/
-                  <p className={style.card__oldPrice}>{game.price} ₽</p>
+                  <h3 className={style.card__cost}>
+                    {!game.isFree && game.price !== 0
+                      ? `${finishPrice(game.price, game.discount)} ₽`
+                      : 'Бесплатная игра'}
+                  </h3>
+
+                  {game.discount !== 0 && !game.isFree && game.price !== 0 && (
+                    <>
+                      <p className={style.card__discount}>-{game.discount}%</p>/
+                      <p className={style.card__oldPrice}>{game.price} ₽</p>
+                    </>
+                  )}
                 </div>
 
                 <div className={style.card__infoItem}>
                   <p className={style.card__parameter}>Активация: </p>
-
-                  <span className={style.card__platform}>{platform?.icon} </span>
+                  <Link to={`/catalog`} className={style.card__platform}>
+                    {platform?.icon}{' '}
+                  </Link>
                 </div>
 
                 <div className={style.card__infoItem}>
@@ -232,11 +259,11 @@ function GamePage() {
               <div className={style.card__buttons}>
                 <div className={style.card__likeButtonContainer}>
                   <LikeButton
-                    onClick={handleAddToCart}
+                    onClick={toggleLike}
                     type={'button'}
-                    active={false}
+                    active={isFavorite}
                     isDisabled={false}>
-                    <CiHeart size={'100%'} />
+                    {isFavorite ? <IoMdHeart  size={`100%`} /> : <IoIosHeartEmpty  size={`100%`} />}
                   </LikeButton>
                 </div>
 
@@ -244,27 +271,33 @@ function GamePage() {
                   {countInBasket > 0 ? (
                     <div className={style.card__doubleButton}>
                       <Button
-                      onClick={handleRemoveFromCart}
-                      type={'button'}
-                      mode={'primary'}
-                      isDisabled={false}>
-                      -
-                    </Button>
-                    <span className={style.card__count}>{countInBasket}</span>
-                    <Button
-                      onClick={handleAddToCart}
-                      type={'button'}
-                      mode={'primary'}
-                      isDisabled={countInBasket === 3}>
-                      +
-                    </Button></div>
+                        onClick={handleRemoveFromCart}
+                        type={'button'}
+                        mode={'primary'}
+                        isDisabled={false}>
+                        -
+                      </Button>
+                      <span className={style.card__count}>{countInBasket}</span>
+                      <Button
+                        onClick={handleAddToCart}
+                        type={'button'}
+                        mode={'primary'}
+                        isDisabled={countInBasket === 3}>
+                        +
+                      </Button>
+                    </div>
                   ) : (
                     <Button
-                      onClick={handleAddToCart}
+                      onClick={!game.isFree ? handleAddToCart : linkToLoad}
                       type={'button'}
                       mode={'primary'}
-                      isDisabled={false}>
-                      Купить
+                      isDisabled={!game.availability}>
+                      {game.price === 0 || game.isFree
+                        ? 'Скачать'
+                        : game.availability
+                        ? 'Купить'
+                        : 'Нет в наличии'}
+                      {/* {game.availability ? 'Купить' : 'Нет в наличии'} */}
                     </Button>
                   )}
                 </div>

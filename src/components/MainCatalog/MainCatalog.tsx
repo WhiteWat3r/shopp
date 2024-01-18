@@ -26,7 +26,7 @@ function MainCatalog() {
               {games
                 // .slice(0, 9)
                 .map((game: IGame) => (
-                  <CatalogItem key={game.id} card={game} />
+                  <CatalogItem key={game.id} game={game} />
                 ))}
             </ul>
           ) : (

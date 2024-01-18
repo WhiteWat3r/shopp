@@ -70,6 +70,8 @@ export const filterAndSortArray = (
         return res.sort(
           (a, b) => finishPrice(b.price, b.discount) - finishPrice(a.price, a.discount),
         );
+        case 'discount':
+          return res.sort((a, b) =>  b.discount -  a.discount );
       case 'popular':
         return res;
       default:
