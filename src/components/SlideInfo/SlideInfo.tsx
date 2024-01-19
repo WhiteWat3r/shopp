@@ -8,7 +8,6 @@ import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../api/fav
 import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
 
 export const SlideInfo = ({ slideInfo }: ISlideInfo) => {
-
   // const [addItem] = useAddItemMutation();
   const [addToFavorite] = useAddFavoriteMutation();
   const [removeFromFavorite] = useDeleteFavoriteMutation();
@@ -17,39 +16,44 @@ export const SlideInfo = ({ slideInfo }: ISlideInfo) => {
   //   await addItem({ gameId: slideInfo.id, quantity: 1 });
   // };
 
-
   const isFavorite = useAppSelector((store) =>
     store.user?.favorites?.games?.find((favorite) => favorite.id === slideInfo.id),
   );
   const toggleLike = async () => {
-    isFavorite ? await removeFromFavorite({ gameId:slideInfo.id  }) : await addToFavorite({ gameId: slideInfo.id});
+    isFavorite
+      ? await removeFromFavorite({ gameId: slideInfo.id })
+      : await addToFavorite({ gameId: slideInfo.id });
   };
 
   return (
     <div className={style.info}>
-      <h2 className={style.info__header}>{slideInfo.name}</h2>
+      {slideInfo && (
+        <>
+          <h2 className={style.info__header}>{slideInfo.name}</h2>
 
-      <p className={style.info__description}>{slideInfo.info}</p>
+          <p className={style.info__description}>{slideInfo.info}</p>
 
-      <p className={style.info__genres}>{formatRussianGenres(slideInfo.genres)}</p>
+          <p className={style.info__genres}>{formatRussianGenres(slideInfo.genres)}</p>
 
-      <div className={style.info__buttons}>
-        <div className={style.info__likeButtonContainer}>
-        <LikeButton
-                    onClick={toggleLike}
-                    type={'button'}
-                    active={!!isFavorite}
-                    isDisabled={false}>
-                    {isFavorite ? <IoMdHeart  size={`100%`} /> : <IoIosHeartEmpty  size={`100%`} />}
-                  </LikeButton>
-        </div>
-{/* 
-        <div className={style.info__buttonContainer}>
-          <Button onClick={handleAddToCart} type={'button'} mode={'primary'} isDisabled={false}>
-            Купить
-          </Button>
-        </div> */}
-      </div>
+          <div className={style.info__buttons}>
+            <div className={style.info__likeButtonContainer}>
+              <LikeButton
+                onClick={toggleLike}
+                type={'button'}
+                active={!!isFavorite}
+                isDisabled={false}>
+                {isFavorite ? <IoMdHeart size={`100%`} /> : <IoIosHeartEmpty size={`100%`} />}
+              </LikeButton>
+            </div>
+            {/* 
+  <div className={style.info__buttonContainer}>
+    <Button onClick={handleAddToCart} type={'button'} mode={'primary'} isDisabled={false}>
+      Купить
+    </Button>
+  </div> */}
+          </div>
+        </>
+      )}
     </div>
   );
 };

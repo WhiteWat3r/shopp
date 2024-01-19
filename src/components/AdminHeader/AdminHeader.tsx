@@ -14,7 +14,7 @@ export const AdminHeader = () => {
         <Link to="/admin/games">
           <li className={style.header__link}>Игры</li>
         </Link>
-        {allGames && <Link to={`/admin/game/${allGames[allGames.length - 1].id + 1}`}>
+        {allGames && <Link to={`/admin/game/${allGames[allGames.length - 1]?.id + 1}`}>
           <li className={style.header__link}>Создать игру</li>
         </Link>} 
         <li className={style.header__link}>Розыгрыши</li>
