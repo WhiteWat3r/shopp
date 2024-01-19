@@ -1,12 +1,13 @@
 import { config } from '../../utils/config';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules';
 
 import './ScreenCarousel.scss';
 import 'swiper/scss';
 import 'swiper/scss/pagination';
+import { IScreenCarousel } from './ScreenCarouselTypes';
 
-export const ScreenCarousel = ({ screenshots }) => {
+export const ScreenCarousel = ({ screenshots }: IScreenCarousel) => {
 
   return (
       <div className={'carousel'}>

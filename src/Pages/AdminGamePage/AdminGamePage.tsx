@@ -140,33 +140,34 @@ export const AdminGamePage = () => {
     gameData.genres = genres.filter((genre) => selectedGenres.includes(genre.id));
     gameData.pcRequirements = minimumRequirements;
 
- try {
-    let response;
-
-    if (game) {
-      response = await updateGame({ game: gameData, id: gameId });
-    } else {
-      response = await createGame(gameData);
-    }
-
-    console.log(response);
+    try {
+      let response;
     
-    if (response.data.success) {
       if (game) {
-        toast.success('Карточка успешно обновлена');
+        response = await updateGame({ game: gameData, id: gameId });
       } else {
-        toast.success('Карточка успешно создана');
+        response = await createGame(gameData);
       }
-
-    } else {
-      throw new Error(`Ошибка: ${response.data.message}`);
+    
+      console.log(response);
+    
+      if ('data' in response && response.data.success) {
+        if (game) {
+          toast.success('Карточка успешно обновлена');
+        } else {
+          toast.success('Карточка успешно создана');
+        }
+      } else {
+        throw new Error(`Ошибка`);
+      }
+    
+      await gamesInfo.refetch();
+    
+    } catch (error) {
+      console.error('Error updating/creating game', error);
+      toast.error(`Ошибка}`);
     }
-    await gamesInfo.refetch();
-
-  } catch (error) {
-    console.error('Error updating/creating game', error);
-    toast.error(`Ошибка: ${error.message}`);
-  }
+    
 };
 
   const handleLoadFromSteam = async () => {

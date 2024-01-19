@@ -4,13 +4,10 @@ import { IBasketItem } from './BasketItemTypes';
 import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import {
-  basketApi,
   useAddItemMutation,
   useDeleteItemMutation,
   useDeletePositionMutation,
 } from '../../api/basketApi';
-import { formatRegionString } from '../../utils/regions';
-import { formatRussianGenres } from '../../utils/fornatGenres';
 import { config } from '../../utils/config';
 
 export const BasketItem = ({ basketGame }: IBasketItem) => {

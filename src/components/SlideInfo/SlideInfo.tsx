@@ -1,24 +1,21 @@
-import { CiHeart } from 'react-icons/ci';
 import { LikeButton } from '../../UI/LikeButton/LikeButton';
 import style from './SlideInfo.module.scss';
-import { Button } from '../../UI/Button/Button';
 import { formatRussianGenres } from '../../utils/fornatGenres';
 import { ISlideInfo } from './SlideInfoTypes';
 import { useAppSelector } from '../../services/store';
-import { useAddItemMutation } from '../../api/basketApi';
+// import { useAddItemMutation } from '../../api/basketApi';
 import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../api/favoriteApi';
-import { FaHeart } from 'react-icons/fa';
 import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
 
 export const SlideInfo = ({ slideInfo }: ISlideInfo) => {
 
-  const [addItem] = useAddItemMutation();
+  // const [addItem] = useAddItemMutation();
   const [addToFavorite] = useAddFavoriteMutation();
   const [removeFromFavorite] = useDeleteFavoriteMutation();
 
-  const handleAddToCart = async () => {
-    await addItem({ gameId: slideInfo.id, quantity: 1 });
-  };
+  // const handleAddToCart = async () => {
+  //   await addItem({ gameId: slideInfo.id, quantity: 1 });
+  // };
 
 
   const isFavorite = useAppSelector((store) =>
@@ -41,7 +38,7 @@ export const SlideInfo = ({ slideInfo }: ISlideInfo) => {
         <LikeButton
                     onClick={toggleLike}
                     type={'button'}
-                    active={isFavorite}
+                    active={!!isFavorite}
                     isDisabled={false}>
                     {isFavorite ? <IoMdHeart  size={`100%`} /> : <IoIosHeartEmpty  size={`100%`} />}
                   </LikeButton>

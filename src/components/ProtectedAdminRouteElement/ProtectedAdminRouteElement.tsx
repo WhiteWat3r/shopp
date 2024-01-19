@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '../../services/store';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 export const ProtectedAdminRouteElement = ({ element }: { element: React.ReactNode }) => {
   const location = useLocation();

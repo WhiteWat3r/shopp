@@ -1,4 +1,3 @@
-import React from 'react';
 import { iButton } from './ButtonTypes';
 import classNames from 'classnames';
 import style from './Button.module.scss';

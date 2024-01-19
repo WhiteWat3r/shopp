@@ -1,4 +1,3 @@
-import { russianRequirements } from '../../utils/constants';
 import { ITab } from '../DescriptionTab/DescriptionTabTypes';
 import style from './RequirementsTab.module.scss';
 

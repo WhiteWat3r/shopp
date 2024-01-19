@@ -6,14 +6,13 @@ import { CiHeart, CiShoppingCart } from 'react-icons/ci';
 import { IoPersonOutline } from 'react-icons/io5';
 import { IoMdMenu } from 'react-icons/io';
 import { MdOutlineContactSupport } from 'react-icons/md';
-import { FaQuestion } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { VerticalMenu } from '../VerticalMenu/VerticalMenu';
 import { SlMagnifier } from 'react-icons/sl';
 
 export const Header = () => {
   // console.log(window.innerWidth);
-  const isUserOnCatalog = location.pathname.startsWith('/catalog');
+  // const isUserOnCatalog = location.pathname.startsWith('/catalog');
 
   const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
   const [isMenuVisible, setIsMenuVisible] = useState(false);

@@ -10,7 +10,7 @@ import BasketPage from './Pages/BasketPage/BasketPage';
 import NotFoundPage from './Pages/NotFoundPage/NotFoundPage';
 import { AdminPage } from './Pages/AdminGameListPage/AdminPage';
 import { AdminHeader } from './components/AdminHeader/AdminHeader';
-import { useAppDispatch, useAppSelector } from './services/store';
+import { useAppDispatch } from './services/store';
 import { gameApi } from './api/gameApi';
 import { useEffect } from 'react';
 import { setGames } from './services/slices/game';

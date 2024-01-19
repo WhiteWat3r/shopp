@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import style from './FilterParameters.module.scss';
 import { FaSteam } from 'react-icons/fa';
 import { SiEpicgames, SiGogdotcom, SiOrigin } from 'react-icons/si';
-import { ChangeEvent, HtmlHTMLAttributes, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { SearchInput } from '../SearchInput/SearchInput';
 import { useAppDispatch, useAppSelector } from '../../services/store';
@@ -51,7 +51,7 @@ export const FilterParameters = () => {
   const [publisherName, setPublisherName] = useState('');
   const [allPublishers, setAllPublishers] = useState<IPublisher[]>([]);
 
-  const { getValues, register, handleSubmit, watch, setValue } = useForm<FilterForm>();
+  const { register, watch, setValue } = useForm<FilterForm>();
 
   const platforms = watch('platforms', []);
   const checkedPublishers = watch('publishers', []);

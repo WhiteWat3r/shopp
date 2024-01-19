@@ -9,7 +9,7 @@ export const GameRequirements = ({
   setMinimumRequirements,
 }: IGameRequirements) => {
   useEffect(() => {
-    const parseHTML = (htmlString: string) => {
+    const parseHTML = (htmlString: any) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(htmlString, 'text/html');
       const minimumRequirementsNode = doc.body.lastChild;

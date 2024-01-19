@@ -25,23 +25,27 @@ function LoginPage() {
   const onClick = async (e: any) => {
     e.preventDefault();
     try {
+      let response;
+  
       if (!isRegistrationPage) {
-        const { data } = await login({ email, password });
-        console.log(data);
-        setCookie('accessToken', data.token, { path: '/' });
-        dispatch(setUser(data.user));
+        response = await login({ email, password });
       } else {
-        const { data } = await registration({ email, password });
-        console.log(data);
-        setCookie('accessToken', data.token, { path: '/' });
-        dispatch(setUser(data.user));
+        response = await registration({ email, password });
       }
-
-      navigate('/profile', { replace: true });
+  
+      if ('data' in response && response.data) {
+        console.log(response.data);
+        setCookie('accessToken', response.data.token, { path: '/' });
+        dispatch(setUser(response.data.user));
+        navigate('/profile', { replace: true });
+      } else {
+        console.log(response);
+      }
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   return (
     <section className={style.section}>

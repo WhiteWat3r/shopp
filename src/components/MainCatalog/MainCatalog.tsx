@@ -8,10 +8,6 @@ function MainCatalog() {
   const allGames = useAppSelector((store) => store.games?.gamesList);
   const searchedGames = useAppSelector((store) => store.games.searchedGames);
 
-  const onClick = () => {
-    // dispatch(refreshToken())
-  };
-
   const games = searchedGames || allGames;
 
   return (

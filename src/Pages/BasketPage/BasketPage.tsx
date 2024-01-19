@@ -1,11 +1,8 @@
 import style from './BasketPage.module.scss';
 
 import Loader from '../../components/Loader/Loader';
-import { IGame } from '../../types/gameTypes';
 import { BasketItem } from '../../components/BasketItem/BasketItem';
 import { PayWidget } from '../../components/PayWidget/PayWidget';
-import { basketApi, useGetBasketInfoQuery } from '../../api/basketApi';
-import { useEffect } from 'react';
 import { IBasketGame } from '../../types/basketTypes';
 import { useAppSelector } from '../../services/store';
 

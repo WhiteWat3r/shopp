@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-import { FaCartArrowDown, FaHeart, FaRegCheckCircle, FaRegHeart } from 'react-icons/fa';
+import { FaCartArrowDown, FaRegCheckCircle } from 'react-icons/fa';
 import { RxCross2 } from 'react-icons/rx';
 
 import style from './GamePage.module.scss';
 import Loader from '../../components/Loader/Loader.tsx';
 import LastSaleItem from '../../components/LastSaleItem/LastSaleItem';
-import { useAppDispatch, useAppSelector } from '../../services/store';
-import { ICategorAndGenreType, IGame } from '../../types/gameTypes.ts';
+import {  useAppSelector } from '../../services/store';
+import { ICategorAndGenreType } from '../../types/gameTypes.ts';
 import { FaPenAlt } from 'react-icons/fa';
 import { config } from '../../utils/config.ts';
 import { finishPrice } from '../../utils/finishPrice.ts';
@@ -19,7 +18,7 @@ import { IoPeopleOutline, IoPersonOutline, IoGameControllerOutline } from 'react
 import { FaPeopleGroup } from 'react-icons/fa6';
 import { GiAchievement } from 'react-icons/gi';
 import { PiVirtualRealityLight } from 'react-icons/pi';
-import { CiCloudOn, CiHeart } from 'react-icons/ci';
+import { CiCloudOn } from 'react-icons/ci';
 
 import classNames from 'classnames';
 import { genres } from '../../utils/constants.ts';
@@ -58,7 +57,6 @@ function GamePage() {
   const {
     data: game,
     isLoading: isLoadingGame,
-    isError: isErrorOneCard,
   } = useFetchOneCardQuery(gameId);
   // console.log(game);
 
@@ -261,7 +259,7 @@ function GamePage() {
                   <LikeButton
                     onClick={toggleLike}
                     type={'button'}
-                    active={isFavorite}
+                    active={!!isFavorite}
                     isDisabled={false}>
                     {isFavorite ? <IoMdHeart  size={`100%`} /> : <IoIosHeartEmpty  size={`100%`} />}
                   </LikeButton>

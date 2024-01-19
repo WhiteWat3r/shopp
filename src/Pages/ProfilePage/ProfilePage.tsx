@@ -1,7 +1,6 @@
 import style from './ProfilePage.module.scss';
 import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import ProfileOrdersPage from '../ProfileOrdersPage/ProfileOrdersPage';
-import { logout } from '../../utils/api';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { useAuthLogoutMutation } from '../../api/authApi';
 import { deleteCookie } from '../../utils/cookie';

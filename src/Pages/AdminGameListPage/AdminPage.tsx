@@ -1,9 +1,9 @@
-import { Route, Routes } from 'react-router-dom';
-import { AdminGamePage } from '../AdminGamePage/AdminGamePage';
-import { AdminGameListPage } from '../../components/AdminGameListPage/AdminGameListPage';
-import { useAppDispatch } from '../../services/store';
-import { useEffect } from 'react';
-import { AdminWrapper } from '../../components/AdminWrapper/AdminWrapper';
+// import { Route, Routes } from 'react-router-dom';
+// import { AdminGamePage } from '../AdminGamePage/AdminGamePage';
+// import { AdminGameListPage } from '../../components/AdminGameListPage/AdminGameListPage';
+// import { useAppDispatch } from '../../services/store';
+// import { useEffect } from 'react';
+// import { AdminWrapper } from '../../components/AdminWrapper/AdminWrapper';
 
 export const AdminPage = () => {
   // const dispatch = useAppDispatch();

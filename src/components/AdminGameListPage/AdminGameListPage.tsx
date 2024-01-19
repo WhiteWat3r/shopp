@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import style from './AdminGameListPage.module.scss';
 import { useAppSelector } from '../../services/store';
 import { AdminGameList } from '../AdminGameList/AdminGameList';
