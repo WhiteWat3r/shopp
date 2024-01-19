@@ -1,7 +1,7 @@
 import style from './MainCatalog.module.scss';
-import CatalogItem from '../CatalogItem/CatalogItem';
+
 import { useAppSelector } from '../../services/store';
-import { IGame } from '../../types/gameTypes';
+// import { IGame } from '../../types/gameTypes';
 import Loader from '../Loader/Loader';
 
 function MainCatalog() {
@@ -17,7 +17,7 @@ function MainCatalog() {
 
       {games ? (
         <>
-          {games.length !== 0 ? (
+          {/* {games.length !== 0 ? (
             <ul className={style.catalog__list}>
               {games
                 // .slice(0, 9)
@@ -27,7 +27,7 @@ function MainCatalog() {
             </ul>
           ) : (
             <p className={style.catalog__notFound}>Ничего не нашли (</p>
-          )}
+          )} */}
         </>
       ) : (
         <Loader />
