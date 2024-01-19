@@ -3,6 +3,7 @@ import style from './MainCatalog.module.scss';
 import { useAppSelector } from '../../services/store';
 // import { IGame } from '../../types/gameTypes';
 import Loader from '../Loader/Loader';
+import { CatalogGame } from '../CatalogGame/CatalogGame';
 
 function MainCatalog() {
   const allGames = useAppSelector((store) => store.games?.gamesList);
@@ -17,17 +18,17 @@ function MainCatalog() {
 
       {games ? (
         <>
-          {/* {games.length !== 0 ? (
+          {games.length !== 0 ? (
             <ul className={style.catalog__list}>
               {games
                 // .slice(0, 9)
                 .map((game: IGame) => (
-                  <CatalogItem key={game.id} game={game} />
+                  <CatalogGame key={game.id} game={game} />
                 ))}
             </ul>
           ) : (
             <p className={style.catalog__notFound}>Ничего не нашли (</p>
-          )} */}
+          )}
         </>
       ) : (
         <Loader />
