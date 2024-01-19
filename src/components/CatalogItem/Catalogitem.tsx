@@ -8,7 +8,7 @@ import { finishPrice } from '../../utils/finishPrice';
 import { config } from '../../utils/config';
 import { platformIcons } from '../FilterParameters/FilterParameters';
 
-export const CatalogItem = ({ game }: ICatalogItem) => {
+const CatalogItem = ({ game }: ICatalogItem) => {
   const dispatch = useDispatch();
   const onMouseEnter = () => {
     dispatch(setCurrentGame(game));
@@ -51,3 +51,5 @@ export const CatalogItem = ({ game }: ICatalogItem) => {
     </li>
   );
 };
+
+export default CatalogItem
