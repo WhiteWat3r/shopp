@@ -1,5 +1,5 @@
 import style from './MainCatalog.module.scss';
-// import { CatalogItem } from '../CatalogItem/CatalogItem';
+import { CatalogItem } from '../CatalogItem/CatalogItem';
 import { useAppSelector } from '../../services/store';
 import { IGame } from '../../types/gameTypes';
 import Loader from '../Loader/Loader';
@@ -22,8 +22,7 @@ function MainCatalog() {
               {games
                 // .slice(0, 9)
                 .map((game: IGame) => (
-                  // <CatalogItem key={game.id} game={game} />
-                  <p>{game.name}</p>
+                  <CatalogItem key={game.id} game={game} />
                 ))}
             </ul>
           ) : (
