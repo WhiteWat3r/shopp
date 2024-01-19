@@ -1,7 +1,7 @@
 import style from './MainCatalog.module.scss';
 
 import { useAppSelector } from '../../services/store';
-// import { IGame } from '../../types/gameTypes';
+import { IGame } from '../../types/gameTypes';
 import Loader from '../Loader/Loader';
 import { CatalogGame } from '../CatalogGame/CatalogGame';
 
