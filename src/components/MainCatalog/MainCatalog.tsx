@@ -1,5 +1,5 @@
 import style from './MainCatalog.module.scss';
-import { CatalogItem } from '../CatalogItem/CatalogItem';
+import { CatalogItem } from '../CatalogItem/CatalogItem.tsx';
 import { useAppSelector } from '../../services/store';
 import { IGame } from '../../types/gameTypes';
 import Loader from '../Loader/Loader';
