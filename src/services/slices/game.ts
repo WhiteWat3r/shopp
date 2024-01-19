@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction  } from "@reduxjs/toolkit";
 import { cards } from "../../data";
-import { IGame } from "../gameTypes";
+import { IGame } from "../../types/gameTypes";
 
 
 interface IGameState {

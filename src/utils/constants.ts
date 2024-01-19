@@ -83,7 +83,7 @@ export const genres = [
   { id: 23, description: 'Indie', translation: 'Инди' },
   { id: 25, description: 'Adventure', translation: 'Приключения' },
   { id: 28, description: 'Simulation', translation: 'Симулятор' },
-  { id: 29, description: 'Massively Multiplayer', translation: 'Массово многопользовательская' },
+  { id: 29, description: 'Massively Multiplayer', translation: 'ММО' },
   { id: 37, description: 'Free to Play', translation: 'Бесплатная' },
   { id: 50, description: 'Accounting', translation: 'Бухгалтерия' },
   { id: 51, description: 'Animation & Modeling', translation: 'Анимация и моделирование' },
@@ -121,7 +121,6 @@ export const russianRequirements = [
 
 export const verticalMenuList = [
   { id: 1, text: 'Главная', link: '/' },
-
   { id: 2, text: 'Каталог', link: '/catalog' },
   { id: 3, text: 'О нас', link: '/faq' },
   { id: 4, text: 'Поддержка', link: '/support' },

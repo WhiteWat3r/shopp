@@ -8,7 +8,10 @@
 
    padding: 0 40px;
     @include font-body-card;
+    display: flex;
+    align-items: center;
 
+    
     &__container {
         display: flex;
         flex-direction: row;
@@ -20,8 +23,13 @@
         align-items: center;
         justify-content: space-between;
     }
-    &__logo {
+
+    &__logoContainer {
         height: 50px;
+    }
+
+    &__logo {
+        height: 100%;
         border-radius: 10px;
         width: 90px;
     }
@@ -37,10 +45,6 @@
         list-style: none;
     }
 
-    // &__item {
-    //     display: flex;
-    //     align-items: center;
-    // }
 
 
     &__navLink {
@@ -56,6 +60,8 @@
     }
     &__nav {
         display: flex;
+        align-items: center;
+
     }
 
     &__search {

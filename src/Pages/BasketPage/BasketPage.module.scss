@@ -17,6 +17,7 @@
   max-width: 1520px;
   width: 100%;
   margin: 0 auto;
+  
 }
 
 .basket {
@@ -29,7 +30,7 @@
   min-height: 710px;
   // background-color: $section-second;
   // position: relative;
-
+justify-content: space-between;
   &__items {
     width: 65%;
     // padding:  25px 10px;

@@ -1,4 +1,4 @@
-import { config } from '../../utils/request';
+import { config } from '../../utils/config';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { A11y, Autoplay, Navigation, Pagination } from 'swiper/modules';
 

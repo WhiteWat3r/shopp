@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import style from './AdminGameList.module.scss'
 import ReactPaginate from 'react-paginate'
-import { IGame } from '../../services/gameTypes';
+import { IGame } from '../../types/gameTypes';
 import { iAdminGameList } from './AdminGameListTypes';
 import { AdminGameItem } from '../AdminGameItem/AdminGameItem';
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";

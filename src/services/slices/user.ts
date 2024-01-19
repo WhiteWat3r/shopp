@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IBasketGame } from '../basketTypes';
-import { IGame } from '../gameTypes';
+import { IBasketGame } from '../../types/basketTypes';
+import { IGame } from '../../types/gameTypes';
 
 interface IUserState {
   user: {
@@ -14,14 +14,22 @@ interface IUserState {
   };
   isAuthenticated: boolean;
   authProcess: boolean;
-  favorites: {games : IGame[]};
+  favorites: { games: IGame[] };
 }
 
 const initialState: IUserState = {
-  user: {},
+  user: {
+    email: '',
+    role: '',
+    basket: {
+      id: 0,
+      userId: 0,
+      basket_games: [],
+    },
+  },
   isAuthenticated: false,
   authProcess: false,
-  favorites: {},
+  favorites: { games: [] },
 };
 
 export const userSlice = createSlice({
@@ -33,7 +41,15 @@ export const userSlice = createSlice({
       state.isAuthenticated = true;
     },
     clearUser: (state) => {
-      state.user = {};
+      state.user = {
+        email: '',
+        role: '',
+        basket: {
+          id: 0,
+          userId: 0,
+          basket_games: [],
+        },
+      };
       state.isAuthenticated = false;
     },
     setBasket: (state, action) => {

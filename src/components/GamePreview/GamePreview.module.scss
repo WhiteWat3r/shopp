@@ -55,11 +55,12 @@
     list-style: none;
     color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    margin: 25px auto 25px;
+    // margin: 25px auto 25px;
     padding: 0;
-    max-width: 300px;
+    // max-width: 300px;
+    margin: 25px 0 0;
     
   }
 
@@ -68,7 +69,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 100px;
+    // max-width: 100px;
     width: 30%;
     height: 30px;
     font-size: 10px;
@@ -82,7 +83,7 @@
   &__description {
     max-width: 350px;
     width: 100%;
-    margin: 0 auto 20px;
+    margin: 25px auto 25px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;

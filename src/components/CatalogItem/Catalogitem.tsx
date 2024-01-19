@@ -5,7 +5,7 @@ import { ICatalogItem } from './CatalogItemTypes';
 import { setCurrentGame } from '../../services/slices/game';
 import { formatRussianGenres } from '../../utils/fornatGenres';
 import { finishPrice } from '../../utils/finishPrice';
-import { config } from '../../utils/request';
+import { config } from '../../utils/config';
 import { platformIcons } from '../FilterParameters/FilterParameters';
 
 export const CatalogItem = ({ game }: ICatalogItem) => {

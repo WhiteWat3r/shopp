@@ -17,7 +17,7 @@ export const Sort = () => {
   return (
     <ul className={style.sort}>
       {sortOptions.map((option) => (
-        <li>
+        <li key={option.id}>
           <button
             onClick={() => setSortOption(option.name)}
             className={classNames(

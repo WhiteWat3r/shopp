@@ -8,10 +8,10 @@ import {
   useAddItemMutation,
   useDeleteItemMutation,
   useDeletePositionMutation,
-} from '../../utils/basketApi';
+} from '../../api/basketApi';
 import { formatRegionString } from '../../utils/regions';
 import { formatRussianGenres } from '../../utils/fornatGenres';
-import { config } from '../../utils/request';
+import { config } from '../../utils/config';
 
 export const BasketItem = ({ basketGame }: IBasketItem) => {
   const [addItem] = useAddItemMutation();

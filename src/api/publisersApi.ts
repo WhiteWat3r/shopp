@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { config } from './request';
+import { config } from '../utils/config';
 
 export const publishersApi = createApi({
   reducerPath: 'publishersApi',

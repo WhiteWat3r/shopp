@@ -3,7 +3,7 @@ import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import ProfileOrdersPage from '../ProfileOrdersPage/ProfileOrdersPage';
 import { logout } from '../../utils/api';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { useAuthLogoutMutation } from '../../utils/authApi';
+import { useAuthLogoutMutation } from '../../api/authApi';
 import { deleteCookie } from '../../utils/cookie';
 import { clearUser } from '../../services/slices/user';
 import { FavoritesPage } from '../FavoritesPage/FavoritesPage';

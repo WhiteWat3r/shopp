@@ -5,10 +5,10 @@ import './Slider.scss';
 import 'swiper/scss';
 import 'swiper/scss/pagination';
 import { useAppSelector } from '../../services/store';
-import { config } from '../../utils/request';
+import { config } from '../../utils/config';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { IGame } from '../../services/gameTypes';
+import { IGame } from '../../types/gameTypes';
 import { SlideInfo } from '../SlideInfo/SlideInfo';
 
 export const Slider = ({}) => {

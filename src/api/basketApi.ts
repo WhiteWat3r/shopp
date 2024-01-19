@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { config } from './request';
-import { getCookie } from './cookie';
+import { config } from '../utils/config';
+import { getCookie } from '../utils/cookie';
 
 export const basketApi = createApi({
   reducerPath: 'basketApi',
@@ -42,7 +42,7 @@ export const basketApi = createApi({
 
     deletePosition: build.mutation({
       query: (body) => ({
-        url: '/cart/remove-all-copies',
+        url: '/remove-all-copies',
         method: 'DELETE',
         body,
       }),

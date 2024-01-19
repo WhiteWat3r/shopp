@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { config } from "./request";
-import { getCookie } from "./cookie";
+import { config } from "../utils/config";
+import { getCookie } from "../utils/cookie";
 
 export const favoriteApi = createApi({
     reducerPath: 'favoriteApi',

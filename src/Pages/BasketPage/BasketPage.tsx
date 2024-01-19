@@ -1,12 +1,12 @@
 import style from './BasketPage.module.scss';
 
 import Loader from '../../components/Loader/Loader';
-import { IGame } from '../../services/gameTypes';
+import { IGame } from '../../types/gameTypes';
 import { BasketItem } from '../../components/BasketItem/BasketItem';
 import { PayWidget } from '../../components/PayWidget/PayWidget';
-import { basketApi, useGetBasketInfoQuery } from '../../utils/basketApi';
+import { basketApi, useGetBasketInfoQuery } from '../../api/basketApi';
 import { useEffect } from 'react';
-import { IBasketGame } from '../../services/basketTypes';
+import { IBasketGame } from '../../types/basketTypes';
 import { useAppSelector } from '../../services/store';
 
 function BasketPage() {

@@ -1,5 +1,5 @@
 import { FilterForm } from '../components/FilterParameters/FilterParameters';
-import { IGame } from '../services/gameTypes';
+import { IGame } from '../types/gameTypes';
 import { finishPrice } from './finishPrice';
 import { formatAndCheckDate } from './formatAndCheckDate';
 
@@ -17,7 +17,15 @@ import { formatAndCheckDate } from './formatAndCheckDate';
 //  }
 
 const paramsFilter = (array: string[], startArray: IGame[], type: string) => {
-  return array.map((platform) => startArray.filter((game) => game[type].name === platform)).flat();
+  console.log('массив платформ', array);
+  console.log('массив игр', startArray);
+  console.log('Тип (платформа или издатель)', type);
+
+  return array
+    .map((param) =>
+      startArray.filter((game) => game[type as 'publisher' | 'platform'].name === param),
+    )
+    .flat();
 };
 
 export const filterAndSortArray = (
@@ -70,8 +78,8 @@ export const filterAndSortArray = (
         return res.sort(
           (a, b) => finishPrice(b.price, b.discount) - finishPrice(a.price, a.discount),
         );
-        case 'discount':
-          return res.sort((a, b) =>  b.discount -  a.discount );
+      case 'discount':
+        return res.sort((a, b) => b.discount - a.discount);
       case 'popular':
         return res;
       default:

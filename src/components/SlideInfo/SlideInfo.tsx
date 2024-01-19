@@ -5,8 +5,8 @@ import { Button } from '../../UI/Button/Button';
 import { formatRussianGenres } from '../../utils/fornatGenres';
 import { ISlideInfo } from './SlideInfoTypes';
 import { useAppSelector } from '../../services/store';
-import { useAddItemMutation } from '../../utils/basketApi';
-import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../utils/favoriteApi';
+import { useAddItemMutation } from '../../api/basketApi';
+import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../api/favoriteApi';
 import { FaHeart } from 'react-icons/fa';
 import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
 

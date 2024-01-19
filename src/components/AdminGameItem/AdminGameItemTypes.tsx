@@ -1,4 +1,4 @@
-import { IGame } from "../../services/gameTypes";
+import { IGame } from "../../types/gameTypes";
 
 export interface IAdminGameItem {
     item: IGame

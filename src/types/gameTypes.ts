@@ -4,7 +4,6 @@ export interface IGame {
   price: number;
   discount: number;
   img: string;
-  categoriess: string[];
   categories: ICategorAndGenreType[];
   platformId: number;
   info: string;

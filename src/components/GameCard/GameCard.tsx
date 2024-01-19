@@ -1,20 +1,17 @@
 import style from './GameCard.module.scss';
-import { config } from '../../utils/request';
+import { config } from '../../utils/config';
 import { IGameCard } from './GameCardTypes';
 import { Button } from '../../UI/Button/Button';
 import { Link } from 'react-router-dom';
 import { MouseEvent } from 'react';
 import { formatRussianGenres } from '../../utils/fornatGenres';
-import { platformIcons } from '../FilterParameters/FilterParameters';
-import { useAddItemMutation, useDeleteItemMutation } from '../../utils/basketApi';
+import { useAddItemMutation, useDeleteItemMutation } from '../../api/basketApi';
 import { useAppSelector } from '../../services/store';
 
 import { HiShoppingCart, HiOutlineShoppingCart } from 'react-icons/hi';
 import { finishPrice } from '../../utils/finishPrice';
 import { LikeButton } from '../../UI/LikeButton/LikeButton';
-import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../utils/favoriteApi';
-import { FaHeart } from 'react-icons/fa';
-import { CiHeart } from 'react-icons/ci';
+import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../api/favoriteApi';
 import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
 
 export const GameCard = ({ game }: IGameCard) => {
@@ -32,7 +29,7 @@ export const GameCard = ({ game }: IGameCard) => {
     store.user?.favorites?.games?.find((favorite) => favorite.id === game.id),
   );
 
-  console.log(isFavorite);
+  // console.log(isFavorite);
 
   const toggleLike = async () => {
     isFavorite
@@ -56,7 +53,7 @@ export const GameCard = ({ game }: IGameCard) => {
   return (
     <li className={style.popularItem} key={game.id}>
       <div className={style.popularItem__likeButtonContainer}>
-        <LikeButton onClick={toggleLike} type={'button'} active={isFavorite} isDisabled={false}>
+        <LikeButton onClick={toggleLike} type={'button'} active={!!isFavorite} isDisabled={false}>
           {isFavorite ? <IoMdHeart size={`100%`} /> : <IoIosHeartEmpty size={`100%`} />}
         </LikeButton>
       </div>

@@ -8,8 +8,8 @@ import { SearchInput } from '../SearchInput/SearchInput';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { filterAndSortArray } from '../../utils/filtering';
 import { setSearchedGames } from '../../services/slices/game';
-import { useFetchAllPublishersQuery } from '../../utils/publisersApi';
-import { IPublisher } from '../../services/gameTypes';
+import { useFetchAllPublishersQuery } from '../../api/publisersApi';
+import { IPublisher } from '../../types/gameTypes';
 
 export const platformIcons = [
   {

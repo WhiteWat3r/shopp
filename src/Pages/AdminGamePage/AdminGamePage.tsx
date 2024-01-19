@@ -1,10 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
 import style from './AdminGamePage.module.scss';
-import { ICategorAndGenreType, IGame } from '../../services/gameTypes';
+import { ICategorAndGenreType, IGame } from '../../types/gameTypes';
 import { useAppSelector } from '../../services/store';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { config } from '../../utils/request';
+import { config } from '../../utils/config';
 import { finishPrice } from '../../utils/finishPrice';
 import { categories } from '../../utils/constants';
 import { genres } from '../../utils/constants';
@@ -13,7 +13,7 @@ import {
   useAddGameMutation,
   useFetchAllCardsQuery,
   useUpdateGameMutation,
-} from '../../utils/gameApi';
+} from '../../api/gameApi';
 import { toast } from 'react-hot-toast';
 import { formatAndCheckDate } from '../../utils/formatAndCheckDate';
 import { Input } from '../../UI/Input/Input';

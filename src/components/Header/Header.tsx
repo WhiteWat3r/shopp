@@ -1,7 +1,7 @@
 import styles from './Header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../services/store';
-import logoImage from '../../assets/logo.png';
+import logoImage from '../../assets/logov2.svg';
 import { CiHeart, CiShoppingCart } from 'react-icons/ci';
 import { IoPersonOutline } from 'react-icons/io5';
 import { IoMdMenu } from 'react-icons/io';
@@ -46,8 +46,8 @@ export const Header = () => {
         {currentWidth > 960 ? (
           <>
             <nav className={styles.header__nav}>
-              <Link to="/">
-                <img src={'logoImage'} alt="Логотип" className={styles.header__logo} />
+              <Link to="/" className={styles.header__logoContainer}>
+                <img src={logoImage} alt="Логотип" className={styles.header__logo} />
               </Link>
               <ul className={styles.header__menu}>
                 <li className={styles.header__item}>

@@ -8,9 +8,9 @@ import style from './GamePage.module.scss';
 import Loader from '../../components/Loader/Loader.tsx';
 import LastSaleItem from '../../components/LastSaleItem/LastSaleItem';
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { ICategorAndGenreType, IGame } from '../../services/gameTypes';
+import { ICategorAndGenreType, IGame } from '../../types/gameTypes.ts';
 import { FaPenAlt } from 'react-icons/fa';
-import { config } from '../../utils/request.ts';
+import { config } from '../../utils/config.ts';
 import { finishPrice } from '../../utils/finishPrice.ts';
 import { ScreenCarousel } from '../../components/ScreenCarousel/ScreenCarousel.tsx';
 import { Button } from '../../UI/Button/Button.tsx';
@@ -24,11 +24,11 @@ import { CiCloudOn, CiHeart } from 'react-icons/ci';
 import classNames from 'classnames';
 import { genres } from '../../utils/constants.ts';
 import { GameTab } from '../../components/GameTab/GameTab.tsx';
-import { useFetchOneCardQuery } from '../../utils/gameApi.ts';
+import { useFetchOneCardQuery } from '../../api/gameApi.ts';
 import { LikeButton } from '../../UI/LikeButton/LikeButton.tsx';
 import { platformIcons } from '../../components/FilterParameters/FilterParameters.tsx';
-import { useAddItemMutation, useDeleteItemMutation } from '../../utils/basketApi.ts';
-import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../utils/favoriteApi.ts';
+import { useAddItemMutation, useDeleteItemMutation } from '../../api/basketApi.ts';
+import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../api/favoriteApi.ts';
 import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
 
 function GamePage() {

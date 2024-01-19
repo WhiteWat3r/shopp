@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { config } from './request';
-import { getCookie } from './cookie';
+import { config } from '../utils/config';
 
 export const steamApi = createApi({
   reducerPath: 'steamApi',

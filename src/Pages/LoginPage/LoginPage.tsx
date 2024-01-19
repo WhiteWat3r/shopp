@@ -4,7 +4,7 @@ import Input from '@mui/joy/Input';
 // import { login } from '../../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../services/store';
-import { useAuthLoginMutation, useAuthRegisterMutation } from '../../utils/authApi';
+import { useAuthLoginMutation, useAuthRegisterMutation } from '../../api/authApi';
 import { setCookie } from '../../utils/cookie';
 import { setUser } from '../../services/slices/user';
 

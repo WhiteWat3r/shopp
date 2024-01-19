@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, type TypedUseSelectorHook, useSelector } from 'react-redux';
-import { gameApi } from '../utils/gameApi';
+import { gameApi } from '../api/gameApi';
 import { gamesSlice } from './slices/game';
-import { basketApi } from '../utils/basketApi';
-import { steamApi } from '../utils/steamAPI';
-import { publishersApi } from '../utils/publisersApi';
-import { authApi } from '../utils/authApi';
+import { basketApi } from '../api/basketApi';
+import { steamApi } from '../api/steamAPI';
+import { publishersApi } from '../api/publisersApi';
+import { authApi } from '../api/authApi';
 import { userSlice } from './slices/user';
-import { favoriteApi } from '../utils/favoriteApi';
+import { favoriteApi } from '../api/favoriteApi';
 
 export const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,

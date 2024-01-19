@@ -3,7 +3,6 @@ import { AdminGamePage } from '../AdminGamePage/AdminGamePage';
 import { AdminGameListPage } from '../../components/AdminGameListPage/AdminGameListPage';
 import { useAppDispatch } from '../../services/store';
 import { useEffect } from 'react';
-import { refreshToken } from '../../utils/api';
 import { AdminWrapper } from '../../components/AdminWrapper/AdminWrapper';
 
 export const AdminPage = () => {
@@ -22,7 +21,7 @@ export const AdminPage = () => {
           <Route path="/game/:gameId" element={<AdminGamePage />} />
         </Routes>
       </AdminWrapper> */}
-      <>sadsad</>
+      <>думаем</>
     </>
   );
 };

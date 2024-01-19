@@ -10,7 +10,7 @@ const favorites = useAppSelector(store => store.user?.favorites?.games)
   return (
     <ul className={style.favorites}>
      {favorites?.map(game => (
-        <GameCard game={game}/>
+        <GameCard game={game} key={game.id}/>
      ))}
     </ul>
   )

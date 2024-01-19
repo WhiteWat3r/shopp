@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { config } from './request';
-import { getCookie } from './cookie';
+import { config } from '../utils/config';
+import { getCookie } from '../utils/cookie';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -26,14 +26,14 @@ export const authApi = createApi({
 
     authLogin: build.mutation({
       query: (body) => ({
-        url: 'login',
+        url: '/login',
         method: 'POST',
         body,
       }),
     }),
     authLogout: build.mutation({
       query: () => ({
-        url: 'logout',
+        url: '/logout',
         method: 'POST',
       }),
     }),
