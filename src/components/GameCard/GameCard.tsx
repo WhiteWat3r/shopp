@@ -77,12 +77,15 @@ export const GameCard = ({ game }: IGameCard) => {
             <h3 className={style.popularItem__name}>{game.name}</h3>
 
             <div className={style.popularItem__prices}>
+              
               {game.discount !== 0 && (
                 <span className={style.popularItem__oldPrice}>{game.price} ₽</span>
               )}
 
               <span className={style.popularItem__price}>
-                {finishPrice(game.price, game.discount)} ₽
+
+                {game.isFree ? 'Free' : `${finishPrice(game.price, game.discount)} ₽`}
+
               </span>
             </div>
 
