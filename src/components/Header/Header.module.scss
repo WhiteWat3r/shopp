@@ -2,15 +2,9 @@
 @import '../../styles/mixins.scss';
 
 .header {
-
    background-color: $section-second;
-//    background-color: $section-first;
-
    padding: 0 40px;
-    @include font-body-card;
-    display: flex;
-    align-items: center;
-
+   @include font-body-card;
     
     &__container {
         display: flex;
@@ -35,24 +29,19 @@
     }
     &__menu {
         display: flex;
-        /* grid-template-columns: 1fr 1fr 1fr 1fr; */
         max-width: 1150px;
         width: 100%;
-        /* row-gap: 30px; */
         gap: 30px;
         margin-right: 30px;
         justify-content: flex-start;
         list-style: none;
     }
 
-
-
     &__navLink {
 
         text-decoration: none;
         color: white;
         position: relative;
-        // border-bottom: 2px solid red;
         display: flex;
         align-items: center;
         gap: 3px;
@@ -61,7 +50,6 @@
     &__nav {
         display: flex;
         align-items: center;
-
     }
 
     &__search {
@@ -78,8 +66,6 @@
   }
 
   &__search::placeholder {
-
-
     color: $section-second;
 }
 
@@ -92,12 +78,6 @@
     height: 30px;
     width: 30px;
 }
-
-// &__magnifier {
-//     margin-left: auto;
-//     margin-right: 20px;
-//     cursor: pointer;
-// }
 }
     
 
@@ -110,15 +90,10 @@
     align-items: center;
     margin: 0;
     gap: 30px;
-    // margin-right: 40px;
     padding: 0;
     list-style: none;
 }
 
-
-// .navLink:last-child {
-//     width: 62px;
-// }
 
 .count {
     position: absolute;

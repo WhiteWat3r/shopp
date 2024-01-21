@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { FaCartArrowDown, FaRegCheckCircle } from 'react-icons/fa';
 import { RxCross2 } from 'react-icons/rx';
@@ -38,7 +38,9 @@ function GamePage() {
   const [addToFavorite] = useAddFavoriteMutation();
   const [removeFromFavorite] = useDeleteFavoriteMutation();
 
-  // const navigate = useNavigate()
+  const isAuthenticated = useAppSelector((store) => store.user.isAuthenticated);
+
+  const navigate = useNavigate()
   // const dispatch = useAppDispatch()
 
   const userRole = useAppSelector((store) => store.user?.user?.role);
@@ -65,11 +67,20 @@ function GamePage() {
   console.log('status', status);
   
   const handleAddToCart = async () => {
-    await addItem({ gameId, quantity: 1 });
+    if (isAuthenticated) {
+      await addItem({ gameId, quantity: 1 });
+
+    } else {
+      navigate('/login')
+    }
   };
 
   const handleRemoveFromCart = async () => {
-    await deleteItem({ gameId, quantity: 1 });
+    if (isAuthenticated) {
+      await deleteItem({ gameId, quantity: 1 });
+    } else {
+      navigate('/login')
+    }
   };
 
   const formatGameCategories = game?.categories?.map(

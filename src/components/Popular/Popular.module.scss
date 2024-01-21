@@ -26,3 +26,19 @@
     margin: 20px auto 15px;
    }
 }
+@media screen and (max-width: 600px) {
+  .popular {
+    // max-width: calc((100vw - 460px*2 - 90px));
+    // width: calc((100vw - 30px*2 - 60px)/3);
+    padding: 0 15px;
+
+    &__container {
+      grid-template-columns: 1fr;
+
+      justify-content: center;
+    }
+    &__header {
+      text-align: center;
+    }
+  }
+}

@@ -53,10 +53,10 @@ const dispatch = useAppDispatch()
           <nav className={style.navBlock}>
             <ul className={style.linkList}>
             <li>
-                <NavLink to="/profile" className={style.link}>Инфо(in progress)</NavLink>
+                <NavLink to="/profile" className={style.link}>Инфо (in progress)</NavLink>
               </li>
               <li>
-                <NavLink to="/profile/orders" className={style.link}>История заказов(in progress)</NavLink>
+                <NavLink to="/profile/orders" className={style.link}>Мои покупки (in progress)</NavLink>
               </li>
               <li>
                 <NavLink to="/profile" className={style.link}>Партнерская программа(-)</NavLink>

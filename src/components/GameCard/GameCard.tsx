@@ -2,7 +2,7 @@ import style from './GameCard.module.scss';
 import { config } from '../../utils/config';
 import { IGameCard } from './GameCardTypes';
 import { Button } from '../../UI/Button/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MouseEvent } from 'react';
 import { formatRussianGenres } from '../../utils/fornatGenres';
 import { useAddItemMutation, useDeleteItemMutation } from '../../api/basketApi';
@@ -18,6 +18,9 @@ export const GameCard = ({ game }: IGameCard) => {
   const [addItem] = useAddItemMutation();
   const [deleteItem] = useDeleteItemMutation();
 
+  const isAuthenticated = useAppSelector((store) => store.user.isAuthenticated);
+  const navigate = useNavigate();
+
   const [addToFavorite] = useAddFavoriteMutation();
   const [removeFromFavorite] = useDeleteFavoriteMutation();
 
@@ -29,24 +32,30 @@ export const GameCard = ({ game }: IGameCard) => {
     store.user?.favorites?.games?.find((favorite) => favorite.id === game.id),
   );
 
-  // console.log(isFavorite);
-
   const toggleLike = async () => {
-    isFavorite
-      ? await removeFromFavorite({ gameId: game.id })
-      : await addToFavorite({ gameId: game.id });
+  
+
+    if (isAuthenticated) {
+      isFavorite
+        ? await removeFromFavorite({ gameId: game.id })
+        : await addToFavorite({ gameId: game.id });
+    } else {
+      navigate('/login');
+    }
   };
-  // const platform = platformIcons.find((platform) => platform.platform === game?.platform?.name);
 
   const handleCartAction = async (e: MouseEvent<HTMLInputElement, MouseEvent>) => {
     e.preventDefault();
 
-    const quantity = 1;
 
-    if (!isOnBasket) {
-      await addItem({ gameId: game.id, quantity });
+
+    const quantity = 1;
+    if (isAuthenticated) {
+      isOnBasket
+      ? await deleteItem({ gameId: game.id, quantity })
+      : await addItem({ gameId: game.id, quantity });
     } else {
-      await deleteItem({ gameId: game.id, quantity });
+      navigate('/login');
     }
   };
 
@@ -77,15 +86,12 @@ export const GameCard = ({ game }: IGameCard) => {
             <h3 className={style.popularItem__name}>{game.name}</h3>
 
             <div className={style.popularItem__prices}>
-              
               {game.discount !== 0 && (
                 <span className={style.popularItem__oldPrice}>{game.price} ₽</span>
               )}
 
               <span className={style.popularItem__price}>
-
                 {game.isFree ? 'Free' : `${finishPrice(game.price, game.discount)} ₽`}
-
               </span>
             </div>
 

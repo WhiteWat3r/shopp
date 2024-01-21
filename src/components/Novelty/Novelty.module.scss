@@ -26,16 +26,10 @@
   }
 }
 
-// @media screen and (max-width: 800px) {
-//   .novelty {
-//     padding: 0 15px;
-//   }
-// }
+
 
 @media screen and (max-width: 600px) {
   .novelty {
-    // max-width: calc((100vw - 460px*2 - 90px));
-    // width: calc((100vw - 30px*2 - 60px)/3);
     padding: 0 15px;
 
     &__container {

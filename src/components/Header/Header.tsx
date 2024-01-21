@@ -2,18 +2,14 @@ import styles from './Header.module.scss';
 import { Link, NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../services/store';
 import logoImage from '../../assets/logov2.svg';
-import { CiHeart, CiShoppingCart } from 'react-icons/ci';
+import { CiHeart, CiHome, CiShoppingCart } from 'react-icons/ci';
 import { IoPersonOutline } from 'react-icons/io5';
 import { IoMdMenu } from 'react-icons/io';
 import { MdOutlineContactSupport } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { VerticalMenu } from '../VerticalMenu/VerticalMenu';
-import { SlMagnifier } from 'react-icons/sl';
 
 export const Header = () => {
-  // console.log(window.innerWidth);
-  // const isUserOnCatalog = location.pathname.startsWith('/catalog');
-
   const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
@@ -50,6 +46,12 @@ export const Header = () => {
               </Link>
               <ul className={styles.header__menu}>
                 <li className={styles.header__item}>
+                  <NavLink to="/" className={styles.header__navLink}>
+                    <CiHome size={18} />
+                    Главная
+                  </NavLink>
+                </li>
+                <li className={styles.header__item}>
                   <NavLink to="/catalog" className={styles.header__navLink}>
                     <IoMdMenu size={20} />
                     Каталог
@@ -69,20 +71,7 @@ export const Header = () => {
               </ul>
             </nav>
 
-            {/* {isUserOnCatalog ? (
-              // <SlMagnifier className={styles.header__magnifier} size={15} />
-              ''
-            ) : (
-              <input className={styles.header__search} placeholder={'Поиск игры'} />
-            )} */}
-
             <ul className={styles.rightBar}>
-            <li className={styles.header__item}>
-                    <NavLink to="/catalog" className={styles.header__navLink}>
-                      Поиск(?)
-                      <SlMagnifier className={styles.header__magnifier} size={15} />
-                    </NavLink>
-                  </li>
               {isAuthenticated && (
                 <>
                   <li className={styles.header__item}>

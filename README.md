@@ -1,30 +1,37 @@
-# React + TypeScript + Vite
+# Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+GameKeyMarket - магазин для продажи и приобретения игровых ключей. Сервис предоставляет пользователям удобное пространство для поиска и покупки ключей к различным видеоиграм.
 
-Currently, two official plugins are available:
+### Функционал
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Поиск, фильтрация, сортировка товара в каталоге
+- Административная часть / добавление, изменение, удаление* карточки товара
+- Возможность добавить товар в избранное/корзину
+- Авторизация/регистрация
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Стек
 
-- Configure the top-level `parserOptions` property like this:
+- HTML
+- SCSS
+- React
+- Redux Toolkit Query
+- TypeScript
+- Vite
+- Адаптив (главная, страница товара...)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Доработки/исправления
+
+- Адатив на страницах профиля, каталога, корзины, административных страницах
+- Доработка профиля пользователя, возможность изменения почты/пароля/фотографии.
+- Реворк слайдера на главной странице, возможность загружать в слайдер не только карточки товаров
+- Добавление модального окна со скриншотами товара
+- Покрытие приложения тестами
+- Возможность восстановленяи пароля на странице авторизации
+- Возможность добавления товаров в избранное/корзину неавторизованным юзером
+- Расширение фильтрации, сортировки. Фильтрация по категориям/жанрам, сортировка от от + к - и наоборот. 
+
+
+- Чат поддержки юзер-админ на WebSockets**
+
