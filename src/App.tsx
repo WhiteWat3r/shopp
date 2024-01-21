@@ -8,7 +8,7 @@ import ProfilePage from './Pages/ProfilePage/ProfilePage';
 import GamePage from './Pages/GamePage/GamePage';
 import BasketPage from './Pages/BasketPage/BasketPage';
 import NotFoundPage from './Pages/NotFoundPage/NotFoundPage';
-import { AdminPage } from './Pages/AdminGameListPage/AdminPage';
+// import { AdminPage } from './Pages/AdminGameListPage/AdminPage';
 import { AdminHeader } from './components/AdminHeader/AdminHeader';
 import { useAppDispatch } from './services/store';
 import { gameApi } from './api/gameApi';
@@ -63,7 +63,7 @@ function App() {
 
               {/* Административные страницы */}
               <Route path="/admin/*" element={<ProtectedAdminRouteElement element={<Outlet />} />}>
-                <Route index element={<AdminPage />} />
+                {/* <Route index element={<AdminPage />} /> */}
                 <Route path="games" element={<AdminGameListPage />} />
                 <Route path="game/:gameId" element={<AdminGamePage />} />
               </Route>

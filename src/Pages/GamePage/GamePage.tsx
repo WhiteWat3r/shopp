@@ -5,7 +5,6 @@ import { RxCross2 } from 'react-icons/rx';
 
 import style from './GamePage.module.scss';
 import Loader from '../../components/Loader/Loader.tsx';
-import LastSaleItem from '../../components/LastSaleItem/LastSaleItem';
 import {  useAppSelector } from '../../services/store';
 import { ICategorAndGenreType } from '../../types/gameTypes.ts';
 import { FaPenAlt } from 'react-icons/fa';
@@ -29,6 +28,8 @@ import { platformIcons } from '../../components/FilterParameters/FilterParameter
 import { useAddItemMutation, useDeleteItemMutation } from '../../api/basketApi.ts';
 import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../api/favoriteApi.ts';
 import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
+// import { SimilarGame } from '../../components/SimilarGame/SimilarGame.tsx';
+import { Similar } from '../../components/Similar/Similar.tsx';
 
 function GamePage() {
   const [addItem] = useAddItemMutation();
@@ -52,14 +53,17 @@ function GamePage() {
     return basketItem ? basketItem.quantity : 0;
   });
 
-  console.log(countInBasket);
+  // console.log(countInBasket);
 
   const {
     data: game,
-    isLoading: isLoadingGame,
+    status
   } = useFetchOneCardQuery(gameId);
   // console.log(game);
+  // const gameInfo = useFetchOneCardQuery(gameId);
 
+  console.log('status', status);
+  
   const handleAddToCart = async () => {
     await addItem({ gameId, quantity: 1 });
   };
@@ -92,15 +96,17 @@ function GamePage() {
     store.user?.favorites?.games?.find((favorite) => favorite.id.toString() === gameId),
   );
 
-  console.log(isFavorite);
+  // console.log(isFavorite);
 
   const toggleLike = async () => {
     isFavorite ? await removeFromFavorite({ gameId }) : await addToFavorite({ gameId });
   };
 
+
+  
   return (
     <section className={style.section}>
-      {isLoadingGame ? (
+      {status !== 'fulfilled' ? (
         <Loader />
       ) : (
         <div className={style.card}>
@@ -306,12 +312,18 @@ function GamePage() {
           <GameTab game={game} />
         </div>
       )}
-      <div className={style.similar}>
+      {/* <div className={style.similar}>
         <h3 className={style.similar__header}>Похожие игры</h3>
         <ul className={style.similar__list}>
-          <LastSaleItem />
+          <SimilarGame game={game}/>
+          <SimilarGame game={game}/>
+          <SimilarGame game={game}/>
+          <SimilarGame game={game}/>
+
         </ul>
-      </div>
+      </div> */}
+
+      <Similar mainGame={game}/>
     </section>
   );
 }

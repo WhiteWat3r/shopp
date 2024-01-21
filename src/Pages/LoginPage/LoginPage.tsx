@@ -1,90 +1,132 @@
 import { useState } from 'react';
 import style from './LoginPage.module.scss';
-import Input from '@mui/joy/Input';
-// import { login } from '../../utils/api';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../services/store';
 import { useAuthLoginMutation, useAuthRegisterMutation } from '../../api/authApi';
 import { setCookie } from '../../utils/cookie';
 import { setUser } from '../../services/slices/user';
+import { Button } from '../../UI/Button/Button';
+import { Input } from '../../UI/Input/Input';
+import { useForm } from 'react-hook-form';
+
+type AuthForm = {
+  email: string;
+  password: string;
+};
 
 function LoginPage() {
   const [isRegistrationPage, setIsRegistrationPage] = useState(false);
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const [login] = useAuthLoginMutation();
   const [registration] = useAuthRegisterMutation();
 
+  const [erorAuth, setErrorAuth] = useState<any>('');
   const dispatch = useAppDispatch();
-  // console.log(email);
-  // console.log(password);
+
   const navigate = useNavigate();
 
-  const onClick = async (e: any) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    setValue,
+    clearErrors,
+    formState: { errors },
+  } = useForm<AuthForm>();
+
+  const onSubmit = async () => {
+    const loginData = getValues();
+
+    console.log(loginData);
+
     try {
       let response;
-  
+
       if (!isRegistrationPage) {
-        response = await login({ email, password });
+        response = await login(loginData);
       } else {
-        response = await registration({ email, password });
+        response = await registration(loginData);
       }
-  
+
       if ('data' in response && response.data) {
         console.log(response.data);
         setCookie('accessToken', response.data.token, { path: '/' });
         dispatch(setUser(response.data.user));
         navigate('/profile', { replace: true });
       } else {
-        console.log(response);
+        setErrorAuth(response);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  
+  console.log(errors);
+  console.log('erorAuth', erorAuth);
 
   return (
     <section className={style.section}>
-      <form className={style.login}>
-        <div className={style.headerDiv}>
-          <h1 className={style.header}>{isRegistrationPage ? 'Регистрация' : 'Вход'}</h1>
+      <form className={style.login} onSubmit={handleSubmit(onSubmit)}>
+        <div className={style.login__header}>
+          <h1 className={style.login__name}>{isRegistrationPage ? 'Регистрация' : 'Вход'}</h1>
         </div>
+
         <Input
-          autoComplete="true"
-          color="neutral"
-          disabled={false}
-          size="lg"
-          variant="soft"
-          placeholder="Почта"
-          className={style.input}
-          onChange={(e) => setEmail(e.target.value)}
+          type={'text'}
+          validation={{
+            ...register('email', { required: 'Это обязательноe поле', pattern: /^\S+@\S+$/i }),
+          }}
+          mode={'primary'}
+          id={'email'}
         />
+
+        <p className={style.login__danger}>
+          {errors.email?.type === 'pattern' ? 'Неверный формат почты' : errors.email?.message}
+        </p>
+
         <Input
-          autoComplete="on"
-          color="neutral"
-          size="lg"
-          variant="soft"
-          placeholder="Пароль"
-          className={style.input}
-          onChange={(e) => setPassword(e.target.value)}
+          type={passwordShown ? 'text' : 'password'}
+          validation={{ ...register('password', { required: 'Это обязательноe поле' }) }}
+          mode={'primary'}
+          id={'password'}
+          visible={passwordShown}
+          onButtonClick={() => setPasswordShown(!passwordShown)}
         />
-        <div className={style.submitBlock}>
-          <button type="submit" className={style.formButton} onClick={onClick}>
-            {isRegistrationPage ? 'Зарегистрироваться' : 'Войти'}
-          </button>
-          <button
-            type="button"
-            className={style.forgotPassword}
-            >
+        <p className={style.login__danger}>{errors.password?.message}</p>
+
+        <div className={style.login__buttons}>
+          <div className={style.login__buttonContainer}>
+            <Button
+              mode={'primary'}
+              type={'submit'}
+              isDisabled={false}
+              onClick={() => setErrorAuth('')}>
+              {isRegistrationPage ? 'Зарегистрироваться' : 'Войти'}
+            </Button>
+          </div>
+          <Link to={'/'} className={style.login__link}>
             Забыли пароль?
-          </button>
+          </Link>
         </div>
+        <p className={style.login__danger}>
+          {erorAuth?.error?.data?.message === 'Пользователь не найден' &&
+            'Неверные почта или пароль'}
+        </p>
       </form>
-      <button type='button' onClick={() => setIsRegistrationPage(!isRegistrationPage)} className={style.registration}> {isRegistrationPage ? 'Войти' : 'Зарегистрироваться'}</button>
+      <Link
+        to={'/login'}
+        onClick={() => {
+          setIsRegistrationPage(!isRegistrationPage);
+          setValue('email', '');
+          setValue('password', '');
+          clearErrors(['email', 'password']);
+
+        }}
+        className={style.login__link}>
+        {isRegistrationPage
+          ? 'Уже зарегистрированы? Войти'
+          : 'Еще нет аккаунта? Зарегистрироваться'}
+      </Link>
     </section>
   );
 }

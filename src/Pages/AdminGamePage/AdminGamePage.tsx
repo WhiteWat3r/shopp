@@ -117,9 +117,9 @@ export const AdminGamePage = () => {
       setValue('price', game.price);
       setValue('discount', game.discount);
       setValue('finishPrice', finishPrice(game.price, game.discount));
-      setValue('img', `http://localhost:5000/${game.img}`);
+      setValue('img', `${config.baseUrl}/${game.img}`);
       setValue('imgUrl', game.imgUrl);
-      setValue('screenshots', game?.screenshots);
+      setValue('screenshots', game?.screenshots.map(screen => `${config.baseUrl}/${screen}`));
       setSelectedCategories(game.categories.map((category) => category.id));
       setValue('preOrderStatus', game.preOrderStatus);
       setValue('dlcStatus', game.dlcStatus);
@@ -201,11 +201,25 @@ export const AdminGamePage = () => {
       setValue('imgUrl', data[steamApi].data.header_image);
       setValue('img', data[steamApi].data.header_image);
       setValue('isFree', data[steamApi].data.is_free ? true : false);
+
+
+
+
       if (!data[steamApi].data.is_free) {
-        setValue('price', Math.floor(data[steamApi].data.price_overview?.initial / 100));
+        if(data[steamApi].data.price_overview.currency === 'RUB') {
+          setValue('price', Math.floor(data[steamApi].data.price_overview?.initial / 100));
+        } else {
+          setValue('price', Math.floor(data[steamApi].data.price_overview?.initial));
+
+        }
+
       } else {
         setValue('price', 0);
       }
+
+
+
+
       setValue('discount', 0);
       setValue('finishPrice', 0);
       setSelectedCategories(
@@ -460,10 +474,13 @@ export const AdminGamePage = () => {
           </div>
         </div>
 
+            <div className={style.game__screenList}>
         {screenshots?.map((screen, index) => (
+          <li>
           <img src={screen} alt="Скриншот" key={index} className={style.game__screen} />
+          </li>
         ))}
-
+</div>
         <div className={style.game__setScreenshots}>
           <label htmlFor={'screen'}>Сссылка на скрин</label>
           <input
@@ -478,7 +495,7 @@ export const AdminGamePage = () => {
           </button>
         </div>
 
-        <button type="submit" className={style.addDesired}>
+        <button type={"submit"} className={style.addDesired}>
           Сохранить изменения
         </button>
       </form>

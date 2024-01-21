@@ -3,9 +3,8 @@
     display: flex;
 
     flex-wrap: wrap;
-    gap: 10px;
+    // gap: 10px;
     row-gap: 20px;
-    justify-content: space-around;
     // max-width: 1140px;
     // width: 100%;
     margin: 0 auto;
@@ -13,4 +12,6 @@
     // outline: auto;
     // max-height: 300px;
     height: fit-content;
+    justify-content: space-between;
+
 }

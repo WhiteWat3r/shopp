@@ -1,3 +1,6 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
 .input {
   appearance: none;
   border: none;
@@ -8,6 +11,17 @@
   padding: 0.4em;
   color: #ffffff;
   border-radius: 10px;
+
+  &__check {
+    background-color: transparent;
+    border: none;
+    color: $white-default;
+    position: absolute;
+    width: 40px;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
 .secondary {
@@ -74,10 +88,13 @@
 .container {
   display: flex;
   flex-direction: column;
+  position: relative;
+
 
   &_primary {
     gap: 5px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
+    gap: 10px;
   }
   &_secondary,
   &_tertiary {

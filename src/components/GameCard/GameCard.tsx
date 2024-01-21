@@ -68,7 +68,7 @@ export const GameCard = ({ game }: IGameCard) => {
         {game.discount !== 0 && (
           <>
             <span className={style.popularItem__percent} />
-            <span className={style.popularItem__discount}>-{game.discount}%</span>
+            <span className={style.popularItem__discount}>{game.discount}%</span>
           </>
         )}
 

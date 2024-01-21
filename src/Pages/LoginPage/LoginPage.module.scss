@@ -1,57 +1,57 @@
-.section {
-    display: flex;
-    justify-content: center;
-    color: white;
-    height: 80vh;
-    align-items: center;
-    flex-direction: column;
-}
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
 
+.section {
+  display: flex;
+  justify-content: center;
+  color: white;
+  height: 80vh;
+  align-items: center;
+  flex-direction: column;
+}
 
 .login {
-    margin-bottom: 30px;
-}
+  margin-bottom: 10px;
 
-.headerDiv {
+  &__buttonContainer {
+    height: 45px;
+    min-width: 130px;
+
+    max-width: 190px;
+  }
+  &__header {
     width: 600px;
     text-align: end;
 
     border-bottom: 3px white solid;
-    margin-bottom: 60px;
-}
-
-.header {
-    margin: 0;
-    padding-bottom: 20px;
-    font-size: 35px;
-}
-
-.input {
     margin-bottom: 30px;
-}
+  }
+  &__name {
+    @include font-h1-bold;
+  }
 
-.submitBlock {
+
+  &__link {
+    text-decoration: underline;
+    color: $white-default;
+  }
+
+  &__danger {
+    color: $warning-color;
+    min-height: 20px;
+  }
+  &__buttons {
     display: flex;
     justify-content: space-between;
-
+  
     border-bottom: 3px white solid;
     padding-bottom: 30px;
     align-items: center;
+  }
+  
+
 }
 
-.formButton {
-    height: 45px;
-    border-radius: 10px;
-    border: none;
-    max-width: 200px;
-    font-size: 18px;
-}
 
-.registration {
-    /* color: rgb(61, 11, 56); */
-    border-bottom: 1px solid;
-}
 
-.forgotPassword {
-    border-bottom: 1px solid;
-}
+

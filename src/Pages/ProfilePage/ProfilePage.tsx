@@ -53,17 +53,17 @@ const dispatch = useAppDispatch()
           <nav className={style.navBlock}>
             <ul className={style.linkList}>
             <li>
-                <NavLink to="/profile" className={style.link}>Инфо</NavLink>
+                <NavLink to="/profile" className={style.link}>Инфо(in progress)</NavLink>
               </li>
               <li>
-                <NavLink to="/profile/orders" className={style.link}>История заказов</NavLink>
+                <NavLink to="/profile/orders" className={style.link}>История заказов(in progress)</NavLink>
               </li>
               <li>
-                <NavLink to="/profile" className={style.link}>Партнерская программа</NavLink>
+                <NavLink to="/profile" className={style.link}>Партнерская программа(-)</NavLink>
               </li>
 
               <li>
-                <NavLink to="/profile" className={style.link}>Обратная связь</NavLink>
+                <NavLink to="/profile" className={style.link}>Обратная связь(-)</NavLink>
               </li>
 
               <li>
@@ -76,7 +76,7 @@ const dispatch = useAppDispatch()
                 <NavLink to="/profile" className={style.link} onClick={handleLogout}>Выход</NavLink>
               </li>
               {role === 'ADMIN' &&               <li>
-                <NavLink to="/admin" className={style.link}>Админка</NavLink>
+                <NavLink to="/admin/games" className={style.link}>Админка</NavLink>
               </li>}
             </ul>
           </nav>

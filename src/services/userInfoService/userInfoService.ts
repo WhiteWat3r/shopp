@@ -4,7 +4,9 @@ import { setBasket, setFavorites, setUser } from '../slices/user';
 import { useAppDispatch, useAppSelector } from '../store';
 import { useGetBasketInfoQuery } from '../../api/basketApi';
 import { useAuthCheckQuery } from '../../api/authApi';
-import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
+import { deleteCookie, 
+  // getCookie, 
+  setCookie } from '../../utils/cookie';
 
 export const useLoadUserInfo = () => {
   const dispatch = useAppDispatch();
@@ -13,12 +15,12 @@ export const useLoadUserInfo = () => {
 
 console.log('перерисовка хука');
 
-const token = getCookie('accessToken')
+// const token = getCookie('accessToken')
 
 
 
 const userData = useAuthCheckQuery('',   
-{ skip: !token }
+// { skip: !token }
 );
 useEffect(() => {
   const updateUserAndToken = () => {

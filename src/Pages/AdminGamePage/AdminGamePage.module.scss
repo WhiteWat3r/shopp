@@ -106,8 +106,15 @@
     justify-content: space-between;
   }
   &__screen {
-    width: 400px;
-    height: 200px;
+    width: 200px;
+    height: 100px;
+  }
+  &__screenList {
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+
   }
 }
 

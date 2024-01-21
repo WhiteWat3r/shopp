@@ -112,8 +112,8 @@ export const Header = () => {
             <button className={styles.header__menuButton} onClick={handleChangeVisible}>
               <IoMdMenu size={30} />
             </button>
-            <Link to="/">
-              <img src={'logoImage'} alt="Логотип" className={styles.header__logo} />
+            <Link to="/" className={styles.header__logoContainer}>
+              <img src={logoImage} alt="Логотип" className={styles.header__logo} />
             </Link>
             <NavLink to="/profile" className={styles.header__navLink}>
               <IoPersonOutline size={30} />

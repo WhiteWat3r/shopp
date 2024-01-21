@@ -19,6 +19,8 @@ export const gameApi = createApi({
   endpoints: (build) => ({
     fetchAllCards: build.query({
       query: () => '/game',
+      providesTags: ['gameControl'],
+
     }),
     fetchOneCard: build.query({
       query: (id) => `/game/${id}`,

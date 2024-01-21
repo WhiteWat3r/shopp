@@ -48,18 +48,22 @@
     width: 0;
     height: 0;
 
-    border-top: 55px solid rgb(255, 165, 0);
+    border-top: 55px solid $green-discount;
     border-right: 55px solid transparent;
   }
   &__discount {
     position: absolute;
-    top: 2px;
-    left: 2px;
+    top: 4px;
+    left: 4px;
     @include font-preview-bold;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     max-width: 170px;
+    // max-width: 35px;
+    // width: 100%;
+    // color: $black-default;
+
   }
 
   &__block {
@@ -181,7 +185,7 @@
     max-width: calc((100vw - 30px * 2 - 60px) / 4);
 
     &__percent {
-      border-top: 55px solid rgb(255, 165, 0);
+      border-top: 55px solid  $blue-default;
       border-right: 55px solid transparent;
     }
     &__discount {
@@ -214,11 +218,13 @@
       width: 100%;
     }
     &__percent {
-      border-top: 40px solid rgb(255, 165, 0);
+      border-top: 40px solid  $blue-default;
       border-right: 40px solid transparent;
     }
     &__discount {
       font-size: 10px;
+      top: 0;
+      left: 2px;
     }
     &__info {
       gap: 10px;

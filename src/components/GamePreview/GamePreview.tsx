@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../services/store';
+import { config } from '../../utils/config';
 import { formatRussianGenres } from '../../utils/fornatGenres';
 import { platformIcons } from '../FilterParameters/FilterParameters';
 import styles from './GamePreview.module.scss';
@@ -11,7 +12,6 @@ function GamePreview() {
   const game = currentGame ? currentGame : cards && cards[0];
 
   const platform = platformIcons.find((platform) => platform.platform === game?.platform?.name);
-  
 
   // console.log(game);
   return (
@@ -24,18 +24,17 @@ function GamePreview() {
               <span className={styles.preview__platform}>{platform?.icon}</span>
             </div>
 
-            {game?.genres.length> 0 && <ul className={styles.preview__categories}>
-        {formatRussianGenres(game?.genres).split(', ').map((genre, index) => (
-                        <li className={styles.preview__item} key={index}>
-                        <p className={styles.preview__text}>
-                          {genre}
-                        </p>
-                      </li>
-        ))}
-
-
-            
-            </ul>}
+            {game?.genres.length > 0 && (
+              <ul className={styles.preview__categories}>
+                {formatRussianGenres(game?.genres)
+                  .split(', ')
+                  .map((genre, index) => (
+                    <li className={styles.preview__item} key={index}>
+                      <p className={styles.preview__text}>{genre}</p>
+                    </li>
+                  ))}
+              </ul>
+            )}
             <p className={styles.preview__description}>{game.info}</p>
 
             <ul className={styles.preview__screenshots}>
@@ -43,7 +42,7 @@ function GamePreview() {
                 game?.screenshots.slice(0, 3).map((screen, index) => (
                   <li key={index}>
                     <img
-                      src={`http://localhost:5000/${screen}`}
+                      src={`${config.baseUrl}/${screen}`}
                       alt=""
                       className={styles.preview__screenshot}
                     />
