@@ -4,23 +4,24 @@ import Loader from '../../components/Loader/Loader';
 import { BasketItem } from '../../components/BasketItem/BasketItem';
 import { PayWidget } from '../../components/PayWidget/PayWidget';
 import { IBasketGame } from '../../types/basketTypes';
-import { useAppSelector } from '../../services/store';
+import { useEffect } from 'react';
+import { useGetBasketInfoQuery } from '../../api/basketApi';
 
 function BasketPage() {
   // const { data: basketInfo } = useGetBasketInfoQuery('');
   // console.log(basketInfo);
-  
-  const basket = useAppSelector(store=> store.user?.user?.basket)
 
-console.log('basket', basket);
+  const { data: basketInfo, status, refetch } = useGetBasketInfoQuery('');
+  console.log(basketInfo);
 
+  useEffect(() => {
+    refetch();
+  }, []);
 
-
-
-
+  const basket = basketInfo?.basket;
 
   console.log(basket?.basket_games);
- 
+
   const basketGames = basket?.basket_games || [];
   // console.log(basketGames);
 
@@ -30,9 +31,7 @@ console.log('basket', basket);
 
   return (
     <section className={style.section}>
-      {!basketGames ? (
-        <Loader />
-      ) : (
+      {status === 'fulfilled' && basketInfo.basket.basket_games ? (
         <div className={style.basket}>
           <div className={style.basket__items}>
             <h1 className={style.basket__header}>Корзина</h1>
@@ -47,6 +46,8 @@ console.log('basket', basket);
           </div>
           <PayWidget />
         </div>
+      ) : (
+        <Loader />
       )}
     </section>
   );
