@@ -6,6 +6,8 @@ interface IUserState {
   user: {
     email: string;
     role: string;
+    nickname: string;
+    photo: string;
     basket: {
       id: number;
       userId: number;
@@ -20,6 +22,8 @@ interface IUserState {
 const initialState: IUserState = {
   user: {
     email: '',
+    nickname: '',
+    photo: '',
     role: '',
     basket: {
       id: 0,
@@ -43,6 +47,8 @@ export const userSlice = createSlice({
     clearUser: (state) => {
       state.user = {
         email: '',
+        nickname: '',
+        photo: '',
         role: '',
         basket: {
           id: 0,

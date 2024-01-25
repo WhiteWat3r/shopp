@@ -15,7 +15,7 @@ export const useLoadUserInfo = () => {
 
   const isAuthenticated = useAppSelector((store) => store.user?.isAuthenticated);
 
-  console.log('перерисовка хука');
+  // console.log('рендер');
 
   // const token = getCookie('accessToken')
 
@@ -34,8 +34,6 @@ export const useLoadUserInfo = () => {
       }
     };
     updateUserAndToken();
-
-    console.log('грузит юзер дату');
   }, [userData]);
 
   const favoritesInfo = useGetFavoriteInfoQuery('', { skip: !isAuthenticated });
@@ -43,7 +41,6 @@ export const useLoadUserInfo = () => {
     if (favoritesInfo?.data) {
       dispatch(setFavorites(favoritesInfo?.data?.favorites));
     }
-    console.log('грузит избранное');
   }, [favoritesInfo]);
 
   const basketInfo = useGetBasketInfoQuery('', { skip: !isAuthenticated });
@@ -51,7 +48,6 @@ export const useLoadUserInfo = () => {
     if (basketInfo?.data) {
       dispatch(setBasket(basketInfo?.data?.basket));
     }
-    console.log('грузит корзину');
   }, [basketInfo]);
 
   const userEmail = useAppSelector((store) => store.user?.user?.email);

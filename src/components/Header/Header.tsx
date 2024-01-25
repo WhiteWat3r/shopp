@@ -46,24 +46,48 @@ export const Header = () => {
               </Link>
               <ul className={styles.header__menu}>
                 <li className={styles.header__item}>
-                  <NavLink to="/" className={styles.header__navLink}>
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive
+                        ? `${styles.header__navLink} ${styles.header__navLink_active}`
+                        : styles.header__navLink
+                    }>
                     <CiHome size={18} />
                     Главная
                   </NavLink>
                 </li>
                 <li className={styles.header__item}>
-                  <NavLink to="/catalog" className={styles.header__navLink}>
+                  <NavLink
+                    to="/catalog"
+                    className={({ isActive }) =>
+                      isActive
+                        ? `${styles.header__navLink} ${styles.header__navLink_active}`
+                        : styles.header__navLink
+                    }>
                     <IoMdMenu size={20} />
                     Каталог
                   </NavLink>
                 </li>
                 <li className={styles.header__item}>
-                  <NavLink to="/" className={styles.header__navLink}>
+                  <NavLink
+                    to="/about"
+                    className={({ isActive }) =>
+                      isActive
+                        ? `${styles.header__navLink} ${styles.header__navLink_active}`
+                        : styles.header__navLink
+                    }>
                     О нас(-)
                   </NavLink>
                 </li>
                 <li className={styles.header__item}>
-                  <NavLink to="/" className={styles.header__navLink}>
+                  <NavLink
+                    to="/support"
+                    className={({ isActive }) =>
+                      isActive
+                        ? `${styles.header__navLink} ${styles.header__navLink_active}`
+                        : styles.header__navLink
+                    }>
                     <MdOutlineContactSupport size={20} />
                     Поддержка(-)
                   </NavLink>
@@ -75,13 +99,24 @@ export const Header = () => {
               {isAuthenticated && (
                 <>
                   <li className={styles.header__item}>
-                    <NavLink to="/basket" className={styles.header__navLink}>
-                      Корзина
+                  <NavLink
+                    to="/basket"
+                    className={({ isActive }) =>
+                      isActive
+                        ? `${styles.header__navLink} ${styles.header__navLink_active}`
+                        : styles.header__navLink
+                    }>                      Корзина
                       <CiShoppingCart size={20} />
                     </NavLink>
                   </li>
                   <li className={styles.header__item}>
-                    <NavLink to="/profile/favorites" className={styles.header__navLink}>
+                  <NavLink
+                    to="/profile/favorites"
+                    className={({ isActive }) =>
+                      isActive
+                        ? `${styles.header__navLink} ${styles.header__navLink_active}`
+                        : styles.header__navLink
+                    }>
                       Избранное
                       <CiHeart size={20} />
                     </NavLink>
@@ -89,7 +124,13 @@ export const Header = () => {
                 </>
               )}
               <li>
-                <NavLink to="/profile" className={styles.header__navLink}>
+              <NavLink
+                    to="/profile/info"
+                    className={({ isActive }) =>
+                      isActive
+                        ? `${styles.header__navLink} ${styles.header__navLink_active}`
+                        : styles.header__navLink
+                    }>
                   {isAuthenticated ? 'Профиль' : 'Войти'}
                   <IoPersonOutline size={15} />
                 </NavLink>

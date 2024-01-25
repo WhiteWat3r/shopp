@@ -7,9 +7,7 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${config.baseUrl}/api/user`,
     prepareHeaders: (headers) => {
-      const token = getCookie('accessToken');
-      console.log(token, 'token В юзерАПИ');
-      
+      const token = getCookie('accessToken');     
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }

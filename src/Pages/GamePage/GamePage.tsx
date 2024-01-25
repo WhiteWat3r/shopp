@@ -5,7 +5,7 @@ import { RxCross2 } from 'react-icons/rx';
 
 import style from './GamePage.module.scss';
 import Loader from '../../components/Loader/Loader.tsx';
-import {  useAppSelector } from '../../services/store';
+import { useAppSelector } from '../../services/store';
 import { ICategorAndGenreType } from '../../types/gameTypes.ts';
 import { FaPenAlt } from 'react-icons/fa';
 import { config } from '../../utils/config.ts';
@@ -28,10 +28,9 @@ import { platformIcons } from '../../components/FilterParameters/FilterParameter
 import { useAddItemMutation, useDeleteItemMutation } from '../../api/basketApi.ts';
 import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../api/favoriteApi.ts';
 import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
-// import { SimilarGame } from '../../components/SimilarGame/SimilarGame.tsx';
 import { Similar } from '../../components/Similar/Similar.tsx';
 
-function GamePage() {
+export const GamePage = () => {
   const [addItem] = useAddItemMutation();
   const [deleteItem] = useDeleteItemMutation();
 
@@ -40,7 +39,7 @@ function GamePage() {
 
   const isAuthenticated = useAppSelector((store) => store.user.isAuthenticated);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // const dispatch = useAppDispatch()
 
   const userRole = useAppSelector((store) => store.user?.user?.role);
@@ -55,23 +54,15 @@ function GamePage() {
     return basketItem ? basketItem.quantity : 0;
   });
 
-  // console.log(countInBasket);
+  const { data: game, status } = useFetchOneCardQuery(gameId);
 
-  const {
-    data: game,
-    status
-  } = useFetchOneCardQuery(gameId);
-  // console.log(game);
-  // const gameInfo = useFetchOneCardQuery(gameId);
+  // console.log('status', status);
 
-  console.log('status', status);
-  
   const handleAddToCart = async () => {
     if (isAuthenticated) {
       await addItem({ gameId, quantity: 1 });
-
     } else {
-      navigate('/login')
+      navigate('/login');
     }
   };
 
@@ -79,7 +70,7 @@ function GamePage() {
     if (isAuthenticated) {
       await deleteItem({ gameId, quantity: 1 });
     } else {
-      navigate('/login')
+      navigate('/login');
     }
   };
 
@@ -107,14 +98,14 @@ function GamePage() {
     store.user?.favorites?.games?.find((favorite) => favorite.id.toString() === gameId),
   );
 
-  // console.log(isFavorite);
-
   const toggleLike = async () => {
     isFavorite ? await removeFromFavorite({ gameId }) : await addToFavorite({ gameId });
   };
 
+  console.log('рендер');
 
-  
+
+
   return (
     <section className={style.section}>
       {status !== 'fulfilled' ? (
@@ -278,7 +269,7 @@ function GamePage() {
                     type={'button'}
                     active={!!isFavorite}
                     isDisabled={false}>
-                    {isFavorite ? <IoMdHeart  size={`100%`} /> : <IoIosHeartEmpty  size={`100%`} />}
+                    {isFavorite ? <IoMdHeart size={`100%`} /> : <IoIosHeartEmpty size={`100%`} />}
                   </LikeButton>
                 </div>
 
@@ -323,20 +314,8 @@ function GamePage() {
           <GameTab game={game} />
         </div>
       )}
-      {/* <div className={style.similar}>
-        <h3 className={style.similar__header}>Похожие игры</h3>
-        <ul className={style.similar__list}>
-          <SimilarGame game={game}/>
-          <SimilarGame game={game}/>
-          <SimilarGame game={game}/>
-          <SimilarGame game={game}/>
-
-        </ul>
-      </div> */}
-
-      <Similar mainGame={game}/>
+      <Similar mainGame={game} />
     </section>
   );
 }
 
-export default GamePage;

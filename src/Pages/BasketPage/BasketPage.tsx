@@ -7,7 +7,7 @@ import { IBasketGame } from '../../types/basketTypes';
 import { useEffect } from 'react';
 import { useGetBasketInfoQuery } from '../../api/basketApi';
 
-function BasketPage() {
+export const BasketPage = () => {
   // const { data: basketInfo } = useGetBasketInfoQuery('');
   // console.log(basketInfo);
 
@@ -53,4 +53,3 @@ function BasketPage() {
   );
 }
 
-export default BasketPage;
