@@ -1,6 +1,6 @@
 
 export const config = {
-  baseUrl: 'http://localhost:5000',
+  baseUrl: 'backshop.up.railway.app',
   headers: {
     'Content-Type': 'application/json',
   },
