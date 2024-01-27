@@ -12,7 +12,7 @@ import { VerticalMenu } from '../VerticalMenu/VerticalMenu';
 const headerTextLinks = [
   { id: 1, link: '/', icon: <CiHome size={18} />, text: 'Главная' },
   { id: 2, link: '/catalog', icon: <IoMdMenu size={20} />, text: 'Каталог' },
-  { id: 3, link: '/about', icon: <CiHome size={18} />, text: 'О нас' },
+  { id: 3, link: '/about', text: 'О нас' },
   { id: 4, link: '/support', icon: <MdOutlineContactSupport size={18} />, text: 'Поддержка' },
 ];
 
