@@ -1,18 +1,15 @@
-import { GameCard } from '../../components/GameCard/GameCard'
-import { useAppSelector } from '../../services/store'
-import style from './FavoritesPage.module.scss'
+import { FavoriteCard } from '../../components/FavoriteCard/FavoriteCard';
+import { useAppSelector } from '../../services/store';
+import style from './FavoritesPage.module.scss';
 
 export const FavoritesPage = () => {
-
-
-const favorites = useAppSelector(store => store.user?.favorites?.games)
+  const favorites = useAppSelector((store) => store.user?.favorites?.games);
 
   return (
     <ul className={style.favorites}>
-     {favorites?.map(game => (
-        <GameCard game={game} key={game.id}/>
-     ))}
+      {favorites?.map((game) => (
+        <FavoriteCard game={game} key={game.id} />
+      ))}
     </ul>
-  )
-}
-
+  );
+};

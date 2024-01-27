@@ -6,6 +6,8 @@ import { useAuthLogoutMutation } from '../../api/authApi';
 import { deleteCookie } from '../../utils/cookie';
 import { clearUser } from '../../services/slices/user';
 import { FavoritesPage } from '../FavoritesPage/FavoritesPage';
+import { profileMenu } from '../../utils/constants';
+import { Button } from '../../UI/Button/Button';
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -17,7 +19,6 @@ function ProfilePage() {
 
   const user = useAppSelector((store) => store.user.user);
 
- 
   if (!isAuthenticated) {
     navigate('/login', { replace: true });
   }
@@ -43,43 +44,20 @@ function ProfilePage() {
         <h2 className={style.mail}>{user?.email}</h2>
         <nav className={style.navBlock}>
           <ul className={style.linkList}>
-            <li>
-              <NavLink to="/profile/info" className={style.link}>
-                Инфо (in progress)
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/profile/orders" className={style.link}>
-                Мои покупки (in progress)
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/profile/partner" className={style.link}>
-                Партнерская программа(-)
-              </NavLink>
-            </li>
+            {profileMenu.map((link) => (
+              <li key={link.id} className={style.profile__item}>
+                <NavLink
+                  to={link.link}
+                  className={({ isActive }) =>
+                    isActive
+                      ? `${style.profile__link} ${style.profile__link_active}`
+                      : style.profile__link
+                  }>
+                  {link.text}
+                </NavLink>
+              </li>
+            ))}
 
-            <li>
-              <NavLink to="/profile/contact" className={style.link}>
-                Обратная связь(-)
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink to="/profile/favorites" className={style.link}>
-                Избранное
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/basket" className={style.link}>
-                Корзина
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/login" className={style.link} onClick={handleLogout}>
-                Выход
-              </NavLink>
-            </li>
             {user?.role === 'ADMIN' && (
               <li>
                 <NavLink to="/admin/games" className={style.link}>
@@ -88,6 +66,11 @@ function ProfilePage() {
               </li>
             )}
           </ul>
+          <div className={style.profile__buttonConatainer}>
+            <Button type={'button'} mode={'secondary'} isDisabled={false} onClick={handleLogout}>
+              Выход
+            </Button>
+          </div>
         </nav>
       </div>
 

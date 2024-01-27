@@ -20,6 +20,30 @@
   max-width: 300px;
   width: 100%;
   position: relative;
+
+  &__buttonConatainer {
+    margin-top: 40px;
+    height: 40px;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    box-sizing: border-box;
+    // padding-left: 10px;
+    display: block;
+    width: 100%;
+    opacity: 0.9;
+    &_active {
+      opacity: 1;
+ font-weight: 500;
+    }
+  }
+
+  // &__item{
+  // padd
+  // }
 }
 
 // .card {
@@ -57,21 +81,15 @@
 }
 
 .navBlock {
-    margin-top: 60px;
+  margin-top: 60px;
 }
 
 .linkList {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 20px;
-    text-align: start;
-}
-
-.link {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  text-align: start;
 }

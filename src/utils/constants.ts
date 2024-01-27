@@ -134,3 +134,13 @@ export const sortOptions = [
   { id: 4, text: 'Популярное(-)', name: 'popular' },
   { id: 5, text: 'В наличии', name: 'inStock' },
 ];
+
+export const profileMenu = [
+  { id: 1, text: 'Инфо', link: '/profile/info' },
+  { id: 2, text: 'Мои покупки', link: '/profile/orders' },
+  { id: 3, text: 'Партнерская программа(-)', link: '/profile/partner' },
+  { id: 4, text: 'Обратная связь(-)', link: '/profile/contact' },
+  { id: 5, text: 'Избранное', link: '/profile/favorites' },
+  { id: 6, text: 'Корзина', link: '/basket' },
+  // { id: 7, text: 'Выход', link: '/login' },
+];
