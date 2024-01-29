@@ -1,4 +1,4 @@
-export { IOrder } from '../../types/orderTypes';
+import { IOrder } from "../../types/gameTypes";
 
 export interface IOrderProps {
   order: IOrder;

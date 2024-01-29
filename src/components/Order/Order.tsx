@@ -2,7 +2,7 @@ import { timeFormat } from '../../utils/formatAndCheckDate';
 import style from './Order.module.scss';
 import { IOrderProps } from './OrderTypes';
 import { GrGamepad } from 'react-icons/gr';
-import { IOrderGame } from '../../types/orderTypes';
+import { IOrderGame } from '../../types/gameTypes';
 import { IoMdCheckmarkCircle } from 'react-icons/io';
 import { TbListDetails } from 'react-icons/tb';
 import { useState } from 'react';
@@ -14,6 +14,8 @@ export const Order = ({ order }: IOrderProps) => {
 
   const { russianDate, time } = timeFormat(order?.orderDate);
 
+
+  
   const countGamesInOrder = order?.order_basket_games?.reduce(
     (summ: number, item: IOrderGame) => summ + item.quantity,
     0,
@@ -62,7 +64,7 @@ export const Order = ({ order }: IOrderProps) => {
         <div className={style.order__details}>
           <ul className={style.order__keys}>
             {order?.order_basket_games?.map((game: IOrderGame) => (
-              <li className={style.order__game}>
+              <li className={style.order__game} key={game.game.id}>
                 <Link className={style.order__link} to={`/game/${game.game.id}`}>{game?.game?.name}:</Link>
                 <span className={style.order__key}>{game?.key}</span>
                 </li>

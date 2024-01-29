@@ -4,7 +4,6 @@ import { useAppSelector } from '../../services/store';
 import style from './ProfileInfoPage.module.scss';
 import { config } from '../../utils/config';
 import { useEffect } from 'react';
-import { FaPencilAlt } from 'react-icons/fa';
 import { Button } from '../../UI/Button/Button';
 import { useUpdateUserInfoMutation } from '../../api/authApi';
 

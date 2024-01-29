@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IBasketGame } from '../../types/basketTypes';
-import { IGame } from '../../types/gameTypes';
-import { IOrder } from '../../types/orderTypes';
+import { IGame, IOrder } from '../../types/gameTypes';
 
 interface IUserState {
   user: {

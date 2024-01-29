@@ -38,3 +38,24 @@ export interface IPublisher{
   id: number;
   name: string;
 }
+
+
+
+
+export interface IOrder {
+    id: number;
+    userId: number;
+    orderDate: Date;
+    order_basket_games: IOrderGame [];
+    totalAmount: number;
+}
+
+
+export interface IOrderGame {
+    id: number;
+    quantity: number;
+    orderId: number;
+    gameId: number;
+    game: IGame;
+    key: string;
+}
