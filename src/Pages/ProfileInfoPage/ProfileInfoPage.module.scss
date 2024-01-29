@@ -1,0 +1,49 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.info {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__avatarBlock {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__imageContainer {
+    border-radius: 50%;
+    width: 266px;
+    height: 266px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__buttonContainer {
+    width: 266px;
+    height: 35px;
+    margin-top: 20px;
+  }
+
+  &__submitButtonContainer {
+    width: 250px;
+    height: 40px;
+    margin-top: auto;
+    align-self: center;
+  }
+}

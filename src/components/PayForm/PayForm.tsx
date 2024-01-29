@@ -2,6 +2,8 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import style from './PayForm.module.scss';
 import { useAppSelector } from '../../services/store';
 import { finishPrice } from '../../utils/finishPrice';
+import { Button } from '../../UI/Button/Button';
+import { useCreateOrderMutation } from '../../api/basketApi';
 
 interface PayForm {
   name: string;
@@ -13,6 +15,7 @@ interface PayForm {
 export const PayForm = () => {
   const basketGames = useAppSelector((store) => store.user.user.basket?.basket_games);
 
+  const [createOrder] = useCreateOrderMutation()
   console.log(basketGames);
 
   const priceWithoutSale = basketGames?.reduce((acc, item) => {
@@ -38,7 +41,15 @@ export const PayForm = () => {
 
   const submit: SubmitHandler<PayForm> = (data) => {
     console.log(data);
+
+
+    createOrder(null)
+
+    
   };
+
+
+
 
   const error: SubmitErrorHandler<PayForm> = (data) => {
     console.log(data);
@@ -92,9 +103,12 @@ export const PayForm = () => {
         <p>Итог:</p> <p>{resultPrice}</p>
       </div>
 
-      <button type="submit" className={style.submitButton}>
+    <div className={style.payForm__buttonContainer}>
+      <Button type={"submit"} mode={'primary'} isDisabled={false}>
         Оплатить
-      </button>
+      </Button>
+
+</div>
     </form>
   );
 };

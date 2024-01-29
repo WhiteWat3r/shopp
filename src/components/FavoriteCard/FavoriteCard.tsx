@@ -31,7 +31,9 @@ export const FavoriteCard = ({ game }: IGameCard) => {
     store.user?.favorites?.games?.find((favorite) => favorite.id === game.id),
   );
 
-  const toggleLike = async () => {
+  const toggleLike = async (e: MouseEvent<HTMLInputElement, MouseEvent>) => {
+    e.preventDefault();
+
     if (isAuthenticated) {
       isFavorite
         ? await removeFromFavorite({ gameId: game.id })

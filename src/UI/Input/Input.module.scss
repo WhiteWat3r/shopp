@@ -108,7 +108,15 @@
     justify-content: space-between;
     padding: 5px 22px 5px 10px;
   }
+
+  &_profileInput {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    @include font-h3-bold;
+  }
 }
+
 
 // &__select {
 //   border: 0.2em solid #ffffff;

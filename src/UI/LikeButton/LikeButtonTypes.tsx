@@ -1,6 +1,6 @@
 export interface ILikeButton {
     children: any;
-    onClick: () => void;
+    onClick: any
     active: boolean;
     type: 'button' | 'submit';
     isDisabled: boolean;

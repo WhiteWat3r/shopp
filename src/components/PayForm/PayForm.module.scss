@@ -1,7 +1,11 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+
 .payForm {
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
+  // background-color: $section-first;
 
   &__input {
     border: #000000 2px solid;
@@ -40,31 +44,9 @@
     display: flex;
     justify-content: space-between;
   }
-}
 
-.submitButton {
-  font-weight: 0;
-  font-size: 14px;
-  color: #ffffff;
-  background-color: #000000;
-  padding: 10px 30px;
-  border: solid #98a0a8 2px;
-  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
-  border-radius: 50px;
-  transition: 0.3s;
-  transform: translateY(0);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.submitButton:hover {
-  transition: 0.3s;
-  padding: 10px 50px;
-  transform: translateY(-0px);
-  background-color: #fff;
-  color: #000000;
-  border: solid 2px #000000;
+  &__buttonContainer {
+    height: 35px;
+    margin-top: auto;
+  }
 }

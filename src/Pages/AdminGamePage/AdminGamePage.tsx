@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import style from './AdminGamePage.module.scss';
 import { ICategorAndGenreType, IGame } from '../../types/gameTypes';
 import { useAppSelector } from '../../services/store';
@@ -19,6 +19,7 @@ import { formatAndCheckDate } from '../../utils/formatAndCheckDate';
 import { Input } from '../../UI/Input/Input';
 import { GameRequirements } from '../../components/GameRequirmentsChange/GameRequirmentsChange';
 import { MinimumRequirements } from '../../components/GameRequirmentsChange/GameRequirementsTypes';
+import { Button } from '../../UI/Button/Button';
 
 type GameFormInput = {
   name: string;
@@ -39,13 +40,14 @@ type GameFormInput = {
   dlcStatus: boolean;
   soonStatus: boolean;
   steamApi: number;
-  imgUrl: string;
+  // imgUrl: string;
   posterFile: any;
   genres: ICategorAndGenreType[];
   isFree: boolean;
   screenshots: string[];
   regions: string;
-  pcRequirements: {[key: string]: string};
+  pcRequirements: { [key: string]: string };
+  quantity: number;
 };
 
 export const AdminGamePage = () => {
@@ -53,14 +55,16 @@ export const AdminGamePage = () => {
   const [createGame] = useAddGameMutation();
   const [updateGame] = useUpdateGameMutation();
 
+  const navigate = useNavigate();
   const [screenLink, setScreenLink] = useState('');
+  // const [posetLink, setPosterLink] = useState('');
 
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
 
   const [minimumRequirements, setMinimumRequirements] = useState<MinimumRequirements>({});
   // console.log(minimumRequirements);
-  
+
   const handleCategoryToggle = (categoryId: number) => {
     setSelectedCategories((prevSelectedCategories) => {
       if (prevSelectedCategories.includes(categoryId)) {
@@ -84,13 +88,17 @@ export const AdminGamePage = () => {
 
   const { gameId } = useParams();
 
+  // if (gameId === 'create') {
+
+  // }
+
   const game = games.find((item: IGame) => {
     if (gameId !== undefined) {
       return item.id === parseInt(gameId);
     }
   });
-//peredelat'
-
+  //peredelat'
+  console.log(game);
 
   const {
     register,
@@ -98,12 +106,13 @@ export const AdminGamePage = () => {
     setValue,
     getValues,
     watch,
+    reset,
     // formState: { errors },
   } = useForm<GameFormInput>();
 
   const steamApi = getValues('steamApi');
   const img = watch('img', '');
-  const imgUrl = watch('imgUrl', '');
+  // const imgUrl = watch('imgUrl', '');
 
   useEffect(() => {
     if (game) {
@@ -118,8 +127,17 @@ export const AdminGamePage = () => {
       setValue('discount', game.discount);
       setValue('finishPrice', finishPrice(game.price, game.discount));
       setValue('img', `${config.baseUrl}/${game.img}`);
-      setValue('imgUrl', game.imgUrl);
-      setValue('screenshots', game?.screenshots.map(screen => `${config.baseUrl}/${screen}`));
+      setValue('quantity', game?.quantity);
+
+      // setPosterLink(`${config.baseUrl}/${game.img}`);
+
+      // setValue('imgUrl', game.imgUrl);
+
+      setValue(
+        'screenshots',
+        game?.screenshots.map((screen) => `${config.baseUrl}/${screen}`),
+      );
+
       setSelectedCategories(game.categories.map((category) => category.id));
       setValue('preOrderStatus', game.preOrderStatus);
       setValue('dlcStatus', game.dlcStatus);
@@ -129,8 +147,13 @@ export const AdminGamePage = () => {
       setValue('isFree', game.isFree);
       setValue('regions', game.regions);
       setValue('pcRequirements', game.pcRequirements);
+    } else {
+      reset();
+      setSelectedCategories([]);
+      setSelectedGenres([]);
+      setMinimumRequirements({});
     }
-  }, [game, setValue]);
+  }, [game, setValue, gameId]);
 
   const onSubmit = async () => {
     const gameData = getValues();
@@ -140,35 +163,49 @@ export const AdminGamePage = () => {
     gameData.genres = genres.filter((genre) => selectedGenres.includes(genre.id));
     gameData.pcRequirements = minimumRequirements;
 
+    gameData.screenshots = gameData.screenshots.map((screen) => {
+      if (screen.includes(config.baseUrl)) {
+        return screen.replace(config.baseUrl, '').slice(1);
+      }
+      return screen;
+    });
+
+    if (gameData.img.includes(config.baseUrl)) {
+      gameData.img = gameData.img.replace(config.baseUrl, '').slice(1);
+    }
+
+    console.log(gameData.screenshots);
+
+    console.log(gameData);
+
     try {
       let response;
-    
+
       if (game) {
         response = await updateGame({ game: gameData, id: gameId });
       } else {
         response = await createGame(gameData);
       }
-    
+
       console.log(response);
-    
+
       if ('data' in response && response.data.success) {
         if (game) {
           toast.success('Карточка успешно обновлена');
         } else {
           toast.success('Карточка успешно создана');
+          navigate(`/admin/game/${response.data.game.id}`);
         }
       } else {
         throw new Error(`Ошибка`);
       }
-    
+
       await gamesInfo.refetch();
-    
     } catch (error) {
       console.error('Error updating/creating game', error);
       toast.error(`Ошибка}`);
     }
-    
-};
+  };
 
   const handleLoadFromSteam = async () => {
     try {
@@ -198,27 +235,23 @@ export const AdminGamePage = () => {
           .slice(0, 6)
           .map((screen: { path_full: string }) => screen.path_full),
       );
-      setValue('imgUrl', data[steamApi].data.header_image);
+      // setValue('imgUrl', data[steamApi].data.header_image);
       setValue('img', data[steamApi].data.header_image);
+      // setPosterLink(data[steamApi].data.header_image)
+
+      setValue('quantity', 1);
+
       setValue('isFree', data[steamApi].data.is_free ? true : false);
 
-
-
-
       if (!data[steamApi].data.is_free) {
-        if(data[steamApi].data.price_overview.currency === 'RUB') {
+        if (data[steamApi].data.price_overview.currency === 'RUB') {
           setValue('price', Math.floor(data[steamApi].data.price_overview?.initial / 100));
         } else {
           setValue('price', Math.floor(data[steamApi].data.price_overview?.initial));
-
         }
-
       } else {
         setValue('price', 0);
       }
-
-
-
 
       setValue('discount', 0);
       setValue('finishPrice', 0);
@@ -259,12 +292,35 @@ export const AdminGamePage = () => {
     }
     // console.log('screenshots', screenshots);
   };
+  const allValues = watch();
+  console.log('allValues', allValues);
+  console.log('img', img);
+
+  const handleSetPoster = () => {
+    const img = watch('img', '');
+
+    console.log('img', img);
+    setValue('img', img);
+  };
+
+  const handleScreenLinkChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setScreenLink(e.target.value);
+  };
 
   return (
     <div className={style.game}>
-      <Link className={style.game__link} to={`/game/${gameId}`}>На страницу товара в магазине</Link>
       <form onSubmit={handleSubmit(onSubmit)} className={style.game__adminform}>
         <div className={style.game__header}>
+          <Link className={style.game__link} to={`/game/${gameId}`}>
+            На страницу товара в магазине
+          </Link>
+          <div className={style.game__buttonContainer}>
+            <Button type={'submit'} mode={'secondary'} isDisabled={false}>
+              Сохранить изменения
+            </Button>
+          </div>
+        </div>
+        <div className={style.game__name}>
           <Input
             type={'text'}
             mode={'primary'}
@@ -311,18 +367,20 @@ export const AdminGamePage = () => {
               id={'steamApi'}
               onChange={setSteamAPI}
             />
-            <button
-              className={style.addDesired}
-              type="button"
-              onClick={handleLoadFromSteam}
-              disabled={!steamApiValue}>
-              Загрузить со Steam
-            </button>
+            <div className={style.game__buttonContainer}>
+              <Button
+                type={'button'}
+                mode={'primary'}
+                isDisabled={!steamApiValue}
+                onClick={handleLoadFromSteam}>
+                Загрузить со Steam
+              </Button>
+            </div>
           </div>
         </div>
 
         <div className={style.game__block}>
-          <div>
+          <div className={style.game__mainInfo}>
             <Input
               type={'text'}
               mode={'primary'}
@@ -354,6 +412,14 @@ export const AdminGamePage = () => {
             validation={{ ...register('dlcStatus') }}
             labelText={'Это DLC'}
             id={'dlcStatus'}
+          />
+
+          <Input
+            type={'number'}
+            mode={'tertiary'}
+            validation={{ ...register('quantity') }}
+            labelText={'Кол-во'}
+            id={'quantity'}
           />
 
           <div className={style.game__section}>
@@ -461,43 +527,50 @@ export const AdminGamePage = () => {
           </ul>
         </div>
 
-        <div className={style.game__posterblock}>
-          {img ? (
-            <img className={style.game__poster} src={img} alt="" />
-          ) : (
-            <img className={style.game__poster} src={imgUrl} alt="" />
-          )}
-          <div>
-            <label htmlFor="imgUrl">Постер (ссылка)</label>
-            <input {...register('imgUrl')} id="imgUrl" type="text" className={style.game__input} />
-            {/* <button className={style.addDesired} type='button'>Загрузить постер</button> */}
+        <div className={style.game__images}>
+          <img className={style.game__poster} src={img} alt="" />
+
+          <div className={style.game__screenList}>
+            {screenshots?.map((screen, index) => (
+              <li>
+                <img src={screen} alt="Скриншот" key={index} className={style.game__screen} />
+              </li>
+            ))}
           </div>
         </div>
 
-            <div className={style.game__screenList}>
-        {screenshots?.map((screen, index) => (
-          <li>
-          <img src={screen} alt="Скриншот" key={index} className={style.game__screen} />
-          </li>
-        ))}
-</div>
-        <div className={style.game__setScreenshots}>
-          <label htmlFor={'screen'}>Сссылка на скрин</label>
-          <input
-            id={'screen'}
+        <div className={style.game__inputLinks}>
+          <Input
             type={'text'}
-            className={style.game__smallInput}
-            value={screenLink}
-            onChange={(e) => setScreenLink(e.target.value)}
+            mode={'primary'}
+            validation={{ ...register('img') }}
+            labelText={'Постер (ссылка)'}
+            id={'img'}
           />
-          <button onClick={handleSetScreenshot} type={'button'}>
-            Выбрать скрин
-          </button>
-        </div>
 
-        <button type={"submit"} className={style.addDesired}>
-          Сохранить изменения
-        </button>
+          <div className={style.game__setImageButton}>
+            <Button type={'button'} mode={'primary'} isDisabled={false} onClick={handleSetPoster}>
+              Выбрать Постер
+            </Button>
+          </div>
+
+          <Input
+            type={'text'}
+            mode={'primary'}
+            labelText={'Сссылка на скрин'}
+            id={'screen'}
+            onChange={handleScreenLinkChange}
+          />
+          <div className={style.game__setImageButton}>
+            <Button
+              type={'button'}
+              mode={'primary'}
+              isDisabled={false}
+              onClick={handleSetScreenshot}>
+              Выбрать скрин
+            </Button>
+          </div>
+        </div>
       </form>
     </div>
   );

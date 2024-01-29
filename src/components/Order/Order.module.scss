@@ -1,0 +1,123 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.order {
+  max-width: 1440px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__main {
+    width: 100%;
+    background-color: $section-second;
+    min-height: 110px;
+
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 15px;
+
+    justify-content: space-between;
+  }
+
+  &__number {
+    @include font-h1-bold;
+  }
+
+  &__countGames {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 62px;
+    width: 100%;
+    border-image-width: 100%;
+    justify-content: end;
+  }
+
+  &__gamePad {
+    width: 30px;
+    height: 30px;
+    padding-bottom: 3px;
+  }
+
+  &__checkMark {
+    color: $green-default;
+    height: 30px;
+    width: 30px;
+  }
+
+  &__name {
+    @include font-h3-bold;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 580px;
+    text-wrap: nowrap;
+    margin-right: auto;
+    margin-left: 15px;
+  }
+
+  &__price {
+    max-width: 75px;
+    width: 100%;
+    text-align: end;
+  }
+
+  &__date {
+    max-width: 190px;
+    width: 100%;
+  }
+
+  &__detailsButton {
+    background-color: transparent;
+    border: white 1px solid;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+  }
+
+  &__details {
+    max-width: 620px;
+    width: 100%;
+    min-height: 20px;
+    border: 2px solid $section-second;
+    border-top: none;
+    border-radius: 0 0 20px 20px;
+    padding: 20px;
+  }
+
+  &__keys {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__game {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  &__link {
+    color: $white-default;
+  }
+
+  &__key {
+    max-width: 180px;
+    width: 100%;
+    text-align: start;
+  }
+}

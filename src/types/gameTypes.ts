@@ -25,6 +25,7 @@ export interface IGame {
   imgUrl: string;
   availability: boolean;
   pcRequirements: {[key: string]: string};
+  quantity: number;
 }
 
 export interface ICategorAndGenreType {

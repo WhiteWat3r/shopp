@@ -144,3 +144,12 @@ export const profileMenu = [
   { id: 6, text: 'Корзина', link: '/basket' },
   // { id: 7, text: 'Выход', link: '/login' },
 ];
+
+
+export const adminLinks = [
+  { id: 1, text: 'Игры', link: '/admin/games' },
+  { id: 2, text: 'Создать игру', link: '/admin/game/create' },
+  { id: 3, text: 'Розыгрыши', link: '/' },
+  { id: 4, text: 'Слайдер?', link: '/' },
+  { id: 5, text: 'Магазин', link: '/' },
+];

@@ -48,6 +48,14 @@ export const basketApi = createApi({
       }),
       invalidatesTags: ['basketControl'],
     }),
+
+    createOrder: build.mutation({
+      query: () => ({
+        url: '/create-order',
+        method: 'POST',
+      }),
+      invalidatesTags: ['basketControl'],
+    }),
   }),
 });
 
@@ -56,4 +64,5 @@ export const {
   useDeleteItemMutation,
   useDeletePositionMutation,
   useGetBasketInfoQuery,
+  useCreateOrderMutation
 } = basketApi;

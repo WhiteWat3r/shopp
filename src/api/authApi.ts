@@ -16,11 +16,26 @@ export const authApi = createApi({
   }),
   tagTypes: ['authControl'],
   endpoints: (build) => ({
+
+
+
     authCheck: build.query({
       query: () => ({
         url: '/auth',
       }),
+      providesTags: ['authControl'],
+
     }),
+
+    updateUserInfo: build.mutation({
+      query: (body) => ({
+        url: '/update-profile',
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['authControl'],
+    }),
+
 
     authLogin: build.mutation({
       query: (body) => ({
@@ -50,4 +65,5 @@ export const {
   useAuthLoginMutation,
   useAuthLogoutMutation,
   useAuthRegisterMutation,
+  useUpdateUserInfoMutation
 } = authApi;
