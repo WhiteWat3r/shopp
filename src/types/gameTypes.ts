@@ -24,7 +24,7 @@ export interface IGame {
   isFree: boolean;
   imgUrl: string;
   availability: boolean;
-  pcRequirements: {[key: string]: string};
+  pcRequirements: { [key: string]: string };
   quantity: number;
 }
 
@@ -33,29 +33,24 @@ export interface ICategorAndGenreType {
   description: string;
 }
 
-
-export interface IPublisher{
+export interface IPublisher {
   id: number;
   name: string;
 }
 
-
-
-
 export interface IOrder {
-    id: number;
-    userId: number;
-    orderDate: Date;
-    order_basket_games: IOrderGame [];
-    totalAmount: number;
+  id: number;
+  userId: number;
+  orderDate: Date;
+  order_basket_games: IOrderGame[];
+  totalAmount: number;
 }
 
-
 export interface IOrderGame {
-    id: number;
-    quantity: number;
-    orderId: number;
-    gameId: number;
-    game: IGame;
-    key: string;
+  id: number;
+  quantity: number;
+  orderId: number;
+  gameId: number;
+  game: IGame;
+  gameKeys: { key: string }[];
 }

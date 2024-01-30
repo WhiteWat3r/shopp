@@ -14,8 +14,6 @@ export const Order = ({ order }: IOrderProps) => {
 
   const { russianDate, time } = timeFormat(order?.orderDate);
 
-
-  
   const countGamesInOrder = order?.order_basket_games?.reduce(
     (summ: number, item: IOrderGame) => summ + item.quantity,
     0,
@@ -54,22 +52,25 @@ export const Order = ({ order }: IOrderProps) => {
         <button
           className={style.order__detailsButton}
           onClick={() => setIsDetailsOpen(!isDetailsOpen)}>
-{isDetailsOpen ? <IoClose size={30} />
-: <TbListDetails size={30} />}
-          
-
+          {isDetailsOpen ? <IoClose size={30} /> : <TbListDetails size={30} />}
         </button>
       </div>
       {isDetailsOpen && (
         <div className={style.order__details}>
-          <ul className={style.order__keys}>
+          <ul className={style.order__info}>
             {order?.order_basket_games?.map((game: IOrderGame) => (
               <li className={style.order__game} key={game.game.id}>
-                <Link className={style.order__link} to={`/game/${game.game.id}`}>{game?.game?.name}:</Link>
-                <span className={style.order__key}>{game?.key}</span>
-                </li>
-            ))}
+                <Link className={style.order__link} to={`/game/${game.game.id}`}>
+                  {game?.game?.name} {game?.quantity > 1 && `(${game?.quantity}):`}
+                </Link>
 
+                <div className={style.order__keys}>
+                  {game?.gameKeys?.map((key) => (
+                    <span className={style.order__key}>{key.key}</span>
+                  ))}
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       )}

@@ -4,6 +4,7 @@ import { useAppSelector } from '../../services/store';
 import { finishPrice } from '../../utils/finishPrice';
 import { Button } from '../../UI/Button/Button';
 import { useCreateOrderMutation } from '../../api/basketApi';
+import { useAuthCheckQuery } from '../../api/authApi';
 
 interface PayForm {
   name: string;
@@ -15,7 +16,9 @@ interface PayForm {
 export const PayForm = () => {
   const basketGames = useAppSelector((store) => store.user.user.basket?.basket_games);
 
-  const [createOrder] = useCreateOrderMutation()
+  const [createOrder] = useCreateOrderMutation();
+  const {refetch: userRefetch} = useAuthCheckQuery('');
+
   console.log(basketGames);
 
   const priceWithoutSale = basketGames?.reduce((acc, item) => {
@@ -32,24 +35,13 @@ export const PayForm = () => {
     );
   }, 0);
 
-  // console.log(priceWithoutSale);
-  // console.log(resultPrice);
+  const { register, handleSubmit } = useForm<PayForm>();
 
-  const { register, handleSubmit } = useForm<PayForm>({
-    defaultValues: {},
-  });
-
-  const submit: SubmitHandler<PayForm> = (data) => {
+  const submit: SubmitHandler<PayForm> = async (data) => {
     console.log(data);
-
-
-    createOrder(null)
-
-    
+    await createOrder(null);
+    userRefetch()
   };
-
-
-
 
   const error: SubmitErrorHandler<PayForm> = (data) => {
     console.log(data);
@@ -103,12 +95,11 @@ export const PayForm = () => {
         <p>Итог:</p> <p>{resultPrice}</p>
       </div>
 
-    <div className={style.payForm__buttonContainer}>
-      <Button type={"submit"} mode={'primary'} isDisabled={false}>
-        Оплатить
-      </Button>
-
-</div>
+      <div className={style.payForm__buttonContainer}>
+        <Button type={'submit'} mode={'primary'} isDisabled={false}>
+          Оплатить
+        </Button>
+      </div>
     </form>
   );
 };
