@@ -3,21 +3,28 @@
 
 
 .custom-scroll {
+  overflow: hidden;
 
+  scrollbar-width: thin;
+  scrollbar-color: rgb(24, 61, 185) transparent;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgb(24, 61, 185);
+    border-radius: 5px;
+    border: none;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 5px;
+    border: none;
+  }
   
-}
-.custom-scroll::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-.custom-scroll::-webkit-scrollbar-thumb {
-  background: rgb(24, 61, 185);
-  border-radius: 5px;
-  border: none;
-
-}
-.custom-scroll::-webkit-scrollbar-track { 
-  border-radius: 5px;
-  border: none;
-
+  &:hover {
+    overflow: auto;
+  }
 }

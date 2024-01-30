@@ -31,7 +31,8 @@ export const BasketPage = () => {
 
   return (
     <section className={style.section}>
-      {status === 'fulfilled' && basketInfo.basket.basket_games ? (
+
+      {status === 'fulfilled' ? (
         <div className={style.basket}>
           <div className={style.basket__items}>
             <h1 className={style.basket__header}>Корзина</h1>

@@ -1,9 +1,19 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
 .orders {
   display: flex;
   flex-direction: column;
   list-style: none;
   padding: 0;
+  // padding-right: 5px;
   margin: 0;
   gap: 20px;
   width: 100%;
+  max-height: calc(100vh - 60px - 70px);
+  overflow-y: scroll;
+  // box-sizing: border-box;
+  // border: 3px solid $section-second;
+
+  // border-radius: 20px 
 }

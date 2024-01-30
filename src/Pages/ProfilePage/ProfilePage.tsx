@@ -39,7 +39,7 @@ console.log(user?.orders);
   return (
     <section className={style.section}>
       <div className={style.profile}>
-        <div className={style.header}></div>
+        <span className={style.profile__header} />
 
         <div className={style.profile__imageContainer}>
           <img
@@ -56,9 +56,9 @@ console.log(user?.orders);
           </Link>
         </div>
 
-        <h2 className={style.mail}>{user?.nickname ? user?.nickname : user?.email}</h2>
-        <nav className={style.navBlock}>
-          <ul className={style.linkList}>
+        <h2 className={style.profile__mail}>{user?.nickname ? user?.nickname : user?.email}</h2>
+        <nav className={style.profile__navBlock}>
+          <ul className={style.profile__linkList}>
             {profileMenu.map((link) => (
               <li key={link.id} className={style.profile__item}>
                 <NavLink

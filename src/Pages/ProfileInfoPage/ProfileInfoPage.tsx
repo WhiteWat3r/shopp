@@ -48,6 +48,7 @@ export const ProfileInfoPage = () => {
   return (
     <div className={style.info}>
       <form onSubmit={handleSubmit(onSubmit)} className={style.info__form}>
+        <div className={style.info__block}>
         <div className={style.info__avatarBlock}>
           <div className={style.info__imageContainer}>
             <img className={style.info__img} src={photo} alt="Аватар" />
@@ -58,7 +59,7 @@ export const ProfileInfoPage = () => {
               type={'text'}
               mode={'primary'}
               id={'photo'}
-              labelText={'Ссылка'}
+              labelText={'Ссылка на фотографию'}
               validation={{ ...register('newAvatar') }}
             />
 
@@ -68,16 +69,17 @@ export const ProfileInfoPage = () => {
               </Button>
             </div>
           </div>
-        </div>
+          
 
-          <Input
+        </div>
+        <Input
             type={'text'}
             mode={'primary'}
             id={'nickname'}
             validation={{ ...register('nickname') }}
             labelText={'Никнейм'}
           />
-
+</div>
         <div className={style.info__submitButtonContainer}>
           <Button type={'submit'} mode="secondary" isDisabled={false}>
             Сохранить

@@ -93,35 +93,23 @@
       opacity: 1;
     }
   }
-}
 
-// .card {
-//   max-width: 300px;
-//   width: 100%;
-//   position: relative;
-// }
-.header {
-  background-color: white;
-  width: 100%;
-  height: 130px;
-}
+  &__header {
+    background-color: white;
+    width: 100%;
+    height: 130px;
+    border-radius: 20px 20px 0 0  ;
+  }
 
-.mail {
-  margin: 90px auto 0;
-}
+  &__navBlock {
+    margin-top: 20px;
+  }
+  &__mail {
+    margin: 90px auto 0;
+  }
 
-.mainContent {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  width: 840px;
-}
 
-.navBlock {
-  margin-top: 60px;
-}
-
-.linkList {
+&__linkList {
   list-style: none;
   padding: 0;
   display: flex;
@@ -129,4 +117,9 @@
   justify-content: center;
   gap: 20px;
   text-align: start;
+
+}
+
+
+
 }
