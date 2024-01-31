@@ -14,7 +14,7 @@ export const ProfileInfoPage = () => {
 
   const { register, setValue, watch, getValues, handleSubmit } = useForm();
 
-  console.log(user);
+  // console.log(user);
   useEffect(() => {
     if (user?.nickname) {
       setValue('nickname', user.nickname);

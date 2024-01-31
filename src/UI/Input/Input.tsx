@@ -14,6 +14,7 @@ export const Input = ({
   visible,
   onButtonClick,
 }: IInput) => {
+  
   return (
     <div className={classNames(style.container, style[`container_${mode}`])}>
       {labelText && <label htmlFor={id}>{labelText}</label>}

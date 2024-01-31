@@ -29,16 +29,23 @@ function LoginPage() {
   const {
     register,
     handleSubmit,
-    getValues,
+    // getValues,
     setValue,
     clearErrors,
-    formState: { errors },
-  } = useForm<AuthForm>();
+    watch,
+    formState: { errors, isValid },
+  } = useForm<AuthForm>({
+    mode: 'onBlur'
+  });
+  
+  const loginData = watch()
+  console.log(loginData);
 
-  const onSubmit = async () => {
-    const loginData = getValues();
-
-    console.log(loginData);
+  
+  const onSubmit = async (data: AuthForm) => {
+    console.log(data);
+    
+    // console.log(loginData);
 
     try {
       let response;
@@ -50,7 +57,7 @@ function LoginPage() {
       }
 
       if ('data' in response && response.data) {
-        console.log(response.data);
+        // console.log(response.data);
         setCookie('accessToken', response.data.token, { path: '/' });
         dispatch(setUser(response.data.user));
         navigate('/profile', { replace: true });
@@ -61,9 +68,14 @@ function LoginPage() {
       console.log(error);
     }
   };
-  console.log(errors);
-  console.log('erorAuth', erorAuth);
+  // console.log(errors);
+  // console.log('erorAuth', erorAuth);
 
+
+
+
+
+  
   return (
     <section className={style.section}>
       <form className={style.login} onSubmit={handleSubmit(onSubmit)}>
@@ -73,9 +85,13 @@ function LoginPage() {
 
         <Input
           type={'text'}
+
           validation={{
-            ...register('email', { required: 'Это обязательноe поле', pattern: /^\S+@\S+$/i }),
+            ...register('email',
+             { required: 'Это обязательноe поле', pattern: /^\S+@\S+$/i }
+             ),
           }}
+
           mode={'primary'}
           id={'email'}
         />
@@ -86,7 +102,9 @@ function LoginPage() {
 
         <Input
           type={passwordShown ? 'text' : 'password'}
-          validation={{ ...register('password', { required: 'Это обязательноe поле' }) }}
+          validation={{ ...register('password', 
+          { required: 'Это обязательноe поле' }
+          ) }}
           mode={'primary'}
           id={'password'}
           visible={passwordShown}
@@ -99,7 +117,7 @@ function LoginPage() {
             <Button
               mode={'primary'}
               type={'submit'}
-              isDisabled={false}
+              isDisabled={!isValid}
               onClick={() => setErrorAuth('')}>
               {isRegistrationPage ? 'Зарегистрироваться' : 'Войти'}
             </Button>

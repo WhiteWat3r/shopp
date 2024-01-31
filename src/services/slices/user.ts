@@ -59,6 +59,7 @@ export const userSlice = createSlice({
         },
         orders: [],
       };
+      state.favorites = { games: [] },
       state.isAuthenticated = false;
     },
     setBasket: (state, action) => {

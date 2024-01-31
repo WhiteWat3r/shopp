@@ -42,6 +42,15 @@
     background-color: transparent;
     color: white;
     cursor: pointer;
+
+    width: 40px;
+    height: 40px;
+
+    transition: transform 1s ease;
+
+    :hover {
+      transform: scale(1.03);
+    }
   }
 
   &__info {
@@ -88,6 +97,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0 10px;
+    align-items: center;
   }
 
   &__price {
@@ -111,10 +121,29 @@
     text-overflow: ellipsis;
   }
   &__quantityBtn {
-    background-color: transparent;
-    border: none;
-    color: white;
+
+    background-color: $section-second;
+    // border: 1px solid white;
+   border: none;
+border-radius: 5px;
+
+    // color: $blue-default;
+    color: $white-default;
+
+
     cursor: pointer;
+
+
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:disabled {
+        opacity: 0.3;
+        pointer-events: none;
+      }
   }
   &__platform {
     @include font-body-filters;
@@ -130,6 +159,7 @@
     width: 100%;
     gap: 10px;
   }
+
 }
 
 .game:last-child {

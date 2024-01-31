@@ -10,6 +10,7 @@ import { filterAndSortArray } from '../../utils/filtering';
 import { setSearchedGames } from '../../services/slices/game';
 import { useFetchAllPublishersQuery } from '../../api/publisersApi';
 import { IPublisher } from '../../types/gameTypes';
+import { Button } from '../../UI/Button/Button';
 
 export const platformIcons = [
   {
@@ -35,8 +36,8 @@ export const platformIcons = [
 ];
 
 export type FilterForm = {
-  startCount: number;
-  endCount: number;
+  startCount: number | null;
+  endCount: number | null;
   platforms: string[];
   name: string;
   publishers: string[];
@@ -51,7 +52,7 @@ export const FilterParameters = () => {
   const [publisherName, setPublisherName] = useState('');
   const [allPublishers, setAllPublishers] = useState<IPublisher[]>([]);
 
-  const { register, watch, setValue } = useForm<FilterForm>();
+  const { register, watch, setValue, reset } = useForm<FilterForm>();
 
   const platforms = watch('platforms', []);
   const checkedPublishers = watch('publishers', []);
@@ -76,33 +77,13 @@ export const FilterParameters = () => {
   const values = watch();
 
 
-//при каждом изменении values изменять и стор
-
-console.log(values);
-
-
-
-
-
-
-
   useEffect(() => {
-    
     if (allGames) {
       const result = filterAndSortArray(allGames, values, sortOption);
       dispatch(setSearchedGames(result));
       console.log('сработал');
-      
     }
   }, [values, sortOption]);
-
-
-
-
-
-
-
-
 
   useEffect(() => {
     if (publishersQuery) {
@@ -131,6 +112,20 @@ console.log(values);
       setValue('publishers', [...checkedPublishers, publisherName]);
     }
   };
+  console.log(values);
+
+
+  const handleClearFilters = () => {
+    reset();
+  
+    setValue('startCount', null);
+    setValue('endCount', null);
+    setValue('name', '');
+    setValue('platforms', []);
+    setValue('publishers', []);
+  };
+
+
 
   return (
     <div className={style.controls}>
@@ -195,6 +190,8 @@ console.log(values);
           {/* <span className={style.controls__subtitle}>Категории</span> */}
         </div>
       </div>
+      <div className={style.controls__buttonContainer}>
+      <Button isDisabled={false} type={'button'} mode={'secondary'} onClick={handleClearFilters}>Очистить</Button></div>
     </div>
   );
 };

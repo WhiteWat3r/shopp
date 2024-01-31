@@ -1,0 +1,47 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $white-default;
+
+  @include font-body-regular;
+
+  &__container {
+    max-width: 400px;
+    width: 100%;
+    height: 150px;
+    padding: 20px;
+    box-sizing: border-box;
+
+    background-color: $section-second;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__header {
+    // margin-bottom: 20px;
+    // border-bottom: 1px solid $white-default;
+  }
+  &__nav {
+    display: flex;
+    gap: 15px;
+    justify-content: end;
+  }
+  &__buttonContainer {
+    width: 100px;
+    height: 30px;
+  }
+}

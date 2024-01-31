@@ -2,7 +2,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import style from './BasketItem.module.scss';
 import { IBasketItem } from './BasketItemTypes';
 import { Link } from 'react-router-dom';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaMinus, FaPlus } from 'react-icons/fa';
 import {
   useAddItemMutation,
   useDeleteItemMutation,
@@ -76,21 +76,29 @@ export const BasketItem = ({ basketGame }: IBasketItem) => {
           </div>
 
           <div className={style.game__quantity}>
-            <button className={style.game__quantityBtn} onClick={handleDeleteFromCart}>
-              <FaArrowLeft />
+
+
+
+
+            <button className={style.game__quantityBtn} onClick={handleDeleteFromCart} disabled={basketGame.quantity < 2}>
+<FaMinus />
             </button>
 
             <p className={style.count}>{basketGame.quantity}</p>
 
-            <button className={style.game__quantityBtn} onClick={handleAddToCart}>
-              <FaArrowRight />
+            <button className={style.game__quantityBtn} onClick={handleAddToCart} disabled={basketGame.quantity > 2}>
+              <FaPlus />
             </button>
+
+
+
+
           </div>
           <p className={style.game__startPrice}>{priceWithoutDiscount} ₽</p>
 
           <p className={style.game__price}>{finishPrice} ₽</p>
           <button className={style.game__deleteBtn} onClick={handleDeletePosition}>
-            <AiFillDelete size={20} />
+            <AiFillDelete size={'auto'} />
           </button>
         </>
       )}

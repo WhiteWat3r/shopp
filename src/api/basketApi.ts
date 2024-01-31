@@ -49,6 +49,16 @@ export const basketApi = createApi({
       invalidatesTags: ['basketControl'],
     }),
 
+    clearAllBasket: build.mutation({
+      query: (body) => ({
+        url: '/clear-cart',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['basketControl'],
+    }),
+
+
     createOrder: build.mutation({
       query: () => ({
         url: '/create-order',
@@ -64,5 +74,6 @@ export const {
   useDeleteItemMutation,
   useDeletePositionMutation,
   useGetBasketInfoQuery,
-  useCreateOrderMutation
+  useCreateOrderMutation,
+  useClearAllBasketMutation
 } = basketApi;

@@ -11,8 +11,12 @@ import { Button } from '../../UI/Button/Button';
 import { ProfileInfoPage } from '../ProfileInfoPage/ProfileInfoPage';
 import { FaPencilAlt } from 'react-icons/fa';
 import { config } from '../../utils/config';
+import { Modal } from '../../components/Modal/Modal';
+import { useState } from 'react';
 
 function ProfilePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
@@ -25,17 +29,23 @@ function ProfilePage() {
   if (!isAuthenticated) {
     navigate('/login', { replace: true });
   }
-console.log(user?.orders);
+  // console.log(user?.orders);
 
   const handleLogout = async () => {
     try {
       await logout('');
       deleteCookie('accessToken');
       dispatch(clearUser());
+      setIsModalOpen(false);
     } catch (err) {
       console.log(err);
     }
   };
+
+  const tooglePopup = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <section className={style.section}>
       <div className={style.profile}>
@@ -88,7 +98,7 @@ console.log(user?.orders);
             )}
           </ul>
           <div className={style.profile__buttonConatainer}>
-            <Button type={'button'} mode={'secondary'} isDisabled={false} onClick={handleLogout}>
+            <Button type={'button'} mode={'secondary'} isDisabled={false} onClick={tooglePopup}>
               Выход
             </Button>
           </div>
@@ -105,6 +115,15 @@ console.log(user?.orders);
           {/* <Route path="/settings" element={<ProfileOrdersPage />} /> */}
         </Routes>
       </>
+
+      {isModalOpen && (
+        <Modal
+          header={'Выход'}
+          text={'Вы уверены, что хотите выйти?'}
+          handleClose={tooglePopup}
+          handleConfirm={handleLogout}
+        />
+      )}
     </section>
   );
 }

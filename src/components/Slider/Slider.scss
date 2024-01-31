@@ -1,7 +1,6 @@
 @import '../../styles/colors.scss';
 @import '../../styles/mixins.scss';
 
-
 .section {
   display: flex;
   margin: 10px auto 30px;
@@ -11,14 +10,14 @@
   max-width: 1520px;
   width: 100%;
   color: $white-default;
-//   justify-content: center;
+  //   justify-content: center;
 }
 
 .slider {
-    max-width: 900px;
-    width: 100%;
+  max-width: 900px;
+  width: 100%;
   display: flex;
-//   border-radius: 10px;
+  //   border-radius: 10px;
   margin-top: 20px;
   text-align: center;
   position: relative;
@@ -31,16 +30,14 @@
   // max-width: 800px;
   // width: 100%;
 
-//   overflow: inherit;
+  //   overflow: inherit;
 
   &__img {
     width: 100%;
     height: 100%;
     // border-radius: 10px;
 
-
     // object-fit: cover;
-
 
     opacity: 0.7;
     transition: transform 0.3s ease;
@@ -57,14 +54,13 @@
   }
   &__container {
     border-radius: 10px 0 0 10px;
-
   }
 
   &__info {
     position: absolute;
     margin: 5px;
     box-sizing: border-box;
-    height:calc(100% - 10px);
+    height: calc(100% - 10px);
     width: 300px;
     top: 0;
     right: 0px;
@@ -76,12 +72,8 @@
     background-color: rgba(18, 34, 52, 0.6);
     opacity: 0;
 
-
-
-
     border-radius: 10px;
-    transition:  opacity 0.1s ease-out;
-
+    transition: opacity 0.1s ease-out;
 
     // display: none;
     clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
@@ -92,7 +84,7 @@
     flex-direction: column;
     align-items: end;
     justify-content: space-between;
-}
+  }
 
   &__nameBlock {
     display: flex;
@@ -105,17 +97,15 @@
     @include font-h2-semibold;
     transition: opacity 0.5s ease;
     color: $white-default;
-   
-
   }
-  
+
   &__platform {
     @include font-preview-bold;
     opacity: 0.8;
   }
-&__description {
+  &__description {
     // margin-left: auto;
-    @include  font-CTAbody-regular;
+    @include font-CTAbody-regular;
     max-width: 230px;
     width: 100%;
     overflow: hidden;
@@ -123,63 +113,41 @@
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     height: auto;
-}
-&__name {
+  }
+  &__name {
     @include font-h2-semibold;
-    text-wrap:balance;
+    text-wrap: balance;
     // margin-bottom: 30px;
-}
-&__buttonContainer {
+  }
+  &__buttonContainer {
     max-width: 200px;
     width: 200px;
     min-height: 45px;
     // margin: 0 auto;
-}
+  }
 
-&__genres {
+  &__genres {
     @include font-body-filters;
+  }
 }
 
+
+.slider:hover .slider__info {
+  opacity: 1;
+  transition: opacity 0.6s ease-in;
 }
 
+.slider:hover .slider__description {
+  opacity: 1;
+}
 
-
-// .asd {
-//     // position: absolute;
-//     width: 100%;
-//     height: 100%;
-//     padding: 0 70px;
-//     box-sizing: border-box;
-// }
-
-// .slider:hover .slider__nameBlock {
-//     opacity: 0;
-//     visibility: hidden;
-
-//   }
-
-
-  
-  .slider:hover .slider__info {
-    opacity: 1;
-    transition: opacity 0.6s ease-in;
-  }
-
-  
-  .slider:hover .slider__description {
-    opacity: 1;
-  }
-
-  .slider:hover .slider__img {
-    transform: scale(1.05);
-  }
-
-
-
+.slider:hover .slider__img {
+  transform: scale(1.05);
+}
 
 .swiper-pagination {
   bottom: -25px !important;
-//   max-width: 300px;
+  //   max-width: 300px;
 }
 
 .swiper-pagination-bullet {
@@ -198,8 +166,8 @@
   background-image: url('../../assets/left-arrow-backup-2-svgrepo-com.svg');
   transform: rotate(0.5turn) translateY(50%);
   background-size: 100%;
-//   border: 1px solid white;
-//   display: none;
+  //   border: 1px solid white;
+  //   display: none;
 }
 
 .slider .swiper-button-prev {
@@ -208,25 +176,14 @@
 
   background-image: url('../../assets/right-arrow-backup-2-svgrepo-com.svg');
   transform: rotate(0.5turn) translateY(50%);
-//   display: none;
+  //   display: none;
 
   background-size: 100%;
-//   border: 1px solid white;
+  //   border: 1px solid white;
 }
-
-// .slider:hover .swiper-button-next {
-//   display: block;
-// }
-
-// .slider:hover .swiper-button-prev {
-//   display: block;
-// }
-
-
 @media screen and (max-width: 1300px) {
-    .section {
-        flex-direction: column;
-        align-items: center;
-    }
+  .section {
+    flex-direction: column;
+    align-items: center;
   }
-  
+}
