@@ -43,11 +43,11 @@ export const filterAndSortArray = (
   }
 
   if (filterParams.startCount) {
-    res = res.filter((game) => game.price >= filterParams.startCount);
+    res = res.filter((game) => game.price >= filterParams.startCount!);
   }
 
   if (filterParams.endCount) {
-    res = res.filter((game) => game.price <= filterParams.endCount);
+    res = res.filter((game) => game.price <= filterParams.endCount!);
   }
 
   if (filterParams?.platforms?.length > 0) {
