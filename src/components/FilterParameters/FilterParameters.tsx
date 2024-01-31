@@ -129,6 +129,7 @@ export const FilterParameters = () => {
 
   return (
     <div className={style.controls}>
+      <div className={style.controls__container}>
       <SearchInput placeholder="Поиск игры" validation={{ ...register('name') }} />
 
       <div className={style.controls__block}>
@@ -192,6 +193,7 @@ export const FilterParameters = () => {
       </div>
       <div className={style.controls__buttonContainer}>
       <Button isDisabled={false} type={'button'} mode={'secondary'} onClick={handleClearFilters}>Очистить</Button></div>
+    </div>
     </div>
   );
 };

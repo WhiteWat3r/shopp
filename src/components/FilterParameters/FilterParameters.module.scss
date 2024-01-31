@@ -2,27 +2,20 @@
 @import '../../styles/mixins.scss';
 
 .controls {
-  position: sticky;
-  top: 30px;
-
-  
   display: flex;
   flex-direction: column;
   color: $white-default;
   gap: 15px;
+  box-sizing: border-box;
 
+  &__container {
+    position: sticky;
+    top: 30px;
+    padding: 20px;
 
-
-
-  // min-height: 775px;
-  max-height: calc(100vh - 50px - 70px); 
-
-
-  border-radius: 20px;
-  border: 2px solid $section-second;
-  padding: 20px;
-
-box-sizing: border-box;
+    border-radius: 20px;
+    border: 2px solid $section-second;
+  }
 
   &__subtitle {
     @include font-input-field;
@@ -43,7 +36,6 @@ box-sizing: border-box;
     gap: 10px;
     border-top: 1px solid $section-second;
     padding-top: 15px;
-    
   }
 
   &__cost {
@@ -64,11 +56,9 @@ box-sizing: border-box;
     padding: 0 5px;
     // box-sizing: border-box;
 
-
     &_active {
-        opacity: 1;
-        // border: 1px solid white;
-
+      opacity: 1;
+      // border: 1px solid white;
     }
   }
   &__publishers {
