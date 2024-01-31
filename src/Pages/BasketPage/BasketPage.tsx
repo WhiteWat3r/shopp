@@ -1,13 +1,11 @@
 import style from './BasketPage.module.scss';
 
-import Loader from '../../components/Loader/Loader';
 import { BasketItem } from '../../components/BasketItem/BasketItem';
 import { PayWidget } from '../../components/PayWidget/PayWidget';
 import { IBasketGame } from '../../types/basketTypes';
 import { useEffect } from 'react';
 import { useClearAllBasketMutation, useGetBasketInfoQuery } from '../../api/basketApi';
 import { Button } from '../../UI/Button/Button';
-import { Modal } from '../../components/Modal/Modal';
 
 export const BasketPage = () => {
   // const { data: basketInfo } = useGetBasketInfoQuery('');
@@ -64,10 +62,6 @@ export const BasketPage = () => {
       {/* ) : (
         <Loader />
       )} */}
-
-
-
-
     </section>
   );
 };

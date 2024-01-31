@@ -6,7 +6,7 @@ import { useGetBasketInfoQuery } from '../../api/basketApi';
 import { useAuthCheckQuery } from '../../api/authApi';
 import {
   deleteCookie,
-  getCookie,
+  // getCookie,
   // getCookie,
   setCookie,
 } from '../../utils/cookie';
