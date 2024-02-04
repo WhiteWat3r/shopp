@@ -1,0 +1,27 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+
+.buyButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+
+    &__count {
+        justify-content: center;
+        display: flex;
+        align-items: center;  
+    }
+
+    &__doubleButton {
+        display: grid;
+        grid-template-columns: 30% 1fr 30%;
+        justify-content: center;
+        height: 100%;
+        // border: 2px solid $blue-default;
+        border-radius: 20px;
+        box-sizing: border-box;
+        background-color:  $blue-default;
+      }
+}

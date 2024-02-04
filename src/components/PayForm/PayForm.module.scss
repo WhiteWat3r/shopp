@@ -6,7 +6,13 @@
   display: flex;
   flex-direction: column;
   // background-color: $section-first;
+  width: 100%;
 
+
+&__header {
+margin-bottom: 20px;
+@include font-h2-semibold;
+}
   &__input {
     border: #000000 2px solid;
     height: 35px;

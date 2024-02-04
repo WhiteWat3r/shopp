@@ -48,13 +48,10 @@
     &_inStock {
       color: $green-default;
     }
-    &_outOfStock{
+    &_outOfStock {
       color: $main-orange;
     }
   }
-
-
-
 
   &__parameter {
     opacity: 0.7;
@@ -91,17 +88,12 @@
     // min-height: 500px;
   }
 
-
-
   &__tags {
     list-style: none;
     padding: 0;
     margin: 0;
     display: grid;
-
     grid-template-columns: repeat(4, 1fr);
-    // grid-template-rows: repeat(2, 1fr);
-
     justify-content: space-between;
     row-gap: 20px;
     column-gap: 5px;
@@ -186,8 +178,10 @@
 
   &__infoItem {
     display: flex;
+    align-items: center;
     gap: 7px;
   }
+
   &__platform {
     width: 20px;
     background-color: transparent;
@@ -195,20 +189,17 @@
     border: none;
     padding: 0;
     color: $white-default;
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+    }
   }
-
-  &__platform:hover {
-
-    color: $blue-default;
-  }
-
-
-
-
 
   &__buttonContainer {
     width: 180px;
     height: 45px;
+    border-radius: 20px;
+    overflow: hidden;
   }
 
   &__likeButtonContainer {
@@ -220,29 +211,7 @@
     justify-content: space-between;
     align-items: end;
   }
-
-
-  &__doubleButton {
-    display: grid;
-    grid-template-columns: 55px 1fr 55px;
-    justify-content: center;
-    height: 100%;
-    border: 3px solid $blue-default;
-    border-radius: 20px;
-    box-sizing: border-box;
-    background-color:  $blue-default;
-  }
-
-  &__count {
-    justify-content: center;
-    display: flex;
-    align-items: center;
-  }
 }
-
-
-
-
 
 @media screen and (max-width: 1280px) {
   .card {
@@ -286,7 +255,6 @@
       justify-content: space-between;
       // align-self: flex-end;
       gap: 20px;
-
     }
 
     &__poster {
@@ -317,23 +285,19 @@
   }
 }
 @media screen and (max-width: 600px) {
-  .section{
+  .section {
     padding: 0 15px;
   }
 }
 
-
 @media screen and (max-width: 460px) {
-
   .card {
-
     &__tags {
       grid-template-columns: repeat(2, 1fr);
       // margin: 0 auto;
       // justify-content: space-between;
       // column-gap: 60px;
       row-gap: 5px;
-
     }
     &__infoItem {
       font-size: 12px;

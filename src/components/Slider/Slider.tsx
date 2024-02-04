@@ -12,7 +12,9 @@ import { IGame } from '../../types/gameTypes';
 import { SlideInfo } from '../SlideInfo/SlideInfo';
 
 export const Slider = ({}) => {
-  const slides = useAppSelector((store) => store.games?.gamesList?.filter(slide => slide.availability))?.slice(-8);
+  const slides = useAppSelector((store) =>
+    store.games?.gamesList?.filter((slide) => slide.availability),
+  )?.slice(-8);
 
   const [currentSlide, setCurrentSlide] = useState<IGame>({} as IGame);
 
@@ -20,16 +22,11 @@ export const Slider = ({}) => {
   //   e.preventDefault();
   // };
 
-
-
-
   const handleSlideChange = (swiper: any) => {
     if (slides) {
       setCurrentSlide(slides[swiper.realIndex]);
     }
   };
-
-
 
   return (
     <section className="section">

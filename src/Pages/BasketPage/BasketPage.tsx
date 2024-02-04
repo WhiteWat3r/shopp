@@ -17,6 +17,8 @@ export const BasketPage = () => {
     refetch,
   } = useGetBasketInfoQuery('');
   const [clearAllBasket] = useClearAllBasketMutation();
+
+  
   console.log(basketInfo);
 
   useEffect(() => {

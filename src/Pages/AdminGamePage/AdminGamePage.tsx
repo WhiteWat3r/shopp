@@ -51,18 +51,20 @@ type GameFormInput = {
 };
 
 export const AdminGamePage = () => {
+
+
+  const [screenLink, setScreenLink] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
+  const [minimumRequirements, setMinimumRequirements] = useState<MinimumRequirements>({});
+
+
   const gamesInfo = useFetchAllCardsQuery('');
   const [createGame] = useAddGameMutation();
   const [updateGame] = useUpdateGameMutation();
 
   const navigate = useNavigate();
-  const [screenLink, setScreenLink] = useState('');
-  // const [posetLink, setPosterLink] = useState('');
 
-  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
-
-  const [minimumRequirements, setMinimumRequirements] = useState<MinimumRequirements>({});
   // console.log(minimumRequirements);
 
   const handleCategoryToggle = (categoryId: number) => {

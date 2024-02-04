@@ -1,23 +1,22 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
-
-import { FaCartArrowDown, FaRegCheckCircle } from 'react-icons/fa';
-import { RxCross2 } from 'react-icons/rx';
+import { Link, useParams } from 'react-router-dom';
 
 import style from './GamePage.module.scss';
 import Loader from '../../components/Loader/Loader.tsx';
+
 import { useAppSelector } from '../../services/store';
 import { ICategorAndGenreType } from '../../types/gameTypes.ts';
 import { FaPenAlt } from 'react-icons/fa';
 import { config } from '../../utils/config.ts';
 import { finishPrice } from '../../utils/finishPrice.ts';
 import { ScreenCarousel } from '../../components/ScreenCarousel/ScreenCarousel.tsx';
-import { Button } from '../../UI/Button/Button.tsx';
 
+import { FaCartArrowDown, FaRegCheckCircle } from 'react-icons/fa';
+import { CiCloudOn } from 'react-icons/ci';
+import { RxCross2 } from 'react-icons/rx';
 import { IoPeopleOutline, IoPersonOutline, IoGameControllerOutline } from 'react-icons/io5';
 import { FaPeopleGroup } from 'react-icons/fa6';
 import { GiAchievement } from 'react-icons/gi';
 import { PiVirtualRealityLight } from 'react-icons/pi';
-import { CiCloudOn } from 'react-icons/ci';
 
 import classNames from 'classnames';
 import { genres } from '../../utils/constants.ts';
@@ -25,26 +24,33 @@ import { GameTab } from '../../components/GameTab/GameTab.tsx';
 import { useFetchOneCardQuery } from '../../api/gameApi.ts';
 import { LikeButton } from '../../UI/LikeButton/LikeButton.tsx';
 import { platformIcons } from '../../components/FilterParameters/FilterParameters.tsx';
-import { useAddItemMutation, useDeleteItemMutation } from '../../api/basketApi.ts';
-import { useAddFavoriteMutation, useDeleteFavoriteMutation } from '../../api/favoriteApi.ts';
 import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
 import { Similar } from '../../components/Similar/Similar.tsx';
+import { useFavoriteActions } from '../../utils/hooks/useFavoriteActions.ts';
+import { useCartActions } from '../../utils/hooks/useCartActions.ts';
+import { QuantitySelectorButton } from '../../components/QuantitySelectorButton/QuantitySelectorButton.tsx';
+import { useState } from 'react';
+import { Modal } from '../../components/Modal/Modal.tsx';
 
 export const GamePage = () => {
-  const [addItem] = useAddItemMutation();
-  const [deleteItem] = useDeleteItemMutation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [initialSlide, setInitialSlide] = useState(0);
+  const { gameId } = useParams();
+  console.log(initialSlide);
+  
+  const { data: game, status } = useFetchOneCardQuery(gameId);
 
-  const [addToFavorite] = useAddFavoriteMutation();
-  const [removeFromFavorite] = useDeleteFavoriteMutation();
+  const isFavorite = useAppSelector(
+    (store) =>
+      store.user?.favorites?.games?.findIndex((favorite) => favorite.id === game?.id) !== -1,
+  );
 
   const isAuthenticated = useAppSelector((store) => store.user.isAuthenticated);
 
-  const navigate = useNavigate();
-  // const dispatch = useAppDispatch()
+  const { toggleLike } = useFavoriteActions(isAuthenticated, isFavorite);
+  const { handleCartAction } = useCartActions(isAuthenticated);
 
   const userRole = useAppSelector((store) => store.user?.user?.role);
-
-  const { gameId } = useParams();
 
   const countInBasket = useAppSelector((store) => {
     const basketItem = store.user?.user?.basket?.basket_games.find((basketItem) => {
@@ -54,25 +60,7 @@ export const GamePage = () => {
     return basketItem ? basketItem.quantity : 0;
   });
 
-  const { data: game, status } = useFetchOneCardQuery(gameId);
-
-  // console.log('status', status);
-
-  const handleAddToCart = async () => {
-    if (isAuthenticated) {
-      await addItem({ gameId, quantity: 1 });
-    } else {
-      navigate('/login');
-    }
-  };
-
-  const handleRemoveFromCart = async () => {
-    if (isAuthenticated) {
-      await deleteItem({ gameId, quantity: 1 });
-    } else {
-      navigate('/login');
-    }
-  };
+  // console.log(typeof countInBasket);
 
   const formatGameCategories = game?.categories?.map(
     (category: ICategorAndGenreType) => category.description,
@@ -94,17 +82,12 @@ export const GamePage = () => {
     window.location.href = `https://store.steampowered.com/app/${game.steamApi}`;
   };
 
-  const isFavorite = useAppSelector((store) =>
-    store.user?.favorites?.games?.find((favorite) => favorite.id.toString() === gameId),
-  );
-
-  const toggleLike = async () => {
-    isFavorite ? await removeFromFavorite({ gameId }) : await addToFavorite({ gameId });
-  };
-
   console.log('рендер');
 
-
+  const openPopup = (index: number) => {
+    setIsModalOpen(true);
+    setInitialSlide(index)
+  };
 
   return (
     <section className={style.section}>
@@ -130,7 +113,7 @@ export const GamePage = () => {
                 className={style.card__poster}
               />
               {game.screenshots ? (
-                <ScreenCarousel screenshots={game.screenshots} />
+                <ScreenCarousel screenshots={game.screenshots} openPopup={openPopup}/>
               ) : (
                 <span className={style.card__absence}>Скриншотов пока нет</span>
               )}
@@ -265,7 +248,7 @@ export const GamePage = () => {
               <div className={style.card__buttons}>
                 <div className={style.card__likeButtonContainer}>
                   <LikeButton
-                    onClick={toggleLike}
+                    onClick={() => toggleLike(game.id)}
                     type={'button'}
                     active={!!isFavorite}
                     isDisabled={false}>
@@ -274,38 +257,9 @@ export const GamePage = () => {
                 </div>
 
                 <div className={style.card__buttonContainer}>
-                  {countInBasket > 0 ? (
-                    <div className={style.card__doubleButton}>
-                      <Button
-                        onClick={handleRemoveFromCart}
-                        type={'button'}
-                        mode={'primary'}
-                        isDisabled={false}>
-                        -
-                      </Button>
-                      <span className={style.card__count}>{countInBasket}</span>
-                      <Button
-                        onClick={handleAddToCart}
-                        type={'button'}
-                        mode={'primary'}
-                        isDisabled={countInBasket === 3}>
-                        +
-                      </Button>
-                    </div>
-                  ) : (
-                    <Button
-                      onClick={!game.isFree ? handleAddToCart : linkToLoad}
-                      type={'button'}
-                      mode={'primary'}
-                      isDisabled={!game.availability}>
-                      {game.price === 0 || game.isFree
-                        ? 'Скачать'
-                        : game.availability
-                        ? 'Купить'
-                        : 'Нет в наличии'}
-                      {/* {game.availability ? 'Купить' : 'Нет в наличии'} */}
-                    </Button>
-                  )}
+                  <QuantitySelectorButton
+                    {...{ countInBasket, linkToLoad, handleCartAction, game }}
+                  />
                 </div>
               </div>
             </div>
@@ -315,7 +269,16 @@ export const GamePage = () => {
         </div>
       )}
       <Similar mainGame={game} />
+
+      {isModalOpen && (
+        <Modal
+        handleClose={() =>  setIsModalOpen(!isModalOpen)}
+        isScreenSlider={true}
+        screens={game.screenshots}
+        initialSlide={initialSlide}
+      />
+      )}
+      
     </section>
   );
-}
-
+};

@@ -14,6 +14,9 @@
   // margin-top: 20px;
   position: sticky;
   top: 120px;
+
+  max-width: 350px;
+  width: 100%;
 }
 
 .cardDetails {
@@ -31,7 +34,9 @@
   /* align-items: center; */
   justify-content: center;
   padding: 20px;
-  max-width: 310px;
+
+  // max-width: 350px;
+  width: 100%;
 }
 
 .cardDetailsHeader {

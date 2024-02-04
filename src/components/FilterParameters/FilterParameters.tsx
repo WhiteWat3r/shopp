@@ -76,7 +76,6 @@ export const FilterParameters = () => {
 
   const values = watch();
 
-
   useEffect(() => {
     if (allGames) {
       const result = filterAndSortArray(allGames, values, sortOption);
@@ -114,86 +113,95 @@ export const FilterParameters = () => {
   };
   console.log(values);
 
-
   const handleClearFilters = () => {
     reset();
-  
+
     setValue('startCount', null);
     setValue('endCount', null);
     setValue('name', '');
     setValue('platforms', []);
     setValue('publishers', []);
+    setPublisherName('');
+    setAllPublishers(publishersQuery);
   };
 
-
+  console.log(checkedPublishers);
 
   return (
     <div className={style.controls}>
       <div className={style.controls__container}>
-      <SearchInput placeholder="Поиск игры" validation={{ ...register('name') }} />
-
-      <div className={style.controls__block}>
-        <span className={style.controls__subtitle}>Цена</span>
-        <div className={style.controls__cost}>
-          <label>от</label>
-          <input type={'number'} className={style.controls__input} {...register('startCount')} />
-          <label>до</label>
-          <input type={'number'} className={style.controls__input} {...register('endCount')} />
-        </div>
-      </div>
-
-      <div className={style.controls__block}>
-        <span className={style.controls__subtitle}>Платформа</span>
-
-        <ul className={style.controls__platform}>
-          {platformIcons.map((item) => (
-            <li
-              key={item.id}
-              className={classNames(
-                style.controls__platformIcon,
-                values?.platforms?.includes(item.platform) && style.controls__platformIcon_active,
-              )}
-              onClick={() => handleTogglePlatform(item.platform)}>
-              {item.icon}
-            </li>
-          ))}
-        </ul>
+        <SearchInput placeholder="Поиск игры" validation={{ ...register('name') }} />
 
         <div className={style.controls__block}>
-          <span className={style.controls__subtitle}>Издатель</span>
-          <input
-            type="text"
-            placeholder={'Поиск'}
-            value={publisherName}
-            onChange={handleChangePublisherName}
-            className={style.controls__publisherSearch}
-          />
-          <ul className={style.controls__publishers + ' custom-scroll'}>
-            {allPublishers && allPublishers.length > 0 ? (
-              allPublishers.map((publisher) => (
-                <li className={style.controls__publisher} key={publisher.id}>
-                  <label className={style.controls__publisherName} htmlFor={publisher.name}>
-                    {publisher.name}
-                  </label>
-                  <input
-                    type="checkbox"
-                    id={publisher.name}
-                    onChange={() => handleTogglePublishers(publisher.name)}
-                  />
-                </li>
-              ))
-            ) : (
-              <li className={style.controls__publisher}>Такой издатель не найден :(</li>
-            )}
+          <span className={style.controls__subtitle}>Цена</span>
+          <div className={style.controls__cost}>
+            <label>от</label>
+            <input type={'number'} className={style.controls__input} {...register('startCount')} />
+            <label>до</label>
+            <input type={'number'} className={style.controls__input} {...register('endCount')} />
+          </div>
+        </div>
+
+        <div className={style.controls__block}>
+          <span className={style.controls__subtitle}>Платформа</span>
+
+          <ul className={style.controls__platform}>
+            {platformIcons.map((item) => (
+              <li
+                key={item.id}
+                className={classNames(
+                  style.controls__platformIcon,
+                  values?.platforms?.includes(item.platform) && style.controls__platformIcon_active,
+                )}
+                onClick={() => handleTogglePlatform(item.platform)}>
+                {item.icon}
+              </li>
+            ))}
           </ul>
+
+          <div className={style.controls__block}>
+            <span className={style.controls__subtitle}>Издатель</span>
+            <input
+              type="text"
+              placeholder={'Поиск'}
+              value={publisherName}
+              onChange={handleChangePublisherName}
+              className={style.controls__publisherSearch}
+            />
+            <ul className={style.controls__publishers + ' custom-scroll'}>
+              {allPublishers && allPublishers.length > 0 ? (
+                allPublishers.map((publisher) => (
+                  <li className={style.controls__publisher} key={publisher.id}>
+                    <label className={style.controls__publisherName} htmlFor={publisher.name}>
+                      {publisher.name}
+                    </label>
+                    <input
+                      type="checkbox"
+                      id={publisher.name}
+                      onChange={() => handleTogglePublishers(publisher.name)}
+                      checked={checkedPublishers.includes(publisher.name)}
+                    />
+                  </li>
+                ))
+              ) : (
+                <li className={style.controls__publisher}>Такой издатель не найден :(</li>
+              )}
+            </ul>
+          </div>
+          <div className={style.controls__block}>
+            {/* <span className={style.controls__subtitle}>Категории</span> */}
+          </div>
         </div>
-        <div className={style.controls__block}>
-          {/* <span className={style.controls__subtitle}>Категории</span> */}
+        <div className={style.controls__buttonContainer}>
+          <Button
+            isDisabled={false}
+            type={'button'}
+            mode={'secondary'}
+            onClick={handleClearFilters}>
+            Очистить
+          </Button>
         </div>
       </div>
-      <div className={style.controls__buttonContainer}>
-      <Button isDisabled={false} type={'button'} mode={'secondary'} onClick={handleClearFilters}>Очистить</Button></div>
-    </div>
     </div>
   );
 };

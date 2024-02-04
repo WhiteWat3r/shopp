@@ -145,42 +145,8 @@
   transform: scale(1.05);
 }
 
-.swiper-pagination {
-  bottom: -25px !important;
-  //   max-width: 300px;
-}
 
-.swiper-pagination-bullet {
-  width: 10px !important;
-  height: 10px !important;
-}
 
-.swiper-pagination-bullet-active {
-  background-color: rgb(14, 107, 189) !important;
-}
-
-.slider .swiper-button-next {
-  position: absolute;
-  top: 50%;
-  right: -10px;
-  background-image: url('../../assets/left-arrow-backup-2-svgrepo-com.svg');
-  transform: rotate(0.5turn) translateY(50%);
-  background-size: 100%;
-  //   border: 1px solid white;
-  //   display: none;
-}
-
-.slider .swiper-button-prev {
-  // border: 1px solid white;;
-  left: -10px;
-
-  background-image: url('../../assets/right-arrow-backup-2-svgrepo-com.svg');
-  transform: rotate(0.5turn) translateY(50%);
-  //   display: none;
-
-  background-size: 100%;
-  //   border: 1px solid white;
-}
 @media screen and (max-width: 1300px) {
   .section {
     flex-direction: column;

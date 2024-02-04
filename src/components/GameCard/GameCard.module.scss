@@ -29,7 +29,7 @@
     position: relative;
     padding: 10px;
     text-align: start;
-     display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 20px;
@@ -48,25 +48,35 @@
     max-width: 170px;
   }
 
-  &__percent {
+  // &__percent {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 0;
+  //   height: 0;
+
+  //   border-top: 55px solid $green-discount;
+  //   border-right: 55px solid transparent;
+
+  // }
+  &__discount {
     position: absolute;
     top: 0;
     left: 0;
-    width: 0;
-    height: 0;
-
-    border-top: 55px solid $green-discount;
-    border-right: 55px solid transparent;
-  }
-  &__discount {
-    position: absolute;
-    top: 4px;
-    left: 4px;
     @include font-preview-bold;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 170px;
+
+    border-radius: 0 0 10px 0;
+    height: 25px;
+    width: 100%;
+    max-width: 60px;
+    background-color: $green-discount;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &__block {
@@ -98,10 +108,11 @@
 
   &__buttonContainer {
     height: 40px;
-    max-width: 60px;
+    max-width: 110px;
     width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
   }
-
 
   &__genres {
     margin: 0;
@@ -140,20 +151,13 @@
   background-color: $section-first;
   border-bottom: 2px solid white;
 }
-.popularItem:hover .popularItem__img{
+.popularItem:hover .popularItem__img {
   opacity: 0.5;
 }
 
 @media screen and (max-width: 1440px) {
   .popularItem {
     max-width: calc((100vw - 30px * 2 - 60px) / 4);
-    &__percent {
-      border-top: 55px solid  $blue-default;
-      border-right: 55px solid transparent;
-    }
-    &__discount {
-      font-size: 14px;
-    }
   }
 }
 
@@ -173,15 +177,6 @@
     &__buttonContainer {
       width: 100%;
     }
-    &__percent {
-      border-top: 40px solid  $blue-default;
-      border-right: 40px solid transparent;
-    }
-    &__discount {
-      font-size: 10px;
-      top: 0;
-      left: 2px;
-    }
     &__info {
       gap: 10px;
     }
@@ -197,5 +192,15 @@
 @media screen and (max-width: 600px) {
   .popularItem {
     max-width: calc(100vw - 15px * 2);
+
+    &__discount {
+      height: 40px;
+      width: 100%;
+      max-width: 100px;
+      font-size: 16px;
+    }
+    &__buttonContainer {
+      max-width: 40%;
+    }
   }
 }

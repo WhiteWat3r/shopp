@@ -39,8 +39,6 @@ export const useLoadUserInfo = () => {
   const favoritesInfo = useGetFavoriteInfoQuery('', { skip: !isAuthenticated });
 
   useEffect(() => {
-    console.log(favoritesInfo?.data);
-
     if (favoritesInfo?.data) {
       dispatch(setFavorites(favoritesInfo?.data?.favorites));
     }

@@ -4,17 +4,29 @@ import { IBasketItem } from './BasketItemTypes';
 import { Link } from 'react-router-dom';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import {
-  useAddItemMutation,
-  useDeleteItemMutation,
   useDeletePositionMutation,
+  // useGetBasketInfoQuery,
 } from '../../api/basketApi';
 import { config } from '../../utils/config';
+import { useState } from 'react';
+import { MiniLoader } from '../MiniLoader/MiniLoader';
+import { useCartActions } from '../../utils/hooks/useCartActions';
+import { useAppSelector } from '../../services/store';
+// import { useAppDispatch } from '../../services/store';
 
 export const BasketItem = ({ basketGame }: IBasketItem) => {
-  const [addItem] = useAddItemMutation();
-  const [deleteItem] = useDeleteItemMutation();
+  const [isAddLoading, setIsAddLoading] = useState(false);
+  const [isRemoveLoading, setIsRemoveLoading] = useState(false);
+  const isAuthenticated = useAppSelector((store) => store.user.isAuthenticated);
+
+  // const dispatch = useAppDispatch();
+  // const { status } = useGetBasketInfoQuery('');
+
   const [deletePosition] = useDeletePositionMutation();
   // console.log(basketGame);
+
+  const { handleCartAction } = useCartActions(isAuthenticated);
+
 
   const game = basketGame.game;
   const gameId = game?.id;
@@ -22,27 +34,37 @@ export const BasketItem = ({ basketGame }: IBasketItem) => {
   // console.log(basketItem);
 
   const handleAddToCart = async () => {
-    await addItem({ gameId, quantity: 1 });
+    try {
+      setIsAddLoading(true);
+      await handleCartAction(gameId, true)
+    } catch (error) {
+      console.error('Ошибка:', error);
+    } finally {
+      setIsAddLoading(false);
+    }
   };
 
   const handleDeleteFromCart = async () => {
-    await deleteItem({ gameId, quantity: 1 });
+    try {
+      setIsRemoveLoading(true);
+      await handleCartAction(gameId, false)
+    } catch (error) {
+      console.error('Ошибка:', error);
+    } finally {
+      setIsRemoveLoading(false);
+    }
   };
 
   const handleDeletePosition = async () => {
     await deletePosition({ gameId });
   };
 
-  // const startPrice = 0;
 
   const priceWithoutDiscount = basketGame?.quantity * basketGame?.game?.price;
 
   const finishPrice = Math.round(
     priceWithoutDiscount - (priceWithoutDiscount * basketGame.game?.discount) / 100,
   );
-
-  // console.log(finishPrice);
-  // console.log(game);
 
   return (
     <li className={style.game}>
@@ -79,8 +101,8 @@ export const BasketItem = ({ basketGame }: IBasketItem) => {
             <button
               className={style.game__quantityBtn}
               onClick={handleDeleteFromCart}
-              disabled={basketGame.quantity < 2}>
-              <FaMinus />
+              disabled={basketGame.quantity < 2 || isRemoveLoading}>
+              {isRemoveLoading ? <MiniLoader /> : <FaMinus />}
             </button>
 
             <p className={style.count}>{basketGame.quantity}</p>
@@ -88,15 +110,15 @@ export const BasketItem = ({ basketGame }: IBasketItem) => {
             <button
               className={style.game__quantityBtn}
               onClick={handleAddToCart}
-              disabled={basketGame.quantity > 2}>
-              <FaPlus />
+              disabled={basketGame.quantity > 2 || isAddLoading}>
+              {isAddLoading ? <MiniLoader /> : <FaPlus />}
             </button>
           </div>
           <p className={style.game__startPrice}>{priceWithoutDiscount} ₽</p>
 
           <p className={style.game__price}>{finishPrice} ₽</p>
           <button className={style.game__deleteBtn} onClick={handleDeletePosition}>
-            <AiFillDelete size={'auto'} />
+            <AiFillDelete  />
           </button>
         </>
       )}
