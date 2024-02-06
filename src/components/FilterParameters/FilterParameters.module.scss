@@ -8,13 +8,22 @@
   gap: 15px;
   box-sizing: border-box;
 
+  max-width: 300px;
+  width: 100%;
+
   &__container {
     position: sticky;
     top: 30px;
     padding: 20px;
 
+    box-sizing: border-box;
+    width: 100%;
+
     border-radius: 20px;
     border: 2px solid $section-second;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   &__subtitle {
@@ -34,8 +43,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-top: 1px solid $section-second;
-    padding-top: 15px;
+    border-bottom: 1px solid $section-second;
+    padding-bottom: 15px;
   }
 
   &__cost {
@@ -71,9 +80,15 @@
     @include font-CTAbody-regular;
     gap: 15px;
 
-    max-height: 300px;
+    max-height: 170px;
     overflow-y: scroll;
     padding-right: 5px;
+    // max-width: 250px;
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
   &__publisher {
     display: flex;
@@ -103,5 +118,63 @@
 
   &__buttonContainer {
     height: 35px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .controls {
+    max-width: 350px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .controls {
+    max-width: 550px;
+
+    &__block {
+      align-items: center;
+    }
+
+    &__list {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    &__platform {
+      max-width: 250px;
+      width: 100%;
+    }
+    &__subtitle {
+      text-align: center;
+    }
+    &__cost {
+      max-width: 250px;
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .controls {
+    max-width: 300px;
+
+    // &__block {
+    //   align-items: center;
+    // }
+
+    &__list {
+      flex-direction: column;
+      // justify-content: space-around;
+    }
+    // &__platform {
+    //   max-width: 250px;
+    //   width: 100%;
+    // }
+    // &__subtitle {
+    //   text-align: center;
+    // }
+    // &__cost {
+    //   max-width: 250px;
+    //   width: 100%;
+    // }
   }
 }

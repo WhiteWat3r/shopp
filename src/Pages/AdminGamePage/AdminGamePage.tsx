@@ -100,7 +100,7 @@ export const AdminGamePage = () => {
     }
   });
   //peredelat'
-  console.log(game);
+  // console.log(game);
 
   const {
     register,
@@ -176,9 +176,9 @@ export const AdminGamePage = () => {
       gameData.img = gameData.img.replace(config.baseUrl, '').slice(1);
     }
 
-    console.log(gameData.screenshots);
+    // console.log(gameData.screenshots);
 
-    console.log(gameData);
+    // console.log(gameData);
 
     try {
       let response;
@@ -189,7 +189,7 @@ export const AdminGamePage = () => {
         response = await createGame(gameData);
       }
 
-      console.log(response);
+      // console.log(response);
 
       if ('data' in response && response.data.success) {
         if (game) {
@@ -204,7 +204,7 @@ export const AdminGamePage = () => {
 
       await gamesInfo.refetch();
     } catch (error) {
-      console.error('Error updating/creating game', error);
+      console.error('Ошибка', error);
       toast.error(`Ошибка}`);
     }
   };
@@ -215,7 +215,7 @@ export const AdminGamePage = () => {
         `${config.baseUrl}/api/proxy/steamApi/appdetails?appids=${steamApi}`,
       );
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       setValue('name', data[steamApi].data.name);
       setValue('publisher', data[steamApi].data.publishers[0]);
@@ -294,14 +294,12 @@ export const AdminGamePage = () => {
     }
     // console.log('screenshots', screenshots);
   };
-  const allValues = watch();
-  console.log('allValues', allValues);
-  console.log('img', img);
+
 
   const handleSetPoster = () => {
     const img = watch('img', '');
 
-    console.log('img', img);
+    // console.log('img', img);
     setValue('img', img);
   };
 

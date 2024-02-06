@@ -1,34 +1,49 @@
 @import '../../styles/colors.scss';
 @import '../../styles/mixins.scss';
 
-
 .page {
-    margin: 30px auto 0;
-    max-width: 1520px;
+  margin: 30px auto 0;
+  max-width: 1520px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 40px;
+
+  &__container {
+    display: flex;
     width: 100%;
-    box-sizing: border-box;
-    padding: 0 40px;
+    justify-content: space-between;
+    gap: 30px;
+  }
 
-    &__container {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-    }
+  &__header {
+    margin: 0;
+    padding-bottom: 20px;
+    // border-bottom: 2px solid white;
+    @include font-h1-bold;
+    color: $white-default;
+    text-align: start;
+  }
 
-    &__header {
-        margin: 0;
-        padding-bottom: 20px;
-        // border-bottom: 2px solid white;
-        @include  font-h1-bold;
-        color: $white-default;
-        text-align: start;
-      }
-
-      &__sort {
-        max-width: 950px;
-        width: 100%;
-            margin: 0 30px;
-
-      }
+  &__sort {
+    max-width: 950px;
+    width: 100%;
+    margin: 0;
+  }
 }
 
+@media screen and (max-width: 900px) {
+  .page {
+    
+    &__container {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .page {
+    padding: 0 15px;
+
+  }
+}

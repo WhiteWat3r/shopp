@@ -2,49 +2,41 @@
 @import '../../styles/mixins.scss';
 
 .preview {
-
   max-width: 360px;
   width: 100%;
   background-color: $section-first;
-  // max-height: 800px; 
-
   color: $white-default;
-
   box-sizing: border-box;
 
   &__container {
-    // height: 100%;
     padding: 0 20px;
     display: flex;
     flex-direction: column;
-
     border-radius: 20px;
     border: 2px solid $section-second;
-
     position: sticky;
     top: 30px;
   }
 
-&__header {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 30px;
-  justify-content: center;
-
-}
+  &__header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 30px;
+    justify-content: center;
+  }
   &__name {
     font-size: 30px;
-   max-width: 300px;
-   text-overflow: ellipsis;
-   overflow: hidden;
-   text-wrap: nowrap;
-   width: 100%;
+    max-width: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+    width: 100%;
     margin: 0;
   }
-&__platform {
-  width: 25px;
-}
+  &__platform {
+    width: 25px;
+  }
   &__categories {
     list-style: none;
     color: white;
@@ -53,7 +45,6 @@
     align-items: center;
     padding: 0;
     margin: 25px 0 0;
-    
   }
 
   &__item {
@@ -80,9 +71,7 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     height: auto;
-
- }
-
+  }
 
   &__screenshots {
     list-style: none;
@@ -93,7 +82,6 @@
     flex-direction: column;
     margin-bottom: 30px;
     // margin-top: auto;
-
   }
 
   &__screenshot {
@@ -106,5 +94,11 @@
   &__poster {
     width: 90%;
     border-radius: 20px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .preview {
+    display: none;
   }
 }

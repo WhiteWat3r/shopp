@@ -5,15 +5,27 @@ import { platformIcons } from '../FilterParameters/FilterParameters';
 import styles from './GamePreview.module.scss';
 
 function GamePreview() {
+  // const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
+
+  // const handleResize = () => {
+  //   setCurrentWidth(window.innerWidth);
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener('resize', handleResize);
+
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
+
+  // console.log(currentWidth);
+
   const cards = useAppSelector((store) => store.games.gamesList);
-
   const currentGame = useAppSelector((store) => store.games?.currentGame);
-
   const game = currentGame ? currentGame : cards && cards[0];
-
   const platform = platformIcons.find((platform) => platform.platform === game?.platform?.name);
 
-  // console.log(game);
   return (
     <>
       {game && (

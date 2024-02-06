@@ -31,6 +31,7 @@ export interface IGame {
 export interface ICategorAndGenreType {
   id: number;
   description: string;
+  translation: string;
 }
 
 export interface IPublisher {

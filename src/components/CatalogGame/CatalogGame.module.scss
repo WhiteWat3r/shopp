@@ -2,7 +2,7 @@
 @import '../../styles/mixins.scss';
 
 .game {
-  height: 100px;
+  // height: 100px;
   display: flex;
   margin: 17px auto;
   color: $white-default;
@@ -12,6 +12,7 @@
   border-radius: 6px;
   text-decoration: none;
   transition: background-color 0.3s, color 0.3s;
+box-sizing: border-box;
 
   &__image {
     min-width: 190px;
@@ -27,7 +28,7 @@
     text-align: left;
     // margin-left: 20px;
     margin-left: 10px;
-    margin-right: auto;
+    // margin-right: auto;
     // min-width: 145px
     display: flex;
     flex-direction: column;
@@ -64,7 +65,7 @@
   }
 
   &__description {
-    font-size: 10px;
+    @include  font-body-signature;
     margin: 0;
   }
 
@@ -117,3 +118,49 @@
 // .hoverEffect {
 // transition: background-color 0.3s, color 0.3s;
 // }
+
+
+@media screen and (max-width: 900px) {
+  .game {
+    // display: none;
+    flex-direction: column;
+    padding: 10px;
+    position: relative;
+    gap: 10px;
+  &__image {
+    // min-width: 190px;
+    height: auto;
+    width: 100%
+
+  }
+  &__priceBlock {
+    // flex: auto;
+    @include font-body-regular;
+    max-width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+    flex-direction: row;
+  }
+  &__info {
+    text-align: center;
+    align-items: center;
+    margin-left: 0;
+
+  }
+  &__discount {
+    position: absolute;
+    right: 4%;
+    top: 7%;
+  }
+  &__price {
+margin-left: auto;
+  }
+  &__name {
+    @include font-h2-semibold;
+max-width: 100%;
+  }
+  &__description {
+    @include  font-body-filters;
+  }
+  }
+}

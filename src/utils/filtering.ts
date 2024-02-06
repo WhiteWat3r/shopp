@@ -16,7 +16,7 @@ import { formatAndCheckDate } from './formatAndCheckDate';
 //      return res
 //  }
 
-const paramsFilter = (array: string[], startArray: IGame[], type: string) => {
+const platformsAndPublishersFilter = (array: string[], startArray: IGame[], type: string) => {
   console.log('массив платформ', array);
   console.log('массив игр', startArray);
   console.log('Тип (платформа или издатель)', type);
@@ -51,15 +51,25 @@ export const filterAndSortArray = (
   }
 
   if (filterParams?.platforms?.length > 0) {
-    console.log(filterParams.platforms);
-
-    const filteredArray = paramsFilter(filterParams.platforms, res, 'platform');
+    const filteredArray = platformsAndPublishersFilter(filterParams.platforms, res, 'platform');
     res = [...filteredArray];
   }
 
   if (filterParams?.publishers?.length > 0) {
-    console.log(filterParams.publishers);
-    const filteredArray = paramsFilter(filterParams.publishers, res, 'publisher');
+    const filteredArray = platformsAndPublishersFilter(filterParams.publishers, res, 'publisher');
+    res = [...filteredArray];
+  }
+
+  if (filterParams?.genres?.length > 0) {
+    const filteredArray = res.filter((game) => {
+      const genresArray = game.genres.filter((genre) =>
+        filterParams.genres.includes(genre.description),
+      );
+      console.log('genresArray', genresArray);
+
+      return genresArray.length > 0 ? true : false;
+    });
+
     res = [...filteredArray];
   }
 

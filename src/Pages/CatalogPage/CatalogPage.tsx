@@ -12,7 +12,6 @@ export const CatalogPage = () => {
         <GamePreview />
 
         <div className={style.page__sort}>
-
           <Sort />
 
           <MainCatalog />
