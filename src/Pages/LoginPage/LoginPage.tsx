@@ -35,16 +35,17 @@ function LoginPage() {
     watch,
     formState: { errors, isValid },
   } = useForm<AuthForm>({
-    mode: 'onBlur'
+    mode: 'onBlur',
   });
-  
-  const loginData = watch()
-  console.log(loginData);
 
-  
-  const onSubmit = async (data: AuthForm) => {
-    console.log(data);
-    
+  const loginData = watch();
+  // console.log(loginData);
+
+  const onSubmit = async (
+    // data: AuthForm
+    ) => {
+    // console.log(data);
+
     // console.log(loginData);
 
     try {
@@ -71,11 +72,6 @@ function LoginPage() {
   // console.log(errors);
   // console.log('erorAuth', erorAuth);
 
-
-
-
-
-  
   return (
     <section className={style.section}>
       <form className={style.login} onSubmit={handleSubmit(onSubmit)}>
@@ -85,13 +81,9 @@ function LoginPage() {
 
         <Input
           type={'text'}
-
           validation={{
-            ...register('email',
-             { required: 'Это обязательноe поле', pattern: /^\S+@\S+$/i }
-             ),
+            ...register('email', { required: 'Это обязательноe поле', pattern: /^\S+@\S+$/i }),
           }}
-
           mode={'primary'}
           id={'email'}
         />
@@ -102,9 +94,7 @@ function LoginPage() {
 
         <Input
           type={passwordShown ? 'text' : 'password'}
-          validation={{ ...register('password', 
-          { required: 'Это обязательноe поле' }
-          ) }}
+          validation={{ ...register('password', { required: 'Это обязательноe поле' }) }}
           mode={'primary'}
           id={'password'}
           visible={passwordShown}
@@ -138,7 +128,6 @@ function LoginPage() {
           setValue('email', '');
           setValue('password', '');
           clearErrors(['email', 'password']);
-
         }}
         className={style.login__link}>
         {isRegistrationPage

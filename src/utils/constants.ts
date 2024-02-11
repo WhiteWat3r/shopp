@@ -136,10 +136,10 @@ export const sortOptions = [
 ];
 
 export const profileMenu = [
-  { id: 1, text: 'Инфо', link: '/profile/info' },
+  { id: 1, text: 'Настойки', link: '/profile/settings' },
   { id: 2, text: 'Мои покупки', link: '/profile/orders' },
   { id: 3, text: 'Партнерская программа(-)', link: '/profile/partner' },
-  { id: 4, text: 'Обратная связь(-)', link: '/profile/contact' },
+  { id: 4, text: 'Обратная связь', link: '/profile/support' },
   { id: 5, text: 'Избранное', link: '/profile/favorites' },
   { id: 6, text: 'Корзина', link: '/basket' },
   // { id: 7, text: 'Выход', link: '/login' },
@@ -151,5 +151,6 @@ export const adminLinks = [
   { id: 2, text: 'Создать игру', link: '/admin/game/create' },
   { id: 3, text: 'Розыгрыши', link: '/' },
   { id: 4, text: 'Слайдер?', link: '/' },
-  { id: 5, text: 'Магазин', link: '/' },
+  { id: 5, text: 'Чат', link: '/admin/support' },
+  { id: 6, text: 'Магазин', link: '/' },
 ];

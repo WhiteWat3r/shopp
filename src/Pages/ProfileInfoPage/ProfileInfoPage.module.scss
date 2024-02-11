@@ -5,54 +5,13 @@
   width: 100%;
   display: flex;
   // justify-content: center;
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  &__avatarBlock {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-top: 10px;
-    // justify-content: space-between;
-  }
+  background-color: $section-second;
+  border-radius: 20px;
+  padding: 40px;
+  justify-content: space-between;
+}
 
 
-  &__block {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  &__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &__imageContainer {
-    border-radius: 50%;
-    width: 266px;
-    height: 266px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-  }
-
-  &__buttonContainer {
-    width: 266px;
-    height: 35px;
-    margin-top: 20px;
-  }
-
-  &__submitButtonContainer {
-    width: 250px;
-    height: 40px;
-    margin-top: 80px;
-    align-self: end;
-  }
+.info > * + * {
+  border-left: 3px solid $white-default;
 }

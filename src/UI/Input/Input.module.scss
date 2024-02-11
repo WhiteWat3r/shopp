@@ -11,7 +11,7 @@
   padding: 0.4em;
   color: #ffffff;
   border-radius: 10px;
-
+  box-sizing: border-box;
   &__check {
     background-color: transparent;
     border: none;
@@ -23,7 +23,9 @@
     transform: translateY(-50%);
   }
 }
-
+.profileInput {
+  width: 100%;
+}
 .secondary {
   background-color: #000000;
   margin: 0;
@@ -110,10 +112,11 @@
   }
 
   &_profileInput {
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    @include font-h3-bold;
+    // flex-direction: row;
+    align-items: start;
+    gap: 10px;
+    // @include font-h3-bold;
+    width: 100%;
   }
 }
 

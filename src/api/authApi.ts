@@ -57,6 +57,30 @@ export const authApi = createApi({
         body,
       }),
     }),
+
+
+
+
+    updatePassword: build.mutation({
+      query: (body) => ({
+        url: '/update-password',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['authControl'],
+
+    }),
+
+    updateEmail: build.mutation({
+      query: (body) => ({
+        url: '/update-email',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['authControl'],
+
+    }),
+
   }),
 });
 
@@ -65,5 +89,7 @@ export const {
   useAuthLoginMutation,
   useAuthLogoutMutation,
   useAuthRegisterMutation,
-  useUpdateUserInfoMutation
+  useUpdateUserInfoMutation,
+  useUpdateEmailMutation,
+  useUpdatePasswordMutation
 } = authApi;

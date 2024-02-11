@@ -9,6 +9,7 @@ import { publishersApi } from '../api/publisersApi';
 import { authApi } from '../api/authApi';
 import { userSlice } from './slices/user';
 import { favoriteApi } from '../api/favoriteApi';
+import { supportApi } from '../api/supportApi';
 
 export const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
   [steamApi.reducerPath]: steamApi.reducer,
   [publishersApi.reducerPath]: publishersApi.reducer,
   [favoriteApi.reducerPath]: favoriteApi.reducer,
+  [supportApi.reducerPath]: supportApi.reducer,
 
   user: userSlice.reducer,
   games: gamesSlice.reducer,
@@ -32,6 +34,7 @@ export const store = configureStore({
       publishersApi.middleware,
       authApi.middleware,
       favoriteApi.middleware,
+      supportApi.middleware,
     ),
 });
 

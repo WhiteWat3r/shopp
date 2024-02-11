@@ -12,9 +12,9 @@ export const Input = ({
   labelText,
   checked,
   visible,
+  placeholder,
   onButtonClick,
 }: IInput) => {
-  
   return (
     <div className={classNames(style.container, style[`container_${mode}`])}>
       {labelText && <label htmlFor={id}>{labelText}</label>}
@@ -26,6 +26,7 @@ export const Input = ({
         className={classNames(style.input, style[mode])}
         onChange={onChange}
         checked={checked}
+        placeholder={placeholder}
       />
       {onButtonClick && (
         <button type="button" className={style.input__check} onClick={onButtonClick}>

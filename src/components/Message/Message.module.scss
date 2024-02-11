@@ -1,0 +1,44 @@
+@import '../../styles/colors.scss';
+@import '../../styles/mixins.scss';
+
+.message {
+  width: 300px;
+  border-radius: 15px;
+  @include font-body-regular;
+  padding: 10px;
+  box-sizing: border-box;
+  text-wrap: wrap;
+
+
+  gap: 5px;
+
+  display: flex;
+  flex-direction: column;
+
+  // box-sizing: border-box;
+  &_from {
+    &_admin {
+      align-self: flex-start;
+      background-color: white;
+      color: $black-default;
+    }
+    &_user {
+      align-self: flex-end;
+
+      background-color: $blue-default;
+    }
+  }
+  &__time {
+    @include font-body-filters;
+
+
+    align-self: self-end;
+  }
+
+  &__content {
+
+    word-wrap: break-word;
+    max-width: 100%;
+    vertical-align: middle;
+  }
+}

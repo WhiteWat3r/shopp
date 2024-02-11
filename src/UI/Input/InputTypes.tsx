@@ -8,4 +8,5 @@ export interface IInput {
     checked?: boolean;
     visible?: boolean;
     onButtonClick?: () => void;
+    placeholder?: string;
 }

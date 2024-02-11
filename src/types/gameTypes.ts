@@ -1,3 +1,5 @@
+import { IBasketGame } from "./basketTypes";
+
 export interface IGame {
   id: number;
   name: string;
@@ -55,3 +57,34 @@ export interface IOrderGame {
   game: IGame;
   gameKeys: { key: string }[];
 }
+
+export interface IMessage {
+    id: number;
+    content: string;
+    sinderId: number;
+    dialogId: number;
+    isAdminMessage: boolean;
+    createdAt: Date;
+  };
+
+  export interface IUser {
+    email: string;
+    role: string;
+    nickname: string;
+    photo: string;
+    basket: {
+      id: number;
+      userId: number;
+      basket_games: IBasketGame[];
+    };
+    orders: IOrder[];
+    dialog: IDialog
+  }
+
+
+
+  export interface IDialog {
+    id: number;
+    messages: IMessage[];
+    users: IUser[];
+  };

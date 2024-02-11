@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { IoClose } from 'react-icons/io5';
 
 export const Order = ({ order }: IOrderProps) => {
-  console.log('order', order);
+  // console.log('order', order);
 
   const { russianDate, time } = timeFormat(order?.orderDate);
 
@@ -21,11 +21,11 @@ export const Order = ({ order }: IOrderProps) => {
 
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
-  console.log(countGamesInOrder);
+  // console.log(countGamesInOrder);
 
   const namesGames = order?.order_basket_games?.map((game: IOrderGame) => game?.game?.name);
 
-  console.log(isDetailsOpen);
+  // console.log(isDetailsOpen);
 
   return (
     <li className={style.order}>

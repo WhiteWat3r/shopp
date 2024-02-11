@@ -1,20 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IBasketGame } from '../../types/basketTypes';
-import { IGame, IOrder } from '../../types/gameTypes';
+import { IGame, IUser } from '../../types/gameTypes';
 
 interface IUserState {
-  user: {
-    email: string;
-    role: string;
-    nickname: string;
-    photo: string;
-    basket: {
-      id: number;
-      userId: number;
-      basket_games: IBasketGame[];
-    };
-    orders: IOrder[];
-  };
+  user: IUser;
   isAuthenticated: boolean;
   authProcess: boolean;
   favorites: { games: IGame[] };
@@ -30,6 +18,11 @@ const initialState: IUserState = {
       id: 0,
       userId: 0,
       basket_games: [],
+    },
+    dialog: {
+      id: 0,
+      messages: [],
+      users: []
     },
     orders: [],
   },
@@ -57,6 +50,11 @@ export const userSlice = createSlice({
           userId: 0,
           basket_games: [],
         },
+        dialog: {
+          id: 0,
+          messages: [],
+          users: []
+        },
         orders: [],
       };
       state.favorites = { games: [] },
@@ -68,7 +66,10 @@ export const userSlice = createSlice({
     setFavorites: (state, action) => {
       state.favorites = action.payload;
     },
+    setChatHistory: (state, action) => {
+      state.user.dialog = action.payload;
+    },
   },
 });
 
-export const { setUser, clearUser, setBasket, setFavorites } = userSlice.actions;
+export const { setUser, clearUser, setBasket, setFavorites, setChatHistory} = userSlice.actions;

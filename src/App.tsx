@@ -5,8 +5,8 @@ import HomePage from './Pages/HomePage/HomePage';
 import ProtectedRouteElement from './components/ProtectedRouteElement/ProtectedRouteElement';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import ProfilePage from './Pages/ProfilePage/ProfilePage';
-import {GamePage} from './Pages/GamePage/GamePage';
-import {BasketPage} from './Pages/BasketPage/BasketPage';
+import { GamePage } from './Pages/GamePage/GamePage';
+import { BasketPage } from './Pages/BasketPage/BasketPage';
 import NotFoundPage from './Pages/NotFoundPage/NotFoundPage';
 // import { AdminPage } from './Pages/AdminGameListPage/AdminPage';
 import { AdminHeader } from './components/AdminHeader/AdminHeader';
@@ -22,6 +22,7 @@ import { AdminGameListPage } from './components/AdminGameListPage/AdminGameListP
 import { AdminGamePage } from './Pages/AdminGamePage/AdminGamePage';
 import { ProtectedAdminRouteElement } from './components/ProtectedAdminRouteElement/ProtectedAdminRouteElement';
 import { useLoadUserInfo } from './services/userInfoService/userInfoService';
+import { AdminSupportPage } from './Pages/AdminSupportPage/AdminSupportPage';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -31,13 +32,11 @@ function App() {
 
   const cardsData = gameApi.useFetchAllCardsQuery('');
 
-
   useEffect(() => {
     dispatch(setGames(cardsData.data));
   }, [cardsData]);
 
-
-  useLoadUserInfo()
+  useLoadUserInfo();
 
   return (
     <>
@@ -66,6 +65,7 @@ function App() {
                 {/* <Route index element={<AdminPage />} /> */}
                 <Route path="games" element={<AdminGameListPage />} />
                 <Route path="game/:gameId" element={<AdminGamePage />} />
+                <Route path="support" element={<AdminSupportPage />} />
               </Route>
             </Routes>
           </MainContent>

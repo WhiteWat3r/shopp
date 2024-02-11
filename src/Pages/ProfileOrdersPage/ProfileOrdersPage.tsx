@@ -6,7 +6,7 @@ import style from './ProfileOrdersPage.module.scss';
 function ProfileOrdersPage() {
   const orders = useAppSelector((store) => store.user?.user?.orders);
 
-  console.log(orders);
+  // console.log(orders);
 
   return (
     <ul className={style.orders + ' custom-scroll'}>

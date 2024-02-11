@@ -8,9 +8,6 @@ import { useClearAllBasketMutation, useGetBasketInfoQuery } from '../../api/bask
 import { Button } from '../../UI/Button/Button';
 
 export const BasketPage = () => {
-  // const { data: basketInfo } = useGetBasketInfoQuery('');
-  // console.log(basketInfo);
-
   const {
     data: basketInfo,
     // status,
@@ -19,8 +16,6 @@ export const BasketPage = () => {
   const [clearAllBasket] = useClearAllBasketMutation();
 
   
-  console.log(basketInfo);
-
   useEffect(() => {
     refetch();
   }, []);

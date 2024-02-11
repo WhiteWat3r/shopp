@@ -87,7 +87,7 @@ export const FilterParameters = () => {
     if (allGames) {
       const result = filterAndSortArray(allGames, values, sortOption);
       dispatch(setSearchedGames(result));
-      console.log('filter');
+      // console.log('filter');
     }
   }, [values, sortOption]);
 
@@ -119,7 +119,7 @@ export const FilterParameters = () => {
 
   const handleChangeGenreName = (e: ChangeEvent<HTMLInputElement>) => {
     setGenreName(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
 
     const updatedGenres = genres.filter((genre: ICategorAndGenreType) =>
       genre.translation.toLowerCase().includes(e.target.value.toLowerCase()),

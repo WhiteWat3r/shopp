@@ -17,9 +17,9 @@ import { formatAndCheckDate } from './formatAndCheckDate';
 //  }
 
 const platformsAndPublishersFilter = (array: string[], startArray: IGame[], type: string) => {
-  console.log('массив платформ', array);
-  console.log('массив игр', startArray);
-  console.log('Тип (платформа или издатель)', type);
+  // console.log('массив платформ', array);
+  // console.log('массив игр', startArray);
+  // console.log('Тип (платформа или издатель)', type);
 
   return array
     .map((param) =>
@@ -65,7 +65,7 @@ export const filterAndSortArray = (
       const genresArray = game.genres.filter((genre) =>
         filterParams.genres.includes(genre.description),
       );
-      console.log('genresArray', genresArray);
+      // console.log('genresArray', genresArray);
 
       return genresArray.length > 0 ? true : false;
     });

@@ -36,8 +36,8 @@ export const GamePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialSlide, setInitialSlide] = useState(0);
   const { gameId } = useParams();
-  console.log(initialSlide);
-  
+  // console.log(initialSlide);
+
   const { data: game, status } = useFetchOneCardQuery(gameId);
 
   const isFavorite = useAppSelector(
@@ -82,11 +82,11 @@ export const GamePage = () => {
     window.location.href = `https://store.steampowered.com/app/${game.steamApi}`;
   };
 
-  console.log('рендер');
+  // console.log('рендер');
 
   const openPopup = (index: number) => {
     setIsModalOpen(true);
-    setInitialSlide(index)
+    setInitialSlide(index);
   };
 
   return (
@@ -113,7 +113,7 @@ export const GamePage = () => {
                 className={style.card__poster}
               />
               {game.screenshots ? (
-                <ScreenCarousel screenshots={game.screenshots} openPopup={openPopup}/>
+                <ScreenCarousel screenshots={game.screenshots} openPopup={openPopup} />
               ) : (
                 <span className={style.card__absence}>Скриншотов пока нет</span>
               )}
@@ -272,13 +272,12 @@ export const GamePage = () => {
 
       {isModalOpen && (
         <Modal
-        handleClose={() =>  setIsModalOpen(!isModalOpen)}
-        isScreenSlider={true}
-        screens={game.screenshots}
-        initialSlide={initialSlide}
-      />
+          handleClose={() => setIsModalOpen(!isModalOpen)}
+          isScreenSlider={true}
+          screens={game.screenshots}
+          initialSlide={initialSlide}
+        />
       )}
-      
     </section>
   );
 };
